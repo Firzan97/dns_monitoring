@@ -13,6 +13,8 @@ end
 group :development, :test do
   gem 'sqlite3'
 end
+
+ gem 'pg'
 gem 'bootstrap_form'
 gem 'devise', '~> 4.2'
 gem 'groupdate', '~> 2.5', '>= 2.5.2'
