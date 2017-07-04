@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Average:</strong>
+  <%= @detail.average %>
+</p>
+
+<p>
+  <strong>Maximum:</strong>
+  <%= @detail.maximum %>
+</p>
+
+<p>
+  <strong>Minimum:</strong>
+  <%= @detail.minimum %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @detail.status %>
+</p>
+
+<%= link_to 'Edit', edit_detail_path(@detail) %> |
+<%= link_to 'Back', details_path %>

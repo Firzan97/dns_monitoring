@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Response Time(Milisecond):</strong>
+  <%= @performance.responsetime %>
+</p>
+
+<%= link_to 'Edit', edit_question_performance_path(@question,@performance) %> 
+<%= link_to 'Back', question_performances_path %>

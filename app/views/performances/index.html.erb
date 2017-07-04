@@ -1,0 +1,214 @@
+
+
+
+<div class="main">
+<div class="graph">
+<h4>Show the graph performance</h4>
+
+
+<p ><%= select_tag "typ", "<option value='day'>A Day</option><option value='week'>A Week</option><option value='month'>A Month</option><option value='stop'>Scroll Up</option>".html_safe, include_blank: true %></p>
+
+<%if params[:typ]!="week" && params[:typ]!="day" && params[:typ]!="month" && params[:typ]!="stop" %>
+  <%= line_chart @performance.group(:created_at).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',
+    colors: ['green']
+
+     %> 
+
+<%end%>
+
+<% if params[:typ]=="week" %>
+ 
+ <%= line_chart @performance.group_by_day(:created_at, last: 7).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
+ title: 'Weekly Performances',
+    colors: ['blue']%>
+    <%end%>
+<% if params[:typ]=="month" %>
+
+ <%= line_chart @performance.group_by_week(:created_at, last: 4).average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
+ title: 'Monthly Performances',
+    colors: ['red'] %>
+    <%end%>
+<% if params[:typ]=="day" %>
+
+ <%= line_chart @performance.group(:created_at).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
+    colors: ['green']
+     %> 
+ 
+     <%end%>
+</div>     
+
+<% @hash=@performance.group_by_day(:created_at, last: 7).average(:responsetime) %>
+
+
+
+
+<p id="notice"><%= notice %></p>
+<% if @average==" " %>
+
+<p><strong><span>Average : </span></strong>-</p> 
+<p><strong><span>Highest  :</span></strong>-</p> 
+<p><strong><span>Lowest :</span></strong>-</p>
+<hr>
+<p><strong><span>Total Query :</span></strong>-</p>
+<p><strong><span>Total Fail :</span></strong>-</p>
+<p><strong><span>Availability Status :</span>-</strong></p>
+<%else%>
+<% if params[:typ]!="day" && params[:typ]!="week"  && params[:typ]!="month" %>
+<p><strong><span>Average : </span></strong><%= @average %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @highest %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @lowest %>&nbsp;msec</p>
+<hr>
+<p><strong><span>Total Query :</span></strong><%= @count %></p>
+<p><strong><span>Total Fail :</span></strong><%= @unavailable %></p>
+<p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
+<%end%>
+<% if params[:typ]=="day" %>
+<p><strong><span>Average : </span></strong><%= @average %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @highest %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @lowest %>&nbsp;msec</p>
+<hr>
+<p><strong><span>Total Query :</span></strong><%= @count %></p>
+<p><strong><span>Total Fail :</span></strong><%= @unavailable %></p>
+<p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
+<%end%>
+<% if params[:typ]=="week" %>
+<% a=@performance.group_by_day(:created_at, last: 7).average(:responsetime).max %>
+<% b=@performance.group_by_day(:created_at, last: 7).average(:responsetime).min %>
+<p><strong><span>Average : </span></strong><%= @performance.group_by_day(:created_at, last: 7).average(:responsetime) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= a[1] %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= b[1] %>&nbsp;msec</p>
+<hr>
+<p><strong><span>Total Query :</span></strong><%= @count %></p>
+<p><strong><span>Total Fail :</span></strong><%= @unavailable %></p>
+<p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
+<%end%>
+<% if params[:typ]=="month" %>
+<%  a=@performance.group_by_week(:created_at, last: 4).average(:responsetime).max%>
+<%  b=@performance.group_by_week(:created_at, last: 4).average(:responsetime).min %>
+<p><strong><span>Average : </span></strong><%= @performance.group_by_week(:created_at, last: 4).average(:responsetime) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= a[1]  %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= b[1] %>&nbsp;msec</p>
+<hr>
+<p><strong><span>Total Query :</span></strong><%= @count %></p>
+<p><strong><span>Total Fail :</span></strong><%= @unavailable %></p>
+<p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
+<%end%>
+<%end%>
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+</div>
+<head>
+<style>
+hr {
+  border:none;
+  
+  height: 50px;
+  margin-top: 0;
+  border-bottom: 1px solid #C0C0C0;
+  box-shadow: 0 15px 15px -15px #C0C0C0;
+  margin: -50px auto 10px; 
+}
+
+.main{
+ margin-top: 70px;
+
+}
+</style>
+</head>
+
+<hr > 
+
+<h1>Performances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>No.&nbsp;</th>
+      <th>Response Time(Milisecond)&nbsp;</th>
+      <th>Date Time&nbsp;</th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <tr>
+    <td><% @total %></td>
+  </tr>
+   <% a=0%>
+    <% @performances.each do |performance| %>
+      <tr>
+      <% a=a+1 %>
+      <% if @question.id==performance.question_id %>
+        <td><%= a %>.&nbsp;</td>
+        <td><%= performance.responsetime %>&nbsp;</td>
+        <td><%= performance.created_at.localtime.strftime("%d/%m/%y ""%I:%M %p" )%>&nbsp;</td>
+        
+       
+       
+        <%end%>
+      </tr>
+      <% @total %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+ 
+<%= will_paginate @performances %>
+<%= link_to 'Back', questions_path %>
+<script>
+$( "#typ" ).change(function() {
+  
+  Turbolinks.visit("?typ="+ this.value);
+});
+
+
+Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'DNS Availability'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+</script>
+<style>
+
+</style>

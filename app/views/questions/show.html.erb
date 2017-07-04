@@ -1,0 +1,57 @@
+<div class="main">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Domain Name:</strong>
+  <%= @question.dnsname %>
+</p>
+
+<p>
+  <strong>Record Type:</strong>
+  <%= @question.recordtype %>
+</p>
+
+<p>
+  <strong>Server:</strong>
+  <%= @question.server %>
+</p>
+
+<% if @question.timeperiod==1 %>
+<p>
+  <strong>Response Time Interval:</strong>
+  <%= @question.timeperiod %>&nbsp;Minute
+</p>
+<%end%>
+<% if @question.timeperiod==5 || @question.timeperiod==10 || @question.timeperiod==30 %> 
+<p>
+  <strong>Response Time Interval:</strong>
+  <%= @question.timeperiod %>&nbsp;Minutes
+</p>
+<%end%>
+<% if @question.timeperiod==60 %>
+<p>
+  <strong>Response Time Interval:</strong>
+  1 Hour
+</p>
+<%end%>
+<% if @question.timeperiod==1440 %>
+<p>
+  <strong>Response Time Interval:</strong>
+  1 Day
+</p>
+<%end%>
+
+<hr>
+
+&nbsp;
+<%= link_to questions_path ,class: "btn btn-default" do%>
+ <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back
+ <%end%>
+ &nbsp;
+</div>
+
+<style>
+ .main{
+  margin-top: 70px;
+ }
+</style>

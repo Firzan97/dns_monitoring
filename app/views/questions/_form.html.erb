@@ -1,0 +1,39 @@
+
+<%= form_with(model: question, local: true) do |form| %>
+  <% if question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+      <% question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :dnsname %>
+    <%= form.text_field :dnsname, id: :question_dnsname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :recordtype %>
+    <%= form.text_field :recordtype, id: :question_recordtype %>
+  </div>
+
+  <div class="field">
+    <%= form.label :server %>
+    <%= form.text_field :server, id: :question_server %>
+  </div>
+  <div class="field">
+    <%= form.label :timeperiod %>
+    <%= form.number_field :timeperiod, id: :question_timeperiod %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+

@@ -1,0 +1,37 @@
+<%= form_with(model: detail, local: true) do |form| %>
+  <% if detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(detail.errors.count, "error") %> prohibited this detail from being saved:</h2>
+
+      <ul>
+      <% detail.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :average %>
+    <%= form.text_field :average, id: :detail_average %>
+  </div>
+
+  <div class="field">
+    <%= form.label :maximum %>
+    <%= form.text_field :maximum, id: :detail_maximum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :minimum %>
+    <%= form.text_field :minimum, id: :detail_minimum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :detail_status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

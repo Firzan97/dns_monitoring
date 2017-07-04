@@ -1,0 +1,50 @@
+<h1>Fill in the form</h1>
+
+<%= bootstrap_form_for @question do |form| %>
+  <% if @question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+      <% question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" >
+    <%= form.text_field :dnsname, id: :question_dnsname %>
+  </div> 
+
+  <div class="field">
+    <%= form.select :recordtype,['A', 'AAAA','MX','NS','CNAME','SOA','PTR','SRV'] %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :server, id: :question_server %>
+  </div>
+
+   <div class="field">
+    
+    <%= form.select :timeperiod, Question::TIMEPERIOD %>
+
+  </div>
+
+<button type="submit" class="btn btn-default">Submit</button>
+
+<% end %>
+
+<hr>
+
+ &nbsp;
+<%= link_to questions_path ,class: "btn btn-default" do%>
+ <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back
+ <%end%>
+ &nbsp;
+<style>
+.field
+{
+  width:30%!important;
+}
+</style>

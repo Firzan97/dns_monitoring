@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+<div class="main">
+<h1 style=" text-align: center; color:white">Monitor your distributed DNS infrastructure</h1>
+
+<h5 style="color:white">Your Domain Name Server is critical to the availability and performance of your website, unsuccessful DNS forward lookups can result in downtime and intermittent errors affecting your user experience. The DNS server monitoring capability continuously checks the availability and response time and lets you stay ahead of potential domain resolution errors.</h5>
+</div>
+
+
+&nbsp;
+<div class="container" style="text-align: center; color:white;"" >
+<%= link_to new_question_path ,class: "btn btn-success" do%>
+ <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>Monitor DNS
+ <%end%>
+&nbsp;
+
+</div>
+<div class="image1">
+<img src="/assets/Screenshot from 2017-06-20 11-51-12.png" alt="Lets Try The System" style="width:50%;float: right;
+ margin-right: 40px; margin-top:70px; border-radius:50px;box-shadow: 25px 25px 25px -5px #C0C0C0;border-style: solid black;">
+</div>
+<div class="search" >
+<h1>Latest searched</h1>
+
+<% @question.first(5).each do |q| %>
+
+<table class="table">
+<tr>
+<td>-<%= q.dnsname %></td>
+<td style="color:grey ;"><i><%= q.created_at.localtime.strftime("%d/%m/%y ""%I:%M %p" ) %></i>&nbsp;</td>
+</tr>
+</table>
+<%end%>
+</div>
+
+
+</div>
+<div class="description1">
+<h1><u>Monitor the availability of the DNS </u></h1>
+</div>
+<div class="image1">
+<img src="/assets/Screenshot from 2017-06-20 15-24-47.png" alt="Lets Try The System" style="width:50%;float: center;
+ margin-left: 40px; margin-top:20px; border-radius:90px;box-shadow: -25px 25px 25px -5px #C0C0C0;">
+
+<hr>
+<div class="vr">&nbsp;</div>
+</body>
+
+</html>
+
+<style>
+
+.vr {
+    width:1px;
+    background-color:#C0C0C0;
+    position:absolute;
+    top:280px;
+    bottom:-10px;
+    left:600px;
+   
+  box-shadow:  10px -25px 15px -5px #C0C0C0;
+   
+
+}
+.main {
+	margin-top: 70px;
+
+}
+body {
+	background-image: url('<%= asset_path 'sshot4e51f4a8a62af.jpg' %>');
+    background-repeat: no-repeat;
+    
+    
+    
+    margin-top: 80px;
+    background-size: 1500px 250px;
+
+}
+.container
+{
+	margin-top: 5px;
+}
+.description1
+{
+    float: right;
+    margin-right:70px;
+    text-shadow: 10px 10px 10px #C0C0C0;
+}
+.search{
+	color:black;
+	margin-top:70px;
+    margin-left: 30px;
+
+}
+
+.table {
+    border-collapse: collapse!important;
+    width: 30%!important;
+    border-width: 5px!important;
+
+}
+
+ td {
+    text-align: left;
+    padding: 8px;
+}
+
+
+</style>

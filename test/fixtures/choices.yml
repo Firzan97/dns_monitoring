@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  graphinterval: MyString
+  question: MyString
+  question: one
+
+two:
+  graphinterval: MyString
+  question: MyString
+  question: two
