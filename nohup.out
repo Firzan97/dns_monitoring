@@ -1,0 +1,5 @@
+A server is already running. Check /home/firzan/dns_monitoring/tmp/pids/server.pid.
+=> Booting Puma
+=> Rails 5.1.2 application starting in development on http://localhost:3000
+=> Run `rails server -h` for more startup options
+Exiting

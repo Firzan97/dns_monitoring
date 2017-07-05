@@ -1,6 +1,10 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+<<<<<<< HEAD
   before_action :authenticate_user!, except: [:index,:show]
+=======
+  before_action :authenticate_user! , except: [:index,:show]
+>>>>>>> 0d891d31cbccf21cc6c3e6f91a76de6d6abaf372
   # GET /questions
   # GET /questions.json
   def index
