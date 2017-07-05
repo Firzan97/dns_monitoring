@@ -13,7 +13,20 @@ belongs_to :user
     ["1 Hour",60],
     ["1 day",1440]
   ]
-
+  
+    #value2 = %x[ dig @#{server} #{namedns} #{type} ]
+    #a=15
+    #while value2!=namedns
+    #{
+    #    value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+    #    b,c,d,e,f=value2.split("")
+    #    dnsanswer=b
+    #    l=c
+    #    t=d
+    #    o=e
+    #    s=f
+    #    a++
+    #} 
 
   def self.query(id)
     %x[cd dns6]
@@ -40,20 +53,7 @@ belongs_to :user
      
     detail=Detail.where(question_id:id)
     detail.update(average: average.round(2),maximum: highest,minimum: lowest,total_query: count,total_fail: a ,status: availability.round(2) )
-    
-    #value2 = %x[ dig @#{server} #{namedns} #{type} ]
-    #a=15
-    #while value2!=namedns
-    #{
-    #    value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
-    #    b,c,d,e,f=value2.split("")
-    #    dnsanswer=b
-    #    l=c
-    #    t=d
-    #    o=e
-    #    s=f
-    #    a++
-    #} *#
+  
 
 
 
