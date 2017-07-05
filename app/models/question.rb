@@ -2,13 +2,13 @@ class Question < ApplicationRecord
 has_many :performances , dependent: :destroy
 has_one :detail , dependent: :destroy
 has_many :choices , dependent: :destroy
-<<<<<<< HEAD
+
 belongs_to :user  
 has_many :answers , dependent: :destroy
-=======
+
 belongs_to :user
 
->>>>>>> 0d891d31cbccf21cc6c3e6f91a76de6d6abaf372
+
  TIMEPERIOD = 
  [
     ["1 Minute", 1],
