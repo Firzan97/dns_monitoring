@@ -2,7 +2,8 @@ class Question < ApplicationRecord
 has_many :performances , dependent: :destroy
 has_one :detail , dependent: :destroy
 has_many :choices , dependent: :destroy
-
+belongs_to :user  
+has_many :answers , dependent: :destroy
  TIMEPERIOD = 
  [
     ["1 Minute", 1],
@@ -34,7 +35,8 @@ has_many :choices , dependent: :destroy
     namedns=question.dnsname
     type=question.recordtype
     server=question.server
-   
+
+
     value1 = %x[ dig @#{server} #{namedns} #{type} | grep "Query time:" ]
     
     a,b=value1.split(":")
@@ -53,11 +55,26 @@ has_many :choices , dependent: :destroy
     detail=Detail.where(question_id:id)
     detail.update(average: average.round(2),maximum: highest,minimum: lowest,total_query: count,total_fail: a ,status: availability.round(2) )
   
-
-
+    #a=12
+    
+    #value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n #{a}'p' ]
+     #   b,c,d,e,f=value2.split("")
+     #   dnsanswer=b
+     # while dnsanswer== namedns 
+     #   value2 = %x[ dig @#{server} #{namedns} #{type} ]
+     #   b,c,d,e,f=value2.split(" ")
+     #   dnsanswer=b
+     #   ttl=c
+     #   t=d
+     #   recordtype=e
+     #   ip=f
+     #   @a=Answer.create(dnsname: dnsanswer,ttl: ttl,recordtype: recordtype,ipaddress: ip)
+     #   a=a+1
+     # end
+    
 
     %x[cd]
-end
+   end
 
 
 end

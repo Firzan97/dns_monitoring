@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  
   resources :searches
   devise_for :users
   resources :choices
@@ -12,6 +13,7 @@ mount Sidekiq::Web=>"/sidekiq"
 
   resources :questions do
   	resources :performances
+    resources :answers
   end
   root"questions#home"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

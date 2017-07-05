@@ -8,6 +8,8 @@
  require File.expand_path(File.dirname(__FILE__)+"/environment")
  set :output, "#{path}/log/cron.log"
 #
+
+
 # every 2.hours do
 #   command "/usr/bin/some_great_command"
 #   runner "MyModel.some_method"

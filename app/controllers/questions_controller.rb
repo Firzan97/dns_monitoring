@@ -1,10 +1,10 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, except: [:index,:show]
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = current_user.questions.all
     @performance=Performance.all
   end
    def home
@@ -15,11 +15,13 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
+ 
+    @answers = @question.answers.all
   end
 
   # GET /questions/new
   def new
-    @question = Question.new
+    @question = current_user.questions.build
   
   end
 
@@ -30,7 +32,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(question_params)
+    @question = current_user.questions.new(question_params)
     namedns=@question.dnsname
     type=@question.recordtype
     server=@question.server
@@ -42,12 +44,12 @@ class QuestionsController < ApplicationController
 
     
     if server.blank?
-    @question=Question.create(dnsname:  namedns, recordtype:  type, server: e, timeperiod: time)
+    @question=current_user.questions.create(dnsname:  namedns, recordtype:  type, server: e, timeperiod: time)
     else
-    @question=Question.create(dnsname:  namedns, recordtype:  type, server: server, timeperiod: time)
+    @question=current_user.questions.create(dnsname:  namedns, recordtype:  type, server: server, timeperiod: time)
     end
     
-    
+        
         @average=Performance.where(question_id: @question.id).average(:responsetime)
         @highest=Performance.where(question_id: @question.id).maximum(:responsetime)
         @lowest=Performance.where(question_id: @question.id).minimum(:responsetime)
@@ -57,9 +59,83 @@ class QuestionsController < ApplicationController
         @availability=0
      
         Search.create(server: @question.dnsname)
+
+        a=15
+        value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+                 b,c,d,e,f=value2.split(" ")
+                 dnsanswer=b
+            if namedns=="utp.edu.my" || namedns=="ums.edu.my" || namedns=="um.edu.my"
+                a=16
+                value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+                 b,c,d,e,f=value2.split(" ")
+                 dnsanswer=b
+            end
+        while dnsanswer==namedns+"."
+    
+            value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+            b,c,d,e,f,g=value2.split(" ")
+            if type=="A" || type=="AAAA" || type=="NS"
+              
+            dnsanswer=b
+            ttl=c
+            type=e
+            o=e
+            ip=f
+            Answer.create(dnsname: dnsanswer,ttl: ttl,recordtype: type,ipaddress: ip,question_id: @question.id)
+              
+            end
+            if type=="MX"
+            dnsanswer=b
+            ttl=c
+            type=e
+            o=e
+            ip=g
+            Answer.create(dnsname: dnsanswer,ttl: ttl,recordtype: type,ipaddress: ip,question_id: @question.id)
+           end
+           
+            
+            a=a+1
+            value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+            b,c,d,e,f=value2.split(" ")
+            dnsanswer=b
+        end
+       
+
+      #a=12
+      #dnsanswers="a"
+     # while dnsanswers!=namedns
+       # value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+       # b,c,d,e,f=value2.split(" ")
+       # dnsanswers=b
+       # dnsanswer=b
+       # while dnsanswer==namedns
+    
+        #value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+       # b,c,d,e,f=value2.split(" ")
+       # dnsanswer=b
+        #ttl=c
+        #type=d
+       # o=e
+       # ip=f
+        #Answer.create(dnsname: dnsanswer,ttl: ttl,recordtype: type,ipaddress: ip,question_id: @question.id)
+       # a=a+1
+      # dnsanswers=namedns
+      #  end
+       
+      #end
+        
+    
+
+
+  
+
+
     respond_to do |format|
       if @question.save
         @question.create_detail(:average => @average ,:maximum => @highest,:minimum => @lowest,:total_query => @count,:total_fail => @a ,:status =>@availability )
+
+        
+      
         format.html { redirect_to @question, notice: 'DNS was successfully Add.' }
         format.json { render :show, status: :created, location: @question }
       else

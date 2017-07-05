@@ -14,6 +14,9 @@ group :development, :test do
   gem 'sqlite3'
 end
 
+gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
+gem 'jquery-rails'
+
  gem 'pg'
 gem 'bootstrap_form'
 gem 'devise', '~> 4.2'

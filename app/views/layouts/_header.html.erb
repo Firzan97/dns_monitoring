@@ -22,8 +22,10 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
  color: white !important;
 }
 
-.navbar-default a:hover {
+.navbar-nav a:hover {
  color: white !important;
+ background-color:#1ac6ff!important;
+ transition:0s!important;
 }
 
 
@@ -46,8 +48,8 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
     </div></strong>
     <strong><ul class="nav navbar-nav">
 
-      <li><%= link_to "Home", root_path %></li>
-      <li><%= link_to "DNS List", questions_path %></li>
+      <li onclick="myFunction()"><%= link_to "Home", "" %></li>
+      <li onclick="myFunction()"><%= link_to "DNS List", "" %></li>
       
      
     </ul>
@@ -65,15 +67,16 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" >DNS Monitoring</a>
-    </div>
+    <strong>
+ <a style="font-size: 30px;" class="navbar-brand" >DNS Monitoring</a>
+    </strong></div>
     <strong><ul class="nav navbar-nav">
       <li><%= link_to "Home", root_path %></li>
       <li><%= link_to "DNS List", questions_path %></li>
     </ul>
     </strong>
     <strong><ul class="nav navbar-nav navbar-right">
-
+     <li style="margin-top: 15px; color:#FFFF81;">Welcome&nbsp;<%=  current_user.email%></li>
      <li><%= link_to("Log Out",destroy_user_session_path, :method =>:delete)%></li>
     </ul>
     </strong> 
@@ -87,3 +90,8 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
 
 </body>
 </html>
+<script>
+function myFunction() {
+    alert("Please Log In First");
+}
+</script>

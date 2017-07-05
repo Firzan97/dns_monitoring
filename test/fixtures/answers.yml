@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dnsname: MyString
+  ttl: MyString
+  recordtype: MyString
+  ipaddress: MyString
+
+two:
+  dnsname: MyString
+  ttl: MyString
+  recordtype: MyString
+  ipaddress: MyString
