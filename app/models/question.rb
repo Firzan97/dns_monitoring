@@ -2,6 +2,7 @@ class Question < ApplicationRecord
 has_many :performances , dependent: :destroy
 has_one :detail , dependent: :destroy
 has_many :choices , dependent: :destroy
+belongs_to :user
 
  TIMEPERIOD = 
  [

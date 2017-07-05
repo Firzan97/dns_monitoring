@@ -74,7 +74,7 @@
 <% if params[:typ]=="week" %>
 <% a=@performance.group_by_day(:created_at, last: 7).average(:responsetime).max %>
 <% b=@performance.group_by_day(:created_at, last: 7).average(:responsetime).min %>
-<p><strong><span>Average : </span></strong><%= @performance.group_by_day(:created_at, last: 7).average(:responsetime) %>&nbsp;msec</p> 
+<p><strong><span>Average : </span></strong><%= @average %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= a[1] %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= b[1] %>&nbsp;msec</p>
 <hr>
@@ -85,7 +85,7 @@
 <% if params[:typ]=="month" %>
 <%  a=@performance.group_by_week(:created_at, last: 4).average(:responsetime).max%>
 <%  b=@performance.group_by_week(:created_at, last: 4).average(:responsetime).min %>
-<p><strong><span>Average : </span></strong><%= @performance.group_by_week(:created_at, last: 4).average(:responsetime) %>&nbsp;msec</p> 
+<p><strong><span>Average : </span></strong><%= @average%>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= a[1]  %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= b[1] %>&nbsp;msec</p>
 <hr>

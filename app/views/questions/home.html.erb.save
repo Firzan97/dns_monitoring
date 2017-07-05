@@ -50,9 +50,8 @@
 <div class="image1">
 <img src="/assets/Screenshot from 2017-06-20 15-24-47.png" alt="Lets Try The System" style="width:50%;float: center;
  margin-left: 40px; margin-top:20px; border-radius:90px;box-shadow: -25px 25px 25px -5px #C0C0C0;">
-
 <hr>
-<div class="vr">&nbsp;</div>
+
 </body>
 
 </html>
@@ -61,8 +60,7 @@
 
 .vr {
     width:1px;
-    background-color:#C0C0C0;
-    position:absolute;
+    background-color:#C0C0C0;    position:absolute;
     top:280px;
     bottom:-10px;
     left:600px;
@@ -78,7 +76,7 @@
 body {
 	background-image: url('<%= asset_path 'sshot4e51f4a8a62af.jpg' %>');
     background-repeat: no-repeat;
-    background-color: #F5F5F5;
+    
     
     
     margin-top: 80px;
@@ -91,10 +89,8 @@ body {
 }
 .description1
 {
-    position: static!important;
-    float: right !important;
-    margin-top: 250px;
-    margin-right:-20px;
+    float: right;
+    margin-right:70px;
     text-shadow: 10px 10px 10px #C0C0C0;
 }
 .search{
