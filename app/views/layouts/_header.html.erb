@@ -68,14 +68,14 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <div class="navbar-header">
+    <strong><div class="navbar-header">
 
-    <strong>
+    
  <a style="font-size: 30px;" class="navbar-brand" >DNS Monitoring</a>
-    </strong></div>
+    </div></strong>
 
-      <a style="font-size:30px;" class="navbar-brand" >DNS Monitoring</a>
-    </div>
+      
+  
 
     <strong><ul class="nav navbar-nav">
       <li><%= link_to "Home", root_path %></li>
@@ -85,9 +85,6 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
     <strong><ul class="nav navbar-nav navbar-right">
 
      <li style="margin-top: 15px; color:#FFFF81;">Welcome&nbsp;<%=  current_user.email%></li>
-
-     <li style="margin-top: 15px; color:#FFFF81;">Welcome:&nbsp;<%=  current_user.email%></li>
-
      <li><%= link_to("Log Out",destroy_user_session_path, :method =>:delete)%></li>
     </ul>
     </strong> 
@@ -107,10 +104,6 @@ function myFunction() {
     alert("Please Log In First");
 }
 </script>
-=======
 
-function myFunction() {
- alert("Please Login First!");
-}
-</script>
+
 
