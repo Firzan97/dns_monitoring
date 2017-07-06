@@ -77,7 +77,6 @@ belongs_to :user
      #   a=a+1
      # end
     
-
     %x[cd]
    end
 

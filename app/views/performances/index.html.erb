@@ -3,35 +3,36 @@
 
 <div class="main">
 <div class="graph">
-<h4>Show the graph performance</h4>
 
 
-<p ><%= select_tag "typ", "<option value='day'>A Day</option><option value='week'>A Week</option><option value='month'>A Month</option><option value='stop'>Scroll Up</option>".html_safe, include_blank: true %></p>
+
+<p ><%= select_tag "typ", "<option value='day'>A Day</option><option value='week'>A Week</option><option value='month'>A Month</option>".html_safe, include_blank: true %></p>
 
 <%if params[:typ]!="week" && params[:typ]!="day" && params[:typ]!="month" && params[:typ]!="stop" %>
-  <%= line_chart @performance.group(:created_at).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',
-    colors: ['green']
-
+  <%= area_chart @performance.group(:created_at).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',colors: ['green'], library: {chart: {zoomType: 'x'} }
+    
      %> 
+  }
+  }
 
 <%end%>
 
 <% if params[:typ]=="week" %>
  
- <%= line_chart @performance.group_by_day(:created_at, last: 7).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
+ <%= area_chart @performance.group_by_day(:created_at, last: 7).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Weekly Performances',
-    colors: ['blue']%>
+    colors: ['blue'], library: {chart: {zoomType: 'x'} }%>
     <%end%>
 <% if params[:typ]=="month" %>
 
- <%= line_chart @performance.group_by_week(:created_at, last: 4).average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
+ <%= area_chart @performance.group_by_week(:created_at, last: 4).average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Monthly Performances',
-    colors: ['red'] %>
+    colors: ['red'], library: {chart: {zoomType: 'x'} } %>
     <%end%>
 <% if params[:typ]=="day" %>
 
- <%= line_chart @performance.group(:created_at).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
-    colors: ['green']
+ <%= area_chart @performance.group(:created_at).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
+    colors: ['green'], library: {chart: {zoomType: 'x'} }
      %> 
  
      <%end%>
@@ -147,8 +148,12 @@ hr {
         <td><%= a %>.&nbsp;</td>
         <td><%= performance.responsetime %>&nbsp;</td>
         <td><%= performance.created_at.localtime.strftime("%d/%m/%y ""%I:%M %p" )%>&nbsp;</td>
-        
-       
+        <% a=performance.responsetime %>
+
+        <script>
+      
+
+        </script>
        
         <%end%>
       </tr>
@@ -208,6 +213,14 @@ Highcharts.chart('container', {
         }]
     }]
 });
+
+
+///////////////////////////////////////////////////
+
+  
+  
+  
+
 </script>
 <style>
 
