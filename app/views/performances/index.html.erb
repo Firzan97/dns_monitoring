@@ -49,7 +49,7 @@
 <p><strong><span>Total Fail :</span></strong>-</p>
 <p><strong><span>Availability Status :</span>-</strong></p>
 <%else%>
-<% if params[:typ]!="day" && params[:typ]!="week"  && params[:typ]!="month" %>
+<% if params[:typ]!="today" && params[:typ]!="week"  && params[:typ]!="month" %>
 <p><strong><span>Average : </span></strong><%= @average %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= @highest %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= @lowest %>&nbsp;msec</p>
@@ -58,7 +58,7 @@
 <p><strong><span>Total Fail :</span></strong><%= @unavailable %></p>
 <p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
 <%end%>
-<% if params[:typ]=="day" %>
+<% if params[:typ]=="today" %>
 <p><strong><span>Average : </span></strong><%= @average %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= @highest %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= @lowest %>&nbsp;msec</p>
@@ -135,12 +135,12 @@ hr {
   <tr>
     <td><% @total %></td>
   </tr>
-   <% a=0%>
+   <% b=0%>
     <% @performances.each do |performance| %>
       <tr>
-      <% a=a+1 %>
+      
       <% if @question.id==performance.question_id %>
-        <td><%= a %>.&nbsp;</td>
+        <td><%= b=b+1 %>.</td>
         <td><%= performance.responsetime %>&nbsp;</td>
         <td><%= performance.created_at.localtime.strftime("%d/%m/%y ""%I:%M %p" )%>&nbsp;</td>
         <% a=performance.responsetime %>
