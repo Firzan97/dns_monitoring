@@ -6,39 +6,37 @@
 
 
 
-<p ><%= select_tag "typ", "<option value='day'>A Day</option><option value='week'>A Week</option><option value='month'>A Month</option>".html_safe, include_blank: true %></p>
+<p ><%= select_tag "typ", "<option value='today'>Today</option><option value='week'>This Week</option><option value='month'>This Month</option>".html_safe, include_blank: true %></p>
 
-<%if params[:typ]!="week" && params[:typ]!="day" && params[:typ]!="month" && params[:typ]!="stop" %>
+<%if params[:typ]!="week" && params[:typ]!="today" && params[:typ]!="month" && params[:typ]!="stop" %>
   <%= area_chart @performance.group(:created_at).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',colors: ['green'], library: {chart: {zoomType: 'x'} }
     
      %> 
-  }
-  }
 
 <%end%>
 
 <% if params[:typ]=="week" %>
  
- <%= area_chart @performance.group_by_day(:created_at, last: 7 , format: "%m").average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
+ <%= area_chart @performance.group_by_day(:created_at,last: 7).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Weekly Performances',
     colors: ['blue'], library: {chart: {zoomType: 'x'} }%>
     <%end%>
 <% if params[:typ]=="month" %>
 
- <%= area_chart @performance.group_by_week(:created_at, last: 4, format: "%m").average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
+ <%= area_chart @performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Monthly Performances',
     colors: ['red'], library: {chart: {zoomType: 'x'} } %>
     <%end%>
-<% if params[:typ]=="day" %>
+<% if params[:typ]=="today" %>
 
- <%= area_chart @performance.group(:created_at).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
+ <%= area_chart @performance.group(:created_at).where('created_at <= ?',Time.now).where('created_at >=?',DateTime.now.in_time_zone(Time.zone).beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
     colors: ['green'], library: {chart: {zoomType: 'x'} }
      %> 
  
      <%end%>
 </div>     
 
-<% @hash=@performance.group_by_day(:created_at, last: 7).average(:responsetime) %>
+
 
 
 

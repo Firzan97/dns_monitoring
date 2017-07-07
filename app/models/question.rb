@@ -48,7 +48,9 @@ belongs_to :user
     num1,num2=b.split(" ")
     
     @performance = Performance.create(responsetime: num1.to_i,question_id: id)
-
+    a=Performance.where(question_id:id)
+    a=update(created_at: a.created_at.localtime.strftime('%B %-d, %Y %l:%M%P'))
+    
     average=Performance.where(question_id: question.id).average(:responsetime)
     highest=Performance.where(question_id: question.id).maximum(:responsetime)
     lowest=Performance.where(question_id: question.id).minimum(:responsetime)
@@ -57,6 +59,7 @@ belongs_to :user
     a=unavailable.where(question_id: question.id).count(:responsetime)
     availability=((count.to_f-a.to_f)/count.to_f)*100
  
+    
     detail=Detail.where(question_id:id)
     detail.update(average: average.round(2),maximum: highest,minimum: lowest,total_query: count,total_fail: a ,status: availability.round(2) )
   
