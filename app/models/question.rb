@@ -56,7 +56,7 @@ belongs_to :user
     unavailable=Performance.where(responsetime: -1 )
     a=unavailable.where(question_id: question.id).count(:responsetime)
     availability=((count.to_f-a.to_f)/count.to_f)*100
-     
+ 
     detail=Detail.where(question_id:id)
     detail.update(average: average.round(2),maximum: highest,minimum: lowest,total_query: count,total_fail: a ,status: availability.round(2) )
   

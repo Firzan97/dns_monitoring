@@ -7,7 +7,7 @@ class PerformancesController < ApplicationController
     
     @question = Question.find(params[:question_id])
     @performance = @question.performances
-    @performances = @question.performances.paginate(:page => params[:page], :per_page => 30)
+    @performances = @question.performances.order(:created_at).paginate(:page => params[:page], :per_page => 30)
     
 
         @detail=Detail.find_by(question_id: @question.id)
