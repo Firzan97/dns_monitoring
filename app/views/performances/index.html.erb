@@ -29,14 +29,12 @@
     <%end%>
 <% if params[:typ]=="today" %>
 
- <%= area_chart @performance.group(:created_at).where('created_at <= ?',Time.now).where('created_at >=?',DateTime.now.in_time_zone(Time.zone).beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
+ <%= area_chart @performance.group(:created_at).where('created_at <=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
     colors: ['green'], library: {chart: {zoomType: 'x'} }
      %> 
  
      <%end%>
 </div>     
-
-
 
 
 
