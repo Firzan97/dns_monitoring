@@ -14,6 +14,8 @@ group :development, :test do
   gem 'sqlite3'
 end
 
+gem 'by_star', git: "git://github.com/radar/by_star"
+gem "highstocks-rails" 
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
 gem 'jquery-rails'
 gem 'activesupport', '~> 5.0'

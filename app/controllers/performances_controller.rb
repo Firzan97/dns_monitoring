@@ -9,6 +9,7 @@ class PerformancesController < ApplicationController
     @performance = @question.performances
     @performances = @question.performances.order(:created_at).paginate(:page => params[:page], :per_page => 30)
     
+    
 
         @detail=Detail.find_by(question_id: @question.id)
         @average=@detail.average

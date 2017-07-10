@@ -16,5 +16,6 @@
 //= require chartkick 
 //= require jquery
 //= require jquery_ujs
+//= require highstock
 //= require bootstrap-sprockets
 //= require_tree .

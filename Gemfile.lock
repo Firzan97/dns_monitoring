@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/radar/by_star
+  revision: 1807d93f0a1e0d68c7ffe93b97b94f48e8234e81
+  specs:
+    by_star (2.2.1)
+      activesupport
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -85,6 +92,8 @@ GEM
       activesupport (>= 4.2.0)
     groupdate (2.5.3)
       activesupport (>= 3)
+    highstocks-rails (2.1.5)
+      railties (>= 3.1)
     i18n (0.8.4)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -230,12 +239,14 @@ DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass (~> 3.2.0)
   bootstrap_form
+  by_star!
   byebug
   capybara (~> 2.13)
   chartkick (~> 1.4, >= 1.4.1)
   coffee-rails (~> 4.2)
   devise (~> 4.2)
   groupdate (~> 2.5, >= 2.5.2)
+  highstocks-rails
   jbuilder (~> 2.5)
   jquery-rails
   jquery-ui-rails (~> 6.0, >= 6.0.1)

@@ -1,59 +1,77 @@
 
-
+<!-- Include Required Prerequisites -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+ 
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 
 <div class="main">
 <div class="graph">
 
 
+<div class="timeline">
+
+</div>
+
+
 <div class="graph">
 <p><%= select_tag "typ", "<option value='today'>Today</option><option value='week'>This Week</option><option value='month'>This Month</option>".html_safe, include_blank: true %></p>
 <p><%= select_tag "typ1", "<option value='yesterday'>Yesterday</option><option value='pastweek'>Previous Week</option><option value='pastmonth'>Previous Month</option>".html_safe, include_blank: true %></p>
-</div>
-<%if params[:typ]!="week" && params[:typ]!="today" && params[:typ]!="month" && params[:typ]!="stop" && params[:typ1]!="yesterday" && params[:typ1]!="pastweek" && params[:typ1]!="pastmonth"%>
-  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',colors: ['green'], library: {chart: {zoomType: 'x'} }
-    
-     %> 
+<p>
 
+<input type="text" name="daterange" value="01/01/2015 - 01/31/2015" /></p>
+
+</div>
+
+
+<% if params[:start]!=nil  && params[:end]!=nil%>
+  <%= area_chart @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
+    colors: ['green'], library: {chart: {zoomType: 'x'}}%> 
+<%end%>
+
+
+
+<%if params[:typ]!="week" && params[:typ]!="today" && params[:typ]!="month" && params[:typ]!="stop" && params[:typ1]!="yesterday" && params[:typ1]!="pastweek" && params[:typ1]!="pastmonth" && params[:start]==nil && params[:end]==nil%>
+
+  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',colors: ['green'], library: {chart: {zoomType: 'x'} }%> 
 <%end%>
 
 <% if params[:typ]=="week" %>
- 
  <%= area_chart @performance.group_by_day(:created_at,last: 7).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Weekly Performances',
-    colors: ['blue'], library: {chart: {zoomType: 'x'} }%>
-    <%end%>
-<% if params[:typ]=="month" %>
+    colors: ['blue'], library: {chart: {zoomType: 'x'}}%>
+<%end%>
 
+<% if params[:typ]=="month" %>
  <%= area_chart @performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Monthly Performances',
     colors: ['red'], library: {chart: {zoomType: 'x'} } %>
-    <%end%>
+<%end%>
+
 <% if params[:typ]=="today" %>
-
  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
-    colors: ['green'], library: {chart: {zoomType: 'x'} }
-     %> 
- 
-     <%end%>
+    colors: ['green'], library: {chart: {zoomType: 'x'}}%> 
+<%end%>
+
 <% if params[:typ1]=="yesterday" %>
-
  <%= area_chart @performance.group(:created_at).where('created_at >=?',1.day.ago).where('created_at <=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
-    colors: ['green'], library: {chart: {zoomType: 'x'} }
-     %> 
- 
-     <%end%>
-     <% if params[:typ1]=="pastweek" %>
+    colors: ['green'], library: {chart: {zoomType: 'x'}}%> 
+ <%end%>
 
-  <%= area_chart @performance.group_by_day(:created_at,last: 7).where('created_at <=?',7.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
+<% if params[:typ1]=="pastweek" %>
+<%= area_chart @performance.group_by_day(:created_at,last: 7).where('created_at <=?',7.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Weekly Performances',
     colors: ['blue'], library: {chart: {zoomType: 'x'} }%>
-    <%end%>
-     <% if params[:typ1]=="pastmonth" %>
+<%end%>
 
+<% if params[:typ1]=="pastmonth" %>
 <%= area_chart @performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Monthly Performances',
     colors: ['red'], library: {chart: {zoomType: 'x'} } %>
-    <%end%>
+<%end%>
 </div>     
 
 
@@ -186,6 +204,24 @@ hr {
 <%= will_paginate @performances %>
 <%= link_to 'Back', questions_path %>
 <script>
+
+$('input[name="daterange"]').daterangepicker(
+{
+    locale: {
+      format: 'YYYY-MM-DD'
+    },
+    startDate:'2017-07-01',
+    endDate: '2017-8-31'
+
+}, 
+function(start, end, label) {
+    alert("A new date range was chosen: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') );
+    window.location.href = "/questions/" + "<%= @question.id %>"+"/performances?start=" + start.format('YYYY-MM-DD') + "&end=" + end.format('YYYY-MM-DD')
+});
+
+
+
+
 $( "#typ" ).change(function() {
   
   Turbolinks.visit("?typ="+ this.value);
