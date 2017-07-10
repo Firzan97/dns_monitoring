@@ -9,7 +9,7 @@
 <p><%= select_tag "typ", "<option value='today'>Today</option><option value='week'>This Week</option><option value='month'>This Month</option>".html_safe, include_blank: true %></p>
 <p><%= select_tag "typ1", "<option value='yesterday'>Yesterday</option><option value='pastweek'>Previous Week</option><option value='pastmonth'>Previous Month</option>".html_safe, include_blank: true %></p>
 </div>
-<%if params[:typ]!="week" && params[:typ]!="today" && params[:typ]!="month" && params[:typ]!="stop" && params[:typ]!="yesterday" && params[:typ]!="pastweek" && params[:typ]!="pastmonth"%>
+<%if params[:typ]!="week" && params[:typ]!="today" && params[:typ]!="month" && params[:typ]!="stop" && params[:typ1]!="yesterday" && params[:typ1]!="pastweek" && params[:typ1]!="pastmonth"%>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',colors: ['green'], library: {chart: {zoomType: 'x'} }
     
      %> 
