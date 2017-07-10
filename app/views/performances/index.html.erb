@@ -5,10 +5,11 @@
 <div class="graph">
 
 
-
-<p ><%= select_tag "typ", "<option value='today'>Today</option><option value='week'>This Week</option><option value='month'>This Month</option>".html_safe, include_blank: true %></p>
-
-<%if params[:typ]!="week" && params[:typ]!="today" && params[:typ]!="month" && params[:typ]!="stop" %>
+<div class="graph">
+<p><%= select_tag "typ", "<option value='today'>Today</option><option value='week'>This Week</option><option value='month'>This Month</option>".html_safe, include_blank: true %></p>
+<p><%= select_tag "typ1", "<option value='yesterday'>Yesterday</option><option value='pastweek'>Previous Week</option><option value='pastmonth'>Previous Month</option>".html_safe, include_blank: true %></p>
+</div>
+<%if params[:typ]!="week" && params[:typ]!="today" && params[:typ]!="month" && params[:typ]!="stop" && params[:typ]!="yesterday" && params[:typ]!="pastweek" && params[:typ]!="pastmonth"%>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',colors: ['green'], library: {chart: {zoomType: 'x'} }
     
      %> 
@@ -34,6 +35,25 @@
      %> 
  
      <%end%>
+<% if params[:typ1]=="yesterday" %>
+
+ <%= area_chart @performance.group(:created_at).where('created_at >=?',1.day.ago).where('created_at <=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
+    colors: ['green'], library: {chart: {zoomType: 'x'} }
+     %> 
+ 
+     <%end%>
+     <% if params[:typ1]=="pastweek" %>
+
+  <%= area_chart @performance.group_by_day(:created_at,last: 7).where('created_at <=?',7.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
+ title: 'Weekly Performances',
+    colors: ['blue'], library: {chart: {zoomType: 'x'} }%>
+    <%end%>
+     <% if params[:typ1]=="pastmonth" %>
+
+<%= area_chart @performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
+ title: 'Monthly Performances',
+    colors: ['red'], library: {chart: {zoomType: 'x'} } %>
+    <%end%>
 </div>     
 
 
@@ -68,7 +88,7 @@
 <p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
 <%end%>
 <% if params[:typ]=="week" %>
-<% a=@performance.group_by_day(:created_at, last: 7).average(:responsetime).max %>
+<%= a=@performance.group_by_day(:created_at, last: 7).average(:responsetime).max %>
 <% b=@performance.group_by_day(:created_at, last: 7).average(:responsetime).min %>
 <p><strong><span>Average : </span></strong><%= @average %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= a[1] %>&nbsp;msec</p> 
@@ -99,6 +119,10 @@
 </div>
 <head>
 <style>
+
+.graph p{
+  display: inline-block;
+}
 hr {
   border:none;
   
@@ -165,6 +189,11 @@ hr {
 $( "#typ" ).change(function() {
   
   Turbolinks.visit("?typ="+ this.value);
+});
+
+$( "#typ1" ).change(function() {
+  
+  Turbolinks.visit("?typ1="+ this.value);
 });
 
 
