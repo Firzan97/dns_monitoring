@@ -52,12 +52,12 @@
 <%end%>
 
 <% if params[:typ]=="today" %>
- <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
+ <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances', 
     colors: ['green'], library: {chart: {zoomType: 'x'}}%> 
 <%end%>
 
 <% if params[:typ1]=="yesterday" %>
- <%= area_chart @performance.group(:created_at).where('created_at >=?',1.day.ago).where('created_at <=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
+ <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.yesterday.beginning_of_day).where('created_at <=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
     colors: ['green'], library: {chart: {zoomType: 'x'}}%> 
  <%end%>
 
@@ -273,7 +273,7 @@ Highcharts.chart('container', {
         }]
     }]
 });
-
+setTimeout("location.reload();",10000);
 
 ///////////////////////////////////////////////////
 
