@@ -28,7 +28,7 @@
 
 
 <% if params[:start]!=nil  && params[:end]!=nil%>
-  <%= area_chart @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
+  <%= area_chart @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime+1.day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
     colors: ['green'], library: {chart: {zoomType: 'x'}}%> 
 <%end%>
 
@@ -273,7 +273,7 @@ Highcharts.chart('container', {
         }]
     }]
 });
-setTimeout("location.reload();",10000);
+
 
 ///////////////////////////////////////////////////
 
