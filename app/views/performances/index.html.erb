@@ -132,13 +132,71 @@
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<% if params[:typ]!="month" && params[:typ]!="week" %>
+<div id="container0" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+<%end%>
 
-<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+<% if params[:typ]=="week" %>
+<div class=graph2>
+<div id="container1" style="min-width: 200px; height: 200px; max-width: 600px; margin: 0 auto"></div>
+<div id="container2" style="min-width: 200px; height: 200px; max-width: 600px; margin: 0 auto"></div>
+<div id="container3" style="min-width: 200px; height: 200px; max-width: 600px; margin: 0 auto"></div>
+<div id="container4" style="min-width: 200px; height: 200px; max-width: 600px; margin: 0 auto"></div>
+<div id="container5" style="min-width: 200px; height: 200px; max-width: 600px; margin: 0 auto"></div>
+<div id="container6" style="min-width: 200px; height: 200px; max-width: 600px; margin: 0 auto"></div>
+<div id="container7" style="min-width: 200px; height: 200px; max-width: 600px; margin: 0 auto"></div>
 </div>
+<%end%>
+<% if params[:typ]=="month" %>
+<div class=graph3>
+<div class="container8" style="min-width: 200px; height: 200px; max-width: 600px; margin: 0 auto"></div>
+<div id="container9" style="min-width: 200px; height: 200px; max-width: 600px; margin: 0 auto"></div>
+<div id="container10" style="min-width: 200px; height: 200px; max-width: 600px; margin: 0 auto"></div>
+<div id="container11" style="min-width: 200px; height: 200px; max-width: 600px; margin: 0 auto"></div>
+</div>
+<%end%>
+
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Effort', 'Amount given'],
+          ['My all',     100],
+           ['My alls',     200],
+        ]);
+
+        var options = {
+          pieHole: 0.5,
+          pieSliceTextStyle: {
+            color: 'black',
+          },
+          legend: 'none'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+
+
 <head>
 <style>
 
 .graph p{
+  display: inline-block;
+}
+.graph2 div{
+  display: inline-block;
+}
+.graph3 div{
   display: inline-block;
 }
 hr {
@@ -231,9 +289,7 @@ $( "#typ1" ).change(function() {
   
   Turbolinks.visit("?typ1="+ this.value);
 });
-
-
-Highcharts.chart('container', {
+Highcharts.chart('container0', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -274,12 +330,454 @@ Highcharts.chart('container', {
     }]
 });
 
+Highcharts.chart('container1', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Day 1'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+
 
 ///////////////////////////////////////////////////
 
   
   
-  
+  Highcharts.chart('container2', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Day 2'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+  Highcharts.chart('container3', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Day 3'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+  Highcharts.chart('container4', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Day 4'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+  Highcharts.chart('container5', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Day 5'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+  Highcharts.chart('container6', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Day 6'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+  Highcharts.chart('container7', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Day 7'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+  Highcharts.chart('container8', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Week 1'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+    Highcharts.chart('container9', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Week 2'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+
+      Highcharts.chart('container10', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Week 3'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+
+        Highcharts.chart('container11', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Week 4'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Success',
+            y: <%= @availability%>
+        }, {
+            name: 'Fail',
+            y: <%= @fail %>,
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
 
 </script>
 <style>
