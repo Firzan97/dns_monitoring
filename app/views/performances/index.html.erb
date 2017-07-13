@@ -91,9 +91,9 @@
 <p><strong><span>Availability Status :</span>-</strong></p>
 <%else%>
 <% if params[:typ]!="today" && params[:typ]!="week"  && params[:typ]!="month" && params[:typ1]!="yesterday"%>
-<p><strong><span>Average : </span></strong><%= @average %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @highest %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @lowest %>&nbsp;msec</p>
+<p><strong><span>Average : </span></strong><%= @average.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @highest.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @lowest.round(2) %>&nbsp;msec</p>
 <hr>
 <p><strong><span>Total Query :</span></strong><%= @success1 %></p>
 <p><strong><span>Total Fail :</span></strong><%= @unavailable %></p>
@@ -102,9 +102,9 @@
 <% if params[:typ1]=="yesterday" %>
 
 
-<p><strong><span>Average : </span></strong><%= @yesterdayAV %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @yesterdayHigh %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @yesterdayLow %>&nbsp;msec</p>
+<p><strong><span>Average : </span></strong><%= @yesterdayAV.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @yesterdayHigh.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @yesterdayLow.round(2) %>&nbsp;msec</p>
 <hr>
 <p><strong><span>Total Query :</span></strong><%= @yesterdayTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @yesterdayFail %></p>
@@ -113,9 +113,9 @@
 
 <%end%>
 <% if params[:typ]=="pastweek" %>
-<p><strong><span>Average : </span></strong><%= @pastAV %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @pastHigh %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @pastLow %>&nbsp;msec</p>
+<p><strong><span>Average : </span></strong><%= @pastAV.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @pastHigh.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @pastLow.round(2) %>&nbsp;msec</p>
 <hr>
 <p><strong><span>Total Query :</span></strong><%= @pastTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @pastFail %></p>
@@ -124,9 +124,9 @@
 
 <%end%>
 <% if params[:typ]=="pastmonth" %>
-<p><strong><span>Average : </span></strong><%= @average %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @highest %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @lowest %>&nbsp;msec</p>
+<p><strong><span>Average : </span></strong><%= @average.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @highest.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @lowest.round(2) %>&nbsp;msec</p>
 <hr>
 <p><strong><span>Total Query :</span></strong><%= @success1 %></p>
 <p><strong><span>Total Fail :</span></strong><%= @unavailable %></p>
@@ -135,9 +135,9 @@
 
 <%end%>
 <% if params[:typ]=="today" %>
-<p><strong><span>Average : </span></strong><%= @todayAV %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @todayHigh %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @todayLow %>&nbsp;msec</p>
+<p><strong><span>Average : </span></strong><%= @todayAV.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @todayHigh.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @todayLow.round(2) %>&nbsp;msec</p>
 <hr>
 <p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @todayFail %></p>
@@ -159,9 +159,9 @@
 <% minimum=a[1] %>
 <%end%>
 <%end%>
-<p><strong><span>Average : </span></strong><%= total/7 %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= maximum %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= minimum %>&nbsp;msec</p>
+<p><strong><span>Average : </span></strong><%= (total/7).round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
 <hr>
 <p><strong><span>Total Query :</span></strong><%= @weeksuccess %></p>
 <p><strong><span>Total Fail :</span></strong><%= @weekfail %></p>
@@ -196,72 +196,35 @@
 
 <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
 <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js?cacheBust=56"></script>
-<script type="text/javascript">
-  FusionCharts.ready(function(){
-    var fusioncharts = new FusionCharts({
-    type: 'doughnut2d',
-    renderAt: 'chart-container',
-    width: '450',
-    height: '450',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-            "caption": "Split of Revenue by Product Categories",
-            "subCaption": "Last year",
-            "numberPrefix": "$",
-            "showBorder": "0",
-            "use3DLighting": "0",
-            "enableSmartLabels": "10",
-            "startingAngle": "310",
-            "showLabels": "0",
-            "showPercentValues": "1",
-            "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
-            "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
-            "showTooltip": "0",
-            "decimals": "0",
-            "useDataPlotColorForLabels": "1",
-            "theme": "fint"
-        },
-        "data": [{
-            "label": "Fail",
-            "value": <%= @unavailable %>
-        }, {
-            "label": "Success",
-            "value": <%= @count-@unavailable %>
-        }]
-    }
-}
-);
-    fusioncharts.render();
-});
-</script>
+
 
 <% if params[:typ]=="today" %>
-<div id="container0" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div class="donutchart">
+<div id="chart-container">FusionCharts XT will load here!</div>
+</div>
 <%end%>
 <% if params[:typ]=="week" %>
 <div class="graph2">
-<div id="container0" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
-<div id="container1" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
-<div id="container2" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
-<div id="container3" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
-<div id="container4" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
-<div id="container5" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
-<div id="container6" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
+<div id="chart-container2" ></div>
+<div id="chart-container3" ></div>
+<div id="chart-container4" ></div>
+<div id="chart-container5" ></div>
+<div id="chart-container6" ></div>
+<div id="chart-container7" ></div>
+<div id="chart-container8" ></div>
+
 </div>
 <%end%>
 <% if params[:typ]=="month" %>
 <div class="graph3">
-<div id="container7" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
-<div id="container8" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
-<div id="container9" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
-<div id="container10" style="min-width: 250px; height: 200px; margin: 0 auto"></div>
 
+<div id="chart-container9" ></div>
+<div id="chart-container10" ></div>
+<div id="chart-container11" ></div>
+<div id="chart-container12" ></div>
 </div>
 <%end%>
-<div id="chart-container" class="text-size:50px;">FusionCharts XT will load here!</div>
+
 
 <head>
 <style>
@@ -274,12 +237,13 @@
 }
 .graph3 div{
   display: inline-block;
+  margin-left: 20px;
 }
 hr {
   border:none;
   
   height: 50px;
-  margin-top: 0;
+  margin-top: 20px;
   border-bottom: 1px solid #C0C0C0;
   box-shadow: 0 15px 15px -15px #C0C0C0;
   margin: -50px auto 10px; 
@@ -287,7 +251,12 @@ hr {
 
 .main{
  margin-top: 70px;
+}
 
+.donutchart {
+  vertical-align:middle!important; 
+  text-align:center!important;
+  display: block!important;
 }
 </style>
 </head>
@@ -406,419 +375,551 @@ Highcharts.chart('container0', {
     }]
 });
 
-Highcharts.chart('container1', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Day 6'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Success',
-            y: <%= @success2%>
+
+</script>
+
+<script type="text/javascript">
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container',
+    width: '500',
+    height: '400',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Today",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "defaultCenterLabelSize": "20",
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
         }, {
-            name: 'Fail',
-            y: <%= @fail2 %>,
-            sliced: true,
-            selected: true
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
         }]
-    }]
+    }
+}
+);
+    fusioncharts.render();
 });
 
-Highcharts.chart('container2', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Day 5'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Success',
-            y: <%= @success3%>
+  //////////////////////////////
+
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container2',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Today",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
         }, {
-            name: 'Fail',
-            y: <%= @fail3 %>,
-            sliced: true,
-            selected: true
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
         }]
-    }]
+    }
+}
+);
+    fusioncharts.render();
 });
 
-Highcharts.chart('container3', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Day 4'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Success',
-            y: <%= @success4%>
+  ///////////////////////
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container3',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Day 2",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
         }, {
-            name: 'Fail',
-            y: <%= @fail4 %>,
-            sliced: true,
-            selected: true
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
         }]
-    }]
+    }
+}
+);
+    fusioncharts.render();
 });
 
-Highcharts.chart('container4', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Day 3'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Success',
-            y: <%= @success5%>
+  ////////////////////
+
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container4',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Day 3",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
         }, {
-            name: 'Fail',
-            y: <%= @fail5 %>,
-            sliced: true,
-            selected: true
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
         }]
-    }]
+    }
+}
+);
+    fusioncharts.render();
+});
+  //////////////////
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container5',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Day 4",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
+        }, {
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
+  /////////////////////
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container6',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Day 5",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
+        }, {
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
+  //////////////
+  
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container7',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Day 6",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
+        }, {
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
+///////////////////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container8',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Day 7",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
+        }, {
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
+////////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container8',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Week 1",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
+        }, {
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
 });
 
-Highcharts.chart('container5', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Day 2'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Success',
-            y: <%= @success6%>
+//////
+
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container9',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Week 2",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
         }, {
-            name: 'Fail',
-            y: <%= @fail6 %>,
-            sliced: true,
-            selected: true
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
         }]
-    }]
+    }
+}
+);
+    fusioncharts.render();
 });
-
-
-Highcharts.chart('container6', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Day 1'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Success',
-            y: <%= @success7%>
+/////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container10',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Week 3",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
         }, {
-            name: 'Fail',
-            y: <%= @fail7 %>,
-            sliced: true,
-            selected: true
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
         }]
-    }]
+    }
+}
+);
+    fusioncharts.render();
 });
-
-
-Highcharts.chart('container7', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Today'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Success',
-            y: <%= @availability%>
+//////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container11',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Week 4",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
         }, {
-            name: 'Fail',
-            y: <%= @fail %>,
-            sliced: true,
-            selected: true
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
         }]
-    }]
+    }
+}
+);
+    fusioncharts.render();
 });
-
-Highcharts.chart('container8', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Week 2'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Success',
-            y: <%= @availability%>
+////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container12',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Day 7",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @todayFail %>
         }, {
-            name: 'Fail',
-            y: <%= @fail %>,
-            sliced: true,
-            selected: true
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
         }]
-    }]
+    }
+}
+);
+    fusioncharts.render();
 });
-
-Highcharts.chart('container9', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Week 3'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Success',
-            y: 13
-        }, {
-            name: 'Fail',
-            y: 12,
-            sliced: true,
-            selected: true
-        }]
-    }]
-});
-
-Highcharts.chart('container10', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Week 3'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-            name: 'Success',
-            y: <%= @availability%>
-        }, {
-            name: 'Fail',
-            y: <%= @fail %>,
-            sliced: true,
-            selected: true
-        }]
-    }]
-});
-
-
 </script>
 <style>
 
