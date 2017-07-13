@@ -14,5 +14,10 @@
  *= require_self
  *= require rails_bootstrap_forms
  */
+
+ /*
+ * require jquery.easy-pie-chart
+*/
+ @import 'jquery.easy-pie-chart';
  @import "bootstrap-sprockets";
  @import "bootstrap";

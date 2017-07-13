@@ -48,7 +48,7 @@ GEM
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
-    autoprefixer-rails (7.1.1.3)
+    autoprefixer-rails (7.1.2.2)
       execjs
     bcrypt (3.1.11)
     bindex (0.5.0)
@@ -83,6 +83,8 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    easy_as_pie (0.1.2)
+      rails (>= 3.0)
     erubi (1.6.1)
     et-orbi (1.0.5)
       tzinfo
@@ -94,7 +96,7 @@ GEM
       activesupport (>= 3)
     highstocks-rails (2.1.5)
       railties (>= 3.1)
-    i18n (0.8.4)
+    i18n (0.8.6)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -173,7 +175,7 @@ GEM
     rubyzip (1.2.1)
     rufus-scheduler (3.4.2)
       et-orbi (~> 1.0)
-    sass (3.4.24)
+    sass (3.4.25)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
@@ -245,6 +247,7 @@ DEPENDENCIES
   chartkick (~> 1.4, >= 1.4.1)
   coffee-rails (~> 4.2)
   devise (~> 4.2)
+  easy_as_pie
   groupdate (~> 2.5, >= 2.5.2)
   highstocks-rails
   jbuilder (~> 2.5)
