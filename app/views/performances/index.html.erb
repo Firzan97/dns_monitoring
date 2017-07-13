@@ -29,7 +29,7 @@
 
 <% if params[:start]!=nil  && params[:end]!=nil%>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime+1.day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
-    colors: ['green'], library: {chart: {zoomType: 'x'}}%> 
+    colors: ['#99FFCC'], library: {chart: {zoomType: 'x'}}%> 
 <%end%>
 
 
@@ -42,18 +42,18 @@
 <% if params[:typ]=="week" %>
  <%= area_chart @performance.group_by_day(:created_at,last: 7).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Weekly Performances',
-    colors: ['blue'], library: {chart: {zoomType: 'x'}}%>
+    colors: ['#CCCC99'], library: {chart: {zoomType: 'x'}}%>
 <%end%>
 
 <% if params[:typ]=="month" %>
  <%= area_chart @performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Monthly Performances',
-    colors: ['red'], library: {chart: {zoomType: 'x'} } %>
+    colors: ['#FFCC99'], library: {chart: {zoomType: 'x'} } %>
 <%end%>
 
 <% if params[:typ]=="today" %>
  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances', 
-    colors: ['green'], library: {chart: {zoomType: 'x'},lineWidth: -10}%> 
+    colors: ['#8E2323'], library: {chart: {zoomType: 'x'}}%> 
 <%end%>
 
 <% if params[:typ1]=="yesterday" %>
@@ -182,11 +182,11 @@
 <%end%>
 <%end%>
 
-<p><strong><span>Average : </span></strong><%= total/4%>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= maximum  %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= minimum %>&nbsp;msec</p>
+<p><strong><span>Average : </span></strong><%= (total/4).round(2)%>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= maximum.round(2)  %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
 <hr>
-<p><strong><span>Total Query :</span></strong><%= @monthsuccess %></p>
+<p><strong><span>Total Query :</span></strong><%= @monthsuccess.round(2) %></p>
 <p><strong><span>Total Fail :</span></strong><%= @monthfail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @monthAvailability %>%</p>
 <%end%>
@@ -379,6 +379,7 @@ Highcharts.chart('container0', {
 </script>
 
 <script type="text/javascript">
+
   FusionCharts.ready(function(){
     var fusioncharts = new FusionCharts({
     type: 'doughnut2d',
@@ -714,46 +715,7 @@ FusionCharts.ready(function(){
     fusioncharts.render();
 });
 ////////
-FusionCharts.ready(function(){
-    var fusioncharts = new FusionCharts({
-    type: 'doughnut2d',
-    renderAt: 'chart-container8',
-    width: '300',
-    height: '300',
-    textSize: '50',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-            "caption": "DNS Availability",
-            "subCaption": "Week 1",
-            "numberPrefix": " ",
-            "showBorder": "0",
-            "use3DLighting": "0",
-            "enableSmartLabels": "10",
-            "startingAngle": "310",
-            "showLabels": "0",
-            "showPercentValues": "1",
-            "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
-            "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
-            "showTooltip": "0",
-            "decimals": "0",
-            "useDataPlotColorForLabels": "1",
-            "theme": "fint"
-        },
-        "data": [{
-            "label": "Fail",
-            "value": <%= @todayFail %>
-        }, {
-            "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
-        }]
-    }
-}
-);
-    fusioncharts.render();
-});
+
 
 //////
 
@@ -768,7 +730,7 @@ FusionCharts.ready(function(){
     dataSource: {
         "chart": {
             "caption": "DNS Availability",
-            "subCaption": "Week 2",
+            "subCaption": "This Week",
             "numberPrefix": " ",
             "showBorder": "0",
             "use3DLighting": "0",
@@ -809,7 +771,7 @@ FusionCharts.ready(function(){
     dataSource: {
         "chart": {
             "caption": "DNS Availability",
-            "subCaption": "Week 3",
+            "subCaption": "Week 2",
             "numberPrefix": " ",
             "showBorder": "0",
             "use3DLighting": "0",
@@ -850,7 +812,7 @@ FusionCharts.ready(function(){
     dataSource: {
         "chart": {
             "caption": "DNS Availability",
-            "subCaption": "Week 4",
+            "subCaption": "Week 3",
             "numberPrefix": " ",
             "showBorder": "0",
             "use3DLighting": "0",
@@ -891,7 +853,7 @@ FusionCharts.ready(function(){
     dataSource: {
         "chart": {
             "caption": "DNS Availability",
-            "subCaption": "Day 7",
+            "subCaption": "Week 4",
             "numberPrefix": " ",
             "showBorder": "0",
             "use3DLighting": "0",
