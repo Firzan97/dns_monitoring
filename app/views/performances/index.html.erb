@@ -62,7 +62,7 @@
  <%end%>
 
 <% if params[:typ1]=="pastweek" %>
-<%= area_chart @performance.group_by_day(:created_at,last: 7).where('created_at <=?',7.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
+<%= area_chart @performance.group_by_day(:created_at).where('created_at <=?',7.day.ago).where('created_at >=?',14.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Weekly Performances',
     colors: ['blue'], library: {chart: {zoomType: 'x'} }%>
 <%end%>
