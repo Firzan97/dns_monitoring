@@ -66,12 +66,12 @@ class PerformancesController < ApplicationController
         @yesterdayLow=@question.performances.where('created_at >=?',DateTime.yesterday.beginning_of_day).where('created_at <=?',DateTime.now.beginning_of_day).minimum(:responsetime)
         
         ####pastweek####
-        @pastweekAV=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',7.day.ago).average(:responsetime)
-        @pastTotal=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',7.day.ago).count
-        @pastFail=@question.performances.where(responsetime: -1 ).where('created_at >=?',14.day.ago).where('created_at <=?',7.day.ago).count
+        @pastweekAV=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',6.day.ago).average(:responsetime)
+        @pastTotal=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',6.day.ago).count
+        @pastFail=@question.performances.where(responsetime: -1 ).where('created_at >=?',14.day.ago).where('created_at <=?',6.day.ago).count
         #@pastAvai=((@pastTotal-@pastFail)/@pastTotal)*100
-        @pastHigh=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',7.day.ago).maximum(:responsetime)
-        @pastLow=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',7.day.ago).minimum(:responsetime)
+        @pastHigh=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',6.day.ago).maximum(:responsetime)
+        @pastLow=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',6.day.ago).minimum(:responsetime)
   
         ###today### 
        @todayTotal=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).count
@@ -79,6 +79,11 @@ class PerformancesController < ApplicationController
        @todayHigh=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).maximum(:responsetime)
        @todayLow=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).minimum(:responsetime)
        @todayFail=@question.performances.where(responsetime: -1 ).where('created_at >=?',DateTime.now.beginning_of_day).count
+
+       ###pastmonth##
+       @pastmonthTotal=@question.performances.group_by_week(:created_at, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count
+       @pastmonthFail=@question.performances.group_by_week(:created_at, time_zone: "Kuala Lumpur").where(responsetime: -1 ).where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count
+       #@pastmonthAvai=((@pastmonthTotal-@pastmonthFail)/@pastmonthTotal)*100
   end
 
   # GET /performances/1

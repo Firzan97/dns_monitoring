@@ -16,7 +16,7 @@
 
 </div>
 
-
+<hr class="line2">
 <div class="graph">
 <p><%= select_tag "typ", "<option value='today'>Today</option><option value='week'>This Week</option><option value='month'>This Month</option>".html_safe, include_blank: true %></p>
 <p><%= select_tag "typ1", "<option value='yesterday'>Yesterday</option><option value='pastweek'>Previous Week</option><option value='pastmonth'>Previous Month</option>".html_safe, include_blank: true %></p>
@@ -25,7 +25,7 @@
 <input type="text" name="daterange" value="01/01/2015 - 01/31/2015" /></p>
 
 </div>
-
+<hr>
 
 <% if params[:start]!=nil  && params[:end]!=nil%>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime+1.day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
@@ -68,7 +68,7 @@
 <%end%>
 
 <% if params[:typ1]=="pastmonth" %>
-<%= area_chart @performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
+<%= area_chart @performance.group_by_week(:created_at, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Monthly Performances',
     colors: ['red'], library: {chart: {zoomType: 'x'} } %>
 <%end%>
@@ -85,52 +85,115 @@
 <p><strong><span>Average : </span></strong>-</p> 
 <p><strong><span>Highest  :</span></strong>-</p> 
 <p><strong><span>Lowest :</span></strong>-</p>
-<hr>
+<hr class="line">
 <p><strong><span>Total Query :</span></strong>-</p>
 <p><strong><span>Total Fail :</span></strong>-</p>
 <p><strong><span>Availability Status :</span>-</strong></p>
 <%else%>
-<% if params[:typ]!="today" && params[:typ]!="week"  && params[:typ]!="month" && params[:typ1]!="yesterday"%>
+<% if params[:typ]!="today" && params[:typ]!="week"  && params[:typ]!="month" && params[:typ1]!="yesterday" && params[:typ1]!="pastweek" && params[:typ1]!="pastmonth" && params[:start]==nil  && params[:end]==nil %>
 <p><strong><span>Average : </span></strong><%= @average.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= @highest.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= @lowest.round(2) %>&nbsp;msec</p>
-<hr>
+<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @success1 %></p>
 <p><strong><span>Total Fail :</span></strong><%= @unavailable %></p>
 <p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
 <%end%>
+
+
+
+<% if params[:start]!=nil  && params[:end]!=nil%>
+<% total=0 %>
+<% maximum=0%>
+<% minimum=100 %>
+<% a=0 %>
+<% @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime+1.day).sum(:responsetime).each do |f| %>
+<% a=a+1%>
+<% total=total+f[1] %>
+<%if maximum<f[1] %>
+<% maximum=f[1] %>
+<%end%>
+<% if minimum>f[1] %>
+<% minimum=f[1] %>
+<%end%>
+<%end%>
+<% b=0 %>
+<% @performance.group(:created_at).where(responsetime: -1 ).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime+1.day).sum(:responsetime).each do |f| %> 
+<% b=b+1%>
+<%end%>
+
+
+<p><strong><span>Average : </span></strong><%= (total/a).round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
+<hr class="line">
+<p><strong><span>Total Query :</span></strong><%= a %></p>
+<p><strong><span>Total Fail :</span></strong><%= b %></p>
+<p><strong><span>Availability Status :</span></strong><%= ((a-b)/a)*100 %>%</p>
+
+<%end%>
+
 <% if params[:typ1]=="yesterday" %>
 
 
 <p><strong><span>Average : </span></strong><%= @yesterdayAV.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= @yesterdayHigh.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= @yesterdayLow.round(2) %>&nbsp;msec</p>
-<hr>
+<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @yesterdayTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @yesterdayFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @yesterdayAvai %>%</p>
 
 
 <%end%>
-<% if params[:typ]=="pastweek" %>
-<p><strong><span>Average : </span></strong><%= @pastAV.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @pastHigh.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @pastLow.round(2) %>&nbsp;msec</p>
-<hr>
+<% if params[:typ1]=="pastweek" %>
+<% total=0 %>
+<% maximum=0%>
+<% minimum=100 %>
+<% a=0 %>
+<% @performance.group_by_day(:created_at).where('created_at <=?',6.day.ago).where('created_at >=?',14.day.ago).average(:responsetime).each do |f| %>
+<% a=a+1%>
+<% total=total+f[1] %>
+<%if maximum<f[1] %>
+<% maximum=f[1] %>
+<%end%>
+<% if minimum>f[1] %>
+<% minimum=f[1] %>
+<%end%>
+<%end%>
+
+<p><strong><span>Average : </span></strong><%= (total/a).round(2)%>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
+<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @pastTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @pastFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @pastAvai %>%</p>
 
-
 <%end%>
-<% if params[:typ]=="pastmonth" %>
-<p><strong><span>Average : </span></strong><%= @average.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @highest.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @lowest.round(2) %>&nbsp;msec</p>
-<hr>
-<p><strong><span>Total Query :</span></strong><%= @success1 %></p>
-<p><strong><span>Total Fail :</span></strong><%= @unavailable %></p>
-<p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
+<% if params[:typ1]=="pastmonth" %>
+<% total=0 %>
+<% maximum=0%>
+<% minimum=100 %>
+<% a=0 %>
+<% @performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).average(:responsetime).each do |f| %>
+<% a=a+1%>
+<% total=total+f[1] %>
+<%if maximum<f[1] %>
+<% maximum=f[1] %>
+<%end%>
+<% if minimum>f[1] %>
+<% minimum=f[1] %>
+<%end%>
+<%end%>
+
+<p><strong><span>Average : </span></strong><%= (total/a).round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
+<hr class="line">
+<p><strong><span>Total Query :</span></strong><%= @pastmonthTotal %></p>
+<p><strong><span>Total Fail :</span></strong><%= @pastmonthFail %></p>
+<p><strong><span>Availability Status :</span></strong><%=  %>%</p>
 
 
 <%end%>
@@ -138,7 +201,7 @@
 <p><strong><span>Average : </span></strong><%= @todayAV.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= @todayHigh.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= @todayLow.round(2) %>&nbsp;msec</p>
-<hr>
+<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @todayFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
@@ -149,7 +212,7 @@
 
 <% total=0 %>
 <% maximum=1 %>
-<% minimum=1 %>
+<% minimum=100 %>
 <% @performance.group_by_day(:created_at,last: 7).average(:responsetime).each do |a| %>
 <% total=total+a[1] %>
 <% if maximum<a[1] %>
@@ -162,7 +225,7 @@
 <p><strong><span>Average : </span></strong><%= (total/7).round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<hr>
+<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @weeksuccess %></p>
 <p><strong><span>Total Fail :</span></strong><%= @weekfail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
@@ -171,7 +234,7 @@
 
 <% total=0 %>
 <% maximum=1 %>
-<% minimum=1 %>
+<% minimum=100 %>
 <% @performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").average(:responsetime).each do |a| %>
 <% total=total+a[1] %>
 <% if maximum<a[1] %>
@@ -185,8 +248,8 @@
 <p><strong><span>Average : </span></strong><%= (total/4).round(2)%>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= maximum.round(2)  %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<hr>
-<p><strong><span>Total Query :</span></strong><%= @monthsuccess.round(2) %></p>
+<hr class="line">
+<p><strong><span>Total Query :</span></strong><%= @monthsuccess %></p>
 <p><strong><span>Total Fail :</span></strong><%= @monthfail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @monthAvailability %>%</p>
 <%end%>
@@ -224,10 +287,57 @@
 <div id="chart-container12" ></div>
 </div>
 <%end%>
+<% if params[:typ1]=="yesterday" %>
+<div class="graph4">
+
+<div id="chart-container13" ></div>
+</div>
+<%end%>
+<% if params[:typ1]=="pastweek" %>
+<div class="graph5">
+
+<div id="chart-container14" ></div>
+<div id="chart-container15" ></div>
+<div id="chart-container16" ></div>
+<div id="chart-container17" ></div>
+<div id="chart-container18" ></div>
+<div id="chart-container19" ></div>
+<div id="chart-container20" ></div>
+</div>
+<%end%>
+<% if params[:typ1]=="pastmonth" %>
+<div class="graph6">
+
+<div id="chart-container21" ></div>
+<div id="chart-container22" ></div>
+<div id="chart-container23" ></div>
+<div id="chart-container24" ></div>
+</div>
+<%end%>
 
 
 <head>
 <style>
+.line {
+  border:none;
+  
+  height: 50px;
+  margin-top: 20px;
+  border-bottom: 1px solid #C0C0C0;
+  box-shadow: 0 5px 15px -15px #C0C0C0;
+  margin: -50px auto 10px; 
+}
+
+.line2 {
+  border:none;
+  
+  height: 50px;
+  margin-top: 20px;
+  border-bottom: 1px solid #C0C0C0;
+  box-shadow: 0 -15px 5px -15px #C0C0C0;
+  margin: -50px auto 10px; 
+}
+
 
 .graph p{
   display: inline-block;
@@ -238,6 +348,9 @@
 .graph3 div{
   display: inline-block;
   margin-left: 20px;
+}
+.graph4 div{
+  display: inline-block;
 }
 hr {
   border:none;
@@ -876,6 +989,47 @@ FusionCharts.ready(function(){
         }, {
             "label": "Success",
             "value": <%= @todayTotal-@todayFail %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
+///////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container13',
+    width: '300',
+    height: '300',
+    textSize: '50',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "DNS Availability",
+            "subCaption": "Yesterday",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "10",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": <%= @availability%>,
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "6",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Fail",
+            "value": <%= @yesterdayFail %>
+        }, {
+            "label": "Success",
+            "value": <%= @yesterdayTotal-@yesterdayFail %>
         }]
     }
 }
