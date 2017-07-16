@@ -36,7 +36,7 @@
 
 <%if params[:typ]!="week" && params[:typ]!="today" && params[:typ]!="month" && params[:typ]!="stop" && params[:typ1]!="yesterday" && params[:typ1]!="pastweek" && params[:typ1]!="pastmonth" && params[:start]==nil && params[:end]==nil%>
 
-  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',colors: ['green'], library: {chart: {zoomType: 'x'} }%> 
+  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',colors: ['#8E2323'], library: {chart: {zoomType: 'x'} }%> 
 <%end%>
 
 <% if params[:typ]=="week" %>
@@ -91,12 +91,12 @@
 <p><strong><span>Availability Status :</span>-</strong></p>
 <%else%>
 <% if params[:typ]!="today" && params[:typ]!="week"  && params[:typ]!="month" && params[:typ1]!="yesterday" && params[:typ1]!="pastweek" && params[:typ1]!="pastmonth" && params[:start]==nil  && params[:end]==nil %>
-<p><strong><span>Average : </span></strong><%= @average.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @highest.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @lowest.round(2) %>&nbsp;msec</p>
+<p><strong><span>Average : </span></strong><%= @todayAV.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @todayHigh.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @todayLow.round(2) %>&nbsp;msec</p>
 <hr class="line">
-<p><strong><span>Total Query :</span></strong><%= @success1 %></p>
-<p><strong><span>Total Fail :</span></strong><%= @unavailable %></p>
+<p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
+<p><strong><span>Total Fail :</span></strong><%= @todayFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
 <%end%>
 
@@ -513,7 +513,7 @@ Highcharts.chart('container0', {
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
+            "defaultCenterLabel": <%= @status1%>,
             "defaultCenterLabelSize": "20",
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "6",
@@ -524,10 +524,10 @@ Highcharts.chart('container0', {
         },
         "data": [{
             "label": "Fail",
-            "value": <%= @todayFail %>
+            "value": <%= @fail1 %>
         }, {
             "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
+            "value": <%= @success1-@fail1 %>
         }]
     }
 }
@@ -557,7 +557,7 @@ Highcharts.chart('container0', {
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
+            "defaultCenterLabel": <%= @status1%>,
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "6",
             "showTooltip": "0",
@@ -567,10 +567,10 @@ Highcharts.chart('container0', {
         },
         "data": [{
             "label": "Fail",
-            "value": <%= @todayFail %>
+            "value": <%= @fail1 %>
         }, {
             "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
+            "value": <%= @success1-@fail1 %>
         }]
     }
 }
@@ -599,7 +599,7 @@ Highcharts.chart('container0', {
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
+            "defaultCenterLabel": <%= @status2%>,
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "6",
             "showTooltip": "0",
@@ -609,10 +609,10 @@ Highcharts.chart('container0', {
         },
         "data": [{
             "label": "Fail",
-            "value": <%= @todayFail %>
+            "value": <%= @fail2 %>
         }, {
             "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
+            "value": <%= @success2-@fail2 %>
         }]
     }
 }
@@ -642,7 +642,7 @@ Highcharts.chart('container0', {
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
+            "defaultCenterLabel": <%= @status3%>,
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "6",
             "showTooltip": "0",
@@ -652,10 +652,10 @@ Highcharts.chart('container0', {
         },
         "data": [{
             "label": "Fail",
-            "value": <%= @todayFail %>
+            "value": <%= @fail3 %>
         }, {
             "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
+            "value": <%= @success3-@fail3 %>
         }]
     }
 }
@@ -683,7 +683,7 @@ Highcharts.chart('container0', {
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
+            "defaultCenterLabel": <%= @status4%>,
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "6",
             "showTooltip": "0",
@@ -693,10 +693,10 @@ Highcharts.chart('container0', {
         },
         "data": [{
             "label": "Fail",
-            "value": <%= @todayFail %>
+            "value": <%= @fail4 %>
         }, {
             "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
+            "value": <%= @success4-@fail4 %>
         }]
     }
 }
@@ -724,7 +724,7 @@ Highcharts.chart('container0', {
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
+            "defaultCenterLabel": <%= @status5 %>,
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "6",
             "showTooltip": "0",
@@ -734,10 +734,10 @@ Highcharts.chart('container0', {
         },
         "data": [{
             "label": "Fail",
-            "value": <%= @todayFail %>
+            "value": <%= @fail5 %>
         }, {
             "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
+            "value": <%= @success5-@fail5 %>
         }]
     }
 }
@@ -766,7 +766,7 @@ Highcharts.chart('container0', {
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
+            "defaultCenterLabel": <%= @status6 %>,
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "6",
             "showTooltip": "0",
@@ -776,10 +776,10 @@ Highcharts.chart('container0', {
         },
         "data": [{
             "label": "Fail",
-            "value": <%= @todayFail %>
+            "value": <%= @fail6 %>
         }, {
             "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
+            "value": <%= @success6-@fail6 %>
         }]
     }
 }
@@ -807,7 +807,7 @@ FusionCharts.ready(function(){
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
+            "defaultCenterLabel": <%= @status7 %>,
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "6",
             "showTooltip": "0",
@@ -817,10 +817,10 @@ FusionCharts.ready(function(){
         },
         "data": [{
             "label": "Fail",
-            "value": <%= @todayFail %>
+            "value": <%= @fail7 %>
         }, {
             "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
+            "value": <%= @success7-@fail7 %>
         }]
     }
 }
