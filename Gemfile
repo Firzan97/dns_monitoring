@@ -14,7 +14,7 @@ group :development, :test do
   gem 'sqlite3'
 end
 
-
+gem 'responders'
 gem 'easy_as_pie'
 gem 'by_star', git: "git://github.com/radar/by_star"
 gem "highstocks-rails" 
