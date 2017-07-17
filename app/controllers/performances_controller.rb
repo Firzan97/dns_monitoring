@@ -23,12 +23,12 @@ class PerformancesController < ApplicationController
        
         #######For piechart ######
         @success1=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).count
-        @success2=@question.performances.where('created_at >=?',1.day.ago).where('created_at <=?',1.day.ago).count
-        @success3=@question.performances.where('created_at >=?',2.day.ago).where('created_at <=?',2.day.ago).count
-        @success4=@question.performances.where('created_at >=?',3.day.ago).where('created_at <=?',3.day.ago).count
-        @success5=@question.performances.where('created_at >=?',4.day.ago).where('created_at <=?',4.day.ago).count
-        @success6=@question.performances.where('created_at >=?',5.day.ago).where('created_at <=?',5.day.ago).count
-        @success7=@question.performances.where('created_at >=?',6.day.ago).where('created_at <=?',6.day.ago).count
+        @success2=@question.performances.where('created_at >=?',1.day.ago).where('created_at <=?',DateTime.now.beginning_of_day).count
+        @success3=@question.performances.where('created_at >=?',2.day.ago).where('created_at <=?',1.day.ago).count
+        @success4=@question.performances.where('created_at >=?',3.day.ago).where('created_at <=?',2.day.ago).count
+        @success5=@question.performances.where('created_at >=?',4.day.ago).where('created_at <=?',3.day.ago).count
+        @success6=@question.performances.where('created_at >=?',5.day.ago).where('created_at <=?',4.day.ago).count
+        @success7=@question.performances.where('created_at >=?',6.day.ago).where('created_at <=?',5.day.ago).count
         @weeksuccess=@question.performances.where('created_at >=?',7.day.ago).count
         @weekfail=@question.performances.where(responsetime: -1 ).where('created_at >=?',7.day.ago).count
         @weekAvailability=((@weeksuccess-@weekfail)/@weeksuccess)*100
@@ -39,12 +39,12 @@ class PerformancesController < ApplicationController
 
 
         @fail1=@question.performances.where(responsetime: -1 ).where('created_at >=?',DateTime.now.beginning_of_day).count
-        @fail2=@question.performances.where(responsetime: -1 ).where('created_at >=?',1.day.ago).where('created_at <=?',1.day.ago).count
-        @fail3=@question.performances.where(responsetime: -1 ).where('created_at >=?',2.day.ago).where('created_at <=?',2.day.ago).count
-        @fail4=@question.performances.where(responsetime: -1 ).where('created_at >=?',3.day.ago).where('created_at <=?',3.day.ago).count
-        @fail5=@question.performances.where(responsetime: -1 ).where('created_at >=?',4.day.ago).where('created_at <=?',4.day.ago).count
-        @fail6=@question.performances.where(responsetime: -1 ).where('created_at >=?',5.day.ago).where('created_at <=?',5.day.ago).count
-        @fail7=@question.performances.where(responsetime: -1 ).where('created_at >=?',6.day.ago).where('created_at <=?',6.day.ago).count
+        @fail2=@question.performances.where(responsetime: -1 ).where('created_at >=?',1.day.ago).where('created_at <=?',DateTime.now.beginning_of_day).count
+        @fail3=@question.performances.where(responsetime: -1 ).where('created_at >=?',2.day.ago).where('created_at <=?',1.day.ago).count
+        @fail4=@question.performances.where(responsetime: -1 ).where('created_at >=?',3.day.ago).where('created_at <=?',2.day.ago).count
+        @fail5=@question.performances.where(responsetime: -1 ).where('created_at >=?',4.day.ago).where('created_at <=?',3.day.ago).count
+        @fail6=@question.performances.where(responsetime: -1 ).where('created_at >=?',5.day.ago).where('created_at <=?',4.day.ago).count
+        @fail7=@question.performances.where(responsetime: -1 ).where('created_at >=?',6.day.ago).where('created_at <=?',5.day.ago).count
         @fail8=@question.performances.where(responsetime: -1 ).where('created_at >=?',1.week.ago).count
         @fail9=@question.performances.where(responsetime: -1 ).where('created_at >=?',2.week.ago).where('created_at <=?',1.week.ago).count
         @fail10=@question.performances.where(responsetime: -1 ).where('created_at >=?',3.week.ago).where('created_at <=?',2.week.ago).count
