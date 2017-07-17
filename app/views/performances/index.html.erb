@@ -132,7 +132,7 @@
 <hr class="line">
 <p><strong><span>Total Query :</span></strong><%= a %></p>
 <p><strong><span>Total Fail :</span></strong><%= a %></p>
-<p><strong><span>Availability Status :</span></strong><%= a %>%</p>
+<p><strong><span>Availability Status :</span></strong><%= @a %>%</p>
 <%else %>
 <p><strong><span>Average : </span></strong><%= (total/a).round(2) %>&nbsp;msec</p> 
 
@@ -144,6 +144,8 @@
 <p><strong><span>Availability Status :</span></strong><%= ((a-b)/a)*100 %>%</p>
 <%end%>
 <%end%>
+
+
 
 <% if params[:typ1]=="yesterday" %>
 
@@ -296,6 +298,9 @@
 
 
 </div>
+
+
+
 <% if params[:typ]=="today" %>
 <div class="donutchart">
    <div id="chart-container1"></div>
@@ -1379,5 +1384,8 @@ FusionCharts.ready(function(){
 );
     fusioncharts.render();
 });
+
+/////date////
+
 
 </script>

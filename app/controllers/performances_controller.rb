@@ -245,7 +245,7 @@ class PerformancesController < ApplicationController
        @pastmonthFail=@question.performances.where(responsetime: -1 ).where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count
        
 
-       
+
        if @pastmonthTotal==0
         @pastmonthAvai=0
       else
@@ -253,7 +253,8 @@ class PerformancesController < ApplicationController
        end
        
      
-
+       #/////////date//////
+       
   end
 
   # GET /performances/1
