@@ -125,15 +125,24 @@
 <% b=b+1%>
 <%end%>
 
-
+<% if a==0 %>
+<p><strong><span>Average : </span></strong><%= a.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= a.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= a.round(2) %>&nbsp;msec</p>
+<hr class="line">
+<p><strong><span>Total Query :</span></strong><%= a %></p>
+<p><strong><span>Total Fail :</span></strong><%= a %></p>
+<p><strong><span>Availability Status :</span></strong><%= a %>%</p>
+<%else %>
 <p><strong><span>Average : </span></strong><%= (total/a).round(2) %>&nbsp;msec</p> 
+
 <p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
 <hr class="line">
 <p><strong><span>Total Query :</span></strong><%= a %></p>
 <p><strong><span>Total Fail :</span></strong><%= b %></p>
 <p><strong><span>Availability Status :</span></strong><%= ((a-b)/a)*100 %>%</p>
-
+<%end%>
 <%end%>
 
 <% if params[:typ1]=="yesterday" %>
@@ -165,9 +174,9 @@
 <%end%>
 <%end%>
 
-<p><strong><span>Average : </span></strong><%= (total/a).round(2)%>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
+<p><strong><span>Average : </span></strong><%= @pastweekAV.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @pastHigh.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @pastLow.round(2) %>&nbsp;msec</p>
 <hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @pastTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @pastFail %></p>
@@ -190,13 +199,13 @@
 <%end%>
 <%end%>
 
-<p><strong><span>Average : </span></strong><%= (total/a).round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
+<p><strong><span>Average : </span></strong><%= @pastmonthAV.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @pastmonthHigh.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @pastmonthLow.round(2) %>&nbsp;msec</p>
 <hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @pastmonthTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @pastmonthFail %></p>
-<p><strong><span>Availability Status :</span></strong><%=  %>%</p>
+<p><strong><span>Availability Status :</span></strong><%= @pastmonthAV  %>%</p>
 
 
 <%end%>
@@ -283,13 +292,15 @@
 <%end%>
 <% if params[:typ]=="month" %>
 <div class="graph3">
-
+<div id="chart-container9"></div>
+   <div id="chart-container10"></div>
+   <div id="chart-container11"></div>
+   <div id="chart-container12"></div>
 
 </div>
 <%end%>
 <% if params[:typ1]=="yesterday" %>
-<div class="graph4">
-
+<div class="donutchart">
 <div id="chart-container13" ></div>
 </div>
 <%end%>
@@ -546,7 +557,7 @@ FusionCharts.ready(function(){
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
+            "defaultCenterLabel": "Availability\n"+<%= @status1 %>+"%",
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "1",
             "showTooltip": "0",
@@ -586,7 +597,7 @@ FusionCharts.ready(function(){
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
+            "defaultCenterLabel": "Availability\n"+<%= @status2 %>+"%",
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "1",
             "showTooltip": "0",
@@ -626,7 +637,7 @@ FusionCharts.ready(function(){
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
+            "defaultCenterLabel": "Availability\n"+<%= @status3 %>+"%",
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "1",
             "showTooltip": "0",
@@ -666,7 +677,7 @@ FusionCharts.ready(function(){
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
+            "defaultCenterLabel": "Availability\n"+<%= @status4 %>+"%",
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "1",
             "showTooltip": "0",
@@ -706,7 +717,7 @@ FusionCharts.ready(function(){
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
+            "defaultCenterLabel": "Availability\n"+<%= @status5 %>+"%",
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "1",
             "showTooltip": "0",
@@ -746,7 +757,7 @@ FusionCharts.ready(function(){
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
+            "defaultCenterLabel": "Availability\n"+<%= @status6 %>+"%",
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "1",
             "showTooltip": "0",
@@ -786,7 +797,7 @@ FusionCharts.ready(function(){
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
+            "defaultCenterLabel": "Availability\n"+<%= @status7 %>+"%",
             "centerLabel": "Total $label: $value",
             "centerLabelBold": "1",
             "showTooltip": "0",
@@ -810,11 +821,204 @@ FusionCharts.ready(function(){
 
 /////MONTH/////////
 //////this week////
-
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container9',
+    width: '400',
+    height: '400',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "Availability Status",
+            "subCaption": "Week 1",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "1",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": "Availability\n"+<%= @status8 %>+"%",
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "1",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Success",
+            "value": <%= @success8-@fail8 %>
+        }, {
+            "label": "Fail",
+            "value": <%= @fail8 %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
 /////week3////
-
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container10',
+    width: '400',
+    height: '400',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "Availability Status",
+            "subCaption": "Week 2",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "1",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": "Availability\n"+<%= @status9 %>+"%",
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "1",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Success",
+            "value": <%= @success9-@fail9 %>
+        }, {
+            "label": "Fail",
+            "value": <%= @fail9 %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
 /////week2/////
-
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container11',
+    width: '400',
+    height: '400',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "Availability Status",
+            "subCaption": "Week 2",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "1",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": "Availability\n"+<%= @status10 %>+"%",
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "1",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Success",
+            "value": <%= @success10-@fail10 %>
+        }, {
+            "label": "Fail",
+            "value": <%= @fail10 %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
 /////week1//////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container12',
+    width: '400',
+    height: '400',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "Availability Status",
+            "subCaption": "Week 4",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "1",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": "Availability\n"+<%= @status11 %>+"%",
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "1",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Success",
+            "value": <%= @success11-@fail11 %>
+        }, {
+            "label": "Fail",
+            "value": <%= @fail11 %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
 
+//////yesterday/////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container13',
+    width: '450',
+    height: '400',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "Availability Status",
+            "subCaption": "Week 4",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "1",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": "Availability\n"+<%= @yesterdayAvai %>+"%",
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "1",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Success",
+            "value": <%= @yesterdayTotal-@yesterdayFail %>
+        }, {
+            "label": "Fail",
+            "value": <%= @yesterdayFail %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
 </script>
