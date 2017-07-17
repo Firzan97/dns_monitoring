@@ -29,7 +29,7 @@
 
 <% if params[:start]!=nil  && params[:end]!=nil%>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime+1.day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
-    colors: ['#99FFCC'], library: {chart: {zoomType: 'x'}}%> 
+    colors: ['#9CCB19'], library: {chart: {zoomType: 'x'}}%> 
 <%end%>
 
 
