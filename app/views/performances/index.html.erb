@@ -513,12 +513,12 @@ function(start, end, label) {
 
 
 
-$( "#typ" ).change(function() {
+$( "#typ" ).change("turbolinks:load",function() {
   
   Turbolinks.visit("?typ="+ this.value);
 });
 
-$( "#typ1" ).change(function() {
+$( "#typ1" ).change("turbolinks:load",function() {
   
   Turbolinks.visit("?typ1="+ this.value);
 });
@@ -1065,7 +1065,7 @@ FusionCharts.ready(function(){
     dataSource: {
         "chart": {
             "caption": "Availability Status",
-            "subCaption": "Week 4",
+            "subCaption": "Yesterday",
             "numberPrefix": " ",
             "showBorder": "0",
             "use3DLighting": "0",
