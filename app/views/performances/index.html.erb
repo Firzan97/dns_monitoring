@@ -174,13 +174,25 @@
 <%end%>
 <%end%>
 
-<p><strong><span>Average : </span></strong><%= @pastweekAV.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @pastHigh.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @pastLow.round(2) %>&nbsp;msec</p>
+<% if a==0 %>
+
+<p><strong><span>Average : </span></strong><%= a.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= a.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= a.round(2) %>&nbsp;msec</p>
+<hr class="line">
+<p><strong><span>Total Query :</span></strong><%= a %></p>
+<p><strong><span>Total Fail :</span></strong><%= a %></p>
+<p><strong><span>Availability Status :</span></strong><%= a %>%</p>
+<%else%>
+<p><strong><span>Average : </span></strong><%= (total/4).round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
 <hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @pastTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @pastFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @pastAvai %>%</p>
+
+<%end%>
 
 <%end%>
 <% if params[:typ1]=="pastmonth" %>
