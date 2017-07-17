@@ -58,19 +58,19 @@
 
 <% if params[:typ1]=="yesterday" %>
  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.yesterday.beginning_of_day).where('created_at <=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
-    colors: ['green'], library: {chart: {zoomType: 'x'}}%> 
+    colors: ['#FF7755'], library: {chart: {zoomType: 'x'}}%> 
  <%end%>
 
 <% if params[:typ1]=="pastweek" %>
 <%= area_chart @performance.group_by_day(:created_at).where('created_at <=?',6.day.ago).where('created_at >=?',14.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Weekly Performances',
-    colors: ['blue'], library: {chart: {zoomType: 'x'} }%>
+    colors: ['#97694F'], library: {chart: {zoomType: 'x'} }%>
 <%end%>
 
 <% if params[:typ1]=="pastmonth" %>
 <%= area_chart @performance.group_by_week(:created_at, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Monthly Performances',
-    colors: ['red'], library: {chart: {zoomType: 'x'} } %>
+    colors: ['#8B8682'], library: {chart: {zoomType: 'x'} } %>
 <%end%>
 </div>     
 
