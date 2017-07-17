@@ -98,6 +98,9 @@
 <p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @todayFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
+<div class="donutchart">
+<div id="chart-container1"></div>
+</div>
 <%end%>
 
 
@@ -261,30 +264,27 @@
 <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js?cacheBust=56"></script>
 
 
+</div>
 <% if params[:typ]=="today" %>
 <div class="donutchart">
-<div id="chart-container">FusionCharts XT will load here!</div>
+   <div id="chart-container1"></div>
 </div>
 <%end%>
 <% if params[:typ]=="week" %>
 <div class="graph2">
-<div id="chart-container2" ></div>
-<div id="chart-container3" ></div>
-<div id="chart-container4" ></div>
-<div id="chart-container5" ></div>
-<div id="chart-container6" ></div>
-<div id="chart-container7" ></div>
-<div id="chart-container8" ></div>
-
+   <div id="chart-container2"></div>
+   <div id="chart-container3"></div>
+   <div id="chart-container4"></div>
+   <div id="chart-container5"></div>
+   <div id="chart-container6"></div>
+   <div id="chart-container7"></div>
+   <div id="chart-container8"></div>
 </div>
 <%end%>
 <% if params[:typ]=="month" %>
 <div class="graph3">
 
-<div id="chart-container9" ></div>
-<div id="chart-container10" ></div>
-<div id="chart-container11" ></div>
-<div id="chart-container12" ></div>
+
 </div>
 <%end%>
 <% if params[:typ1]=="yesterday" %>
@@ -296,22 +296,13 @@
 <% if params[:typ1]=="pastweek" %>
 <div class="graph5">
 
-<div id="chart-container14" ></div>
-<div id="chart-container15" ></div>
-<div id="chart-container16" ></div>
-<div id="chart-container17" ></div>
-<div id="chart-container18" ></div>
-<div id="chart-container19" ></div>
-<div id="chart-container20" ></div>
+
 </div>
 <%end%>
 <% if params[:typ1]=="pastmonth" %>
 <div class="graph6">
 
-<div id="chart-container21" ></div>
-<div id="chart-container22" ></div>
-<div id="chart-container23" ></div>
-<div id="chart-container24" ></div>
+
 </div>
 <%end%>
 
@@ -493,41 +484,40 @@ Highcharts.chart('container0', {
 
 <script type="text/javascript">
 
-  FusionCharts.ready(function(){
+/////////TODAY////////////////
+   FusionCharts.ready(function(){
     var fusioncharts = new FusionCharts({
     type: 'doughnut2d',
-    renderAt: 'chart-container',
-    width: '500',
-    height: '400',
-    textSize: '50',
+    renderAt: 'chart-container1',
+    width: '450',
+    height: '450',
     dataFormat: 'json',
     dataSource: {
         "chart": {
-            "caption": "DNS Availability",
+            "caption": "Availability Status",
             "subCaption": "Today",
             "numberPrefix": " ",
             "showBorder": "0",
             "use3DLighting": "0",
-            "enableSmartLabels": "10",
+            "enableSmartLabels": "1",
             "startingAngle": "310",
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @status1%>,
-            "defaultCenterLabelSize": "20",
+            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
             "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
+            "centerLabelBold": "1",
             "showTooltip": "0",
             "decimals": "0",
             "useDataPlotColorForLabels": "1",
             "theme": "fint"
         },
         "data": [{
-            "label": "Fail",
-            "value": <%= @fail1 %>
-        }, {
             "label": "Success",
-            "value": <%= @success1-@fail1 %>
+            "value": <%= @todayTotal-@todayFail %>
+        }, {
+            "label": "Fail",
+            "value": <%= @todayFail %>
         }]
     }
 }
@@ -535,508 +525,296 @@ Highcharts.chart('container0', {
     fusioncharts.render();
 });
 
-  //////////////////////////////
-
-  FusionCharts.ready(function(){
+///////WEEKLY/////
+/////today//////
+FusionCharts.ready(function(){
     var fusioncharts = new FusionCharts({
     type: 'doughnut2d',
     renderAt: 'chart-container2',
-    width: '300',
-    height: '300',
-    textSize: '50',
+    width: '400',
+    height: '400',
     dataFormat: 'json',
     dataSource: {
         "chart": {
-            "caption": "DNS Availability",
+            "caption": "Availability Status",
             "subCaption": "Today",
             "numberPrefix": " ",
             "showBorder": "0",
             "use3DLighting": "0",
-            "enableSmartLabels": "10",
+            "enableSmartLabels": "1",
             "startingAngle": "310",
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @status1%>,
+            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
             "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
+            "centerLabelBold": "1",
             "showTooltip": "0",
             "decimals": "0",
             "useDataPlotColorForLabels": "1",
             "theme": "fint"
         },
         "data": [{
-            "label": "Fail",
-            "value": <%= @fail1 %>
-        }, {
             "label": "Success",
-            "value": <%= @success1-@fail1 %>
+            "value": <%= @todayTotal-@todayFail %>
+        }, {
+            "label": "Fail",
+            "value": <%= @todayFail %>
         }]
     }
 }
 );
     fusioncharts.render();
 });
-
-  ///////////////////////
-  FusionCharts.ready(function(){
+//////////day 6///////
+FusionCharts.ready(function(){
     var fusioncharts = new FusionCharts({
     type: 'doughnut2d',
     renderAt: 'chart-container3',
-    width: '300',
-    height: '300',
-    textSize: '50',
+    width: '400',
+    height: '400',
     dataFormat: 'json',
     dataSource: {
         "chart": {
-            "caption": "DNS Availability",
-            "subCaption": "Day 2",
-            "numberPrefix": " ",
-            "showBorder": "0",
-            "use3DLighting": "0",
-            "enableSmartLabels": "10",
-            "startingAngle": "310",
-            "showLabels": "0",
-            "showPercentValues": "1",
-            "showLegend": "1",
-            "defaultCenterLabel": <%= @status2%>,
-            "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
-            "showTooltip": "0",
-            "decimals": "0",
-            "useDataPlotColorForLabels": "1",
-            "theme": "fint"
-        },
-        "data": [{
-            "label": "Fail",
-            "value": <%= @fail2 %>
-        }, {
-            "label": "Success",
-            "value": <%= @success2-@fail2 %>
-        }]
-    }
-}
-);
-    fusioncharts.render();
-});
-
-  ////////////////////
-
-  FusionCharts.ready(function(){
-    var fusioncharts = new FusionCharts({
-    type: 'doughnut2d',
-    renderAt: 'chart-container4',
-    width: '300',
-    height: '300',
-    textSize: '50',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-            "caption": "DNS Availability",
-            "subCaption": "Day 3",
-            "numberPrefix": " ",
-            "showBorder": "0",
-            "use3DLighting": "0",
-            "enableSmartLabels": "10",
-            "startingAngle": "310",
-            "showLabels": "0",
-            "showPercentValues": "1",
-            "showLegend": "1",
-            "defaultCenterLabel": <%= @status3%>,
-            "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
-            "showTooltip": "0",
-            "decimals": "0",
-            "useDataPlotColorForLabels": "1",
-            "theme": "fint"
-        },
-        "data": [{
-            "label": "Fail",
-            "value": <%= @fail3 %>
-        }, {
-            "label": "Success",
-            "value": <%= @success3-@fail3 %>
-        }]
-    }
-}
-);
-    fusioncharts.render();
-});
-  //////////////////
-  FusionCharts.ready(function(){
-    var fusioncharts = new FusionCharts({
-    type: 'doughnut2d',
-    renderAt: 'chart-container5',
-    width: '300',
-    height: '300',
-    textSize: '50',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-            "caption": "DNS Availability",
-            "subCaption": "Day 4",
-            "numberPrefix": " ",
-            "showBorder": "0",
-            "use3DLighting": "0",
-            "enableSmartLabels": "10",
-            "startingAngle": "310",
-            "showLabels": "0",
-            "showPercentValues": "1",
-            "showLegend": "1",
-            "defaultCenterLabel": <%= @status4%>,
-            "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
-            "showTooltip": "0",
-            "decimals": "0",
-            "useDataPlotColorForLabels": "1",
-            "theme": "fint"
-        },
-        "data": [{
-            "label": "Fail",
-            "value": <%= @fail4 %>
-        }, {
-            "label": "Success",
-            "value": <%= @success4-@fail4 %>
-        }]
-    }
-}
-);
-    fusioncharts.render();
-});
-  /////////////////////
-  FusionCharts.ready(function(){
-    var fusioncharts = new FusionCharts({
-    type: 'doughnut2d',
-    renderAt: 'chart-container6',
-    width: '300',
-    height: '300',
-    textSize: '50',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-            "caption": "DNS Availability",
-            "subCaption": "Day 5",
-            "numberPrefix": " ",
-            "showBorder": "0",
-            "use3DLighting": "0",
-            "enableSmartLabels": "10",
-            "startingAngle": "310",
-            "showLabels": "0",
-            "showPercentValues": "1",
-            "showLegend": "1",
-            "defaultCenterLabel": <%= @status5 %>,
-            "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
-            "showTooltip": "0",
-            "decimals": "0",
-            "useDataPlotColorForLabels": "1",
-            "theme": "fint"
-        },
-        "data": [{
-            "label": "Fail",
-            "value": <%= @fail5 %>
-        }, {
-            "label": "Success",
-            "value": <%= @success5-@fail5 %>
-        }]
-    }
-}
-);
-    fusioncharts.render();
-});
-  //////////////
-  
-  FusionCharts.ready(function(){
-    var fusioncharts = new FusionCharts({
-    type: 'doughnut2d',
-    renderAt: 'chart-container7',
-    width: '300',
-    height: '300',
-    textSize: '50',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-            "caption": "DNS Availability",
+            "caption": "Availability Status",
             "subCaption": "Day 6",
             "numberPrefix": " ",
             "showBorder": "0",
             "use3DLighting": "0",
-            "enableSmartLabels": "10",
+            "enableSmartLabels": "1",
             "startingAngle": "310",
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @status6 %>,
+            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
             "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
+            "centerLabelBold": "1",
             "showTooltip": "0",
             "decimals": "0",
             "useDataPlotColorForLabels": "1",
             "theme": "fint"
         },
         "data": [{
-            "label": "Fail",
-            "value": <%= @fail6 %>
-        }, {
             "label": "Success",
-            "value": <%= @success6-@fail6 %>
+            "value": <%= @success2-@fail2 %>
+        }, {
+            "label": "Fail",
+            "value": <%= @fail2 %>
         }]
     }
 }
 );
     fusioncharts.render();
 });
-///////////////////
+//////////day 5///////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container4',
+    width: '400',
+    height: '400',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "Availability Status",
+            "subCaption": "Day 5",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "1",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "1",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Success",
+            "value": <%= @success3-@fail3 %>
+        }, {
+            "label": "Fail",
+            "value": <%= @fail3 %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
+//////////day 4///////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container5',
+    width: '400',
+    height: '400',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "Availability Status",
+            "subCaption": "Day 4",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "1",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "1",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Success",
+            "value": <%= @success4-@fail4 %>
+        }, {
+            "label": "Fail",
+            "value": <%= @fail4 %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
+//////////day 3///////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container6',
+    width: '400',
+    height: '400',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "Availability Status",
+            "subCaption": "Day 3",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "1",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "1",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Success",
+            "value": <%= @success5-@fail5 %>
+        }, {
+            "label": "Fail",
+            "value": <%= @fail5 %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
+//////////day 2///////
+FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container7',
+    width: '400',
+    height: '400',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "Availability Status",
+            "subCaption": "Day 2",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+            "enableSmartLabels": "1",
+            "startingAngle": "310",
+            "showLabels": "0",
+            "showPercentValues": "1",
+            "showLegend": "1",
+            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
+            "centerLabel": "Total $label: $value",
+            "centerLabelBold": "1",
+            "showTooltip": "0",
+            "decimals": "0",
+            "useDataPlotColorForLabels": "1",
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Success",
+            "value": <%= @success6-@fail6 %>
+        }, {
+            "label": "Fail",
+            "value": <%= @fail6 %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
+//////////day 1///////
 FusionCharts.ready(function(){
     var fusioncharts = new FusionCharts({
     type: 'doughnut2d',
     renderAt: 'chart-container8',
-    width: '300',
-    height: '300',
-    textSize: '50',
+    width: '400',
+    height: '400',
     dataFormat: 'json',
     dataSource: {
         "chart": {
-            "caption": "DNS Availability",
-            "subCaption": "Day 7",
+            "caption": "Availability Status",
+            "subCaption": "Day 1",
             "numberPrefix": " ",
             "showBorder": "0",
             "use3DLighting": "0",
-            "enableSmartLabels": "10",
+            "enableSmartLabels": "1",
             "startingAngle": "310",
             "showLabels": "0",
             "showPercentValues": "1",
             "showLegend": "1",
-            "defaultCenterLabel": <%= @status7 %>,
+            "defaultCenterLabel": "Availability\n"+<%= @todayAvai %>+"%",
             "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
+            "centerLabelBold": "1",
             "showTooltip": "0",
             "decimals": "0",
             "useDataPlotColorForLabels": "1",
             "theme": "fint"
         },
         "data": [{
-            "label": "Fail",
-            "value": <%= @fail7 %>
-        }, {
             "label": "Success",
             "value": <%= @success7-@fail7 %>
+        }, {
+            "label": "Fail",
+            "value": <%= @fail7 %>
         }]
     }
 }
 );
     fusioncharts.render();
 });
-////////
 
 
-//////
+/////MONTH/////////
+//////this week////
 
-FusionCharts.ready(function(){
-    var fusioncharts = new FusionCharts({
-    type: 'doughnut2d',
-    renderAt: 'chart-container9',
-    width: '300',
-    height: '300',
-    textSize: '50',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-            "caption": "DNS Availability",
-            "subCaption": "This Week",
-            "numberPrefix": " ",
-            "showBorder": "0",
-            "use3DLighting": "0",
-            "enableSmartLabels": "10",
-            "startingAngle": "310",
-            "showLabels": "0",
-            "showPercentValues": "1",
-            "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
-            "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
-            "showTooltip": "0",
-            "decimals": "0",
-            "useDataPlotColorForLabels": "1",
-            "theme": "fint"
-        },
-        "data": [{
-            "label": "Fail",
-            "value": <%= @todayFail %>
-        }, {
-            "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
-        }]
-    }
-}
-);
-    fusioncharts.render();
-});
-/////
-FusionCharts.ready(function(){
-    var fusioncharts = new FusionCharts({
-    type: 'doughnut2d',
-    renderAt: 'chart-container10',
-    width: '300',
-    height: '300',
-    textSize: '50',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-            "caption": "DNS Availability",
-            "subCaption": "Week 2",
-            "numberPrefix": " ",
-            "showBorder": "0",
-            "use3DLighting": "0",
-            "enableSmartLabels": "10",
-            "startingAngle": "310",
-            "showLabels": "0",
-            "showPercentValues": "1",
-            "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
-            "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
-            "showTooltip": "0",
-            "decimals": "0",
-            "useDataPlotColorForLabels": "1",
-            "theme": "fint"
-        },
-        "data": [{
-            "label": "Fail",
-            "value": <%= @todayFail %>
-        }, {
-            "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
-        }]
-    }
-}
-);
-    fusioncharts.render();
-});
-//////
-FusionCharts.ready(function(){
-    var fusioncharts = new FusionCharts({
-    type: 'doughnut2d',
-    renderAt: 'chart-container11',
-    width: '300',
-    height: '300',
-    textSize: '50',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-            "caption": "DNS Availability",
-            "subCaption": "Week 3",
-            "numberPrefix": " ",
-            "showBorder": "0",
-            "use3DLighting": "0",
-            "enableSmartLabels": "10",
-            "startingAngle": "310",
-            "showLabels": "0",
-            "showPercentValues": "1",
-            "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
-            "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
-            "showTooltip": "0",
-            "decimals": "0",
-            "useDataPlotColorForLabels": "1",
-            "theme": "fint"
-        },
-        "data": [{
-            "label": "Fail",
-            "value": <%= @todayFail %>
-        }, {
-            "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
-        }]
-    }
-}
-);
-    fusioncharts.render();
-});
-////
-FusionCharts.ready(function(){
-    var fusioncharts = new FusionCharts({
-    type: 'doughnut2d',
-    renderAt: 'chart-container12',
-    width: '300',
-    height: '300',
-    textSize: '50',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-            "caption": "DNS Availability",
-            "subCaption": "Week 4",
-            "numberPrefix": " ",
-            "showBorder": "0",
-            "use3DLighting": "0",
-            "enableSmartLabels": "10",
-            "startingAngle": "310",
-            "showLabels": "0",
-            "showPercentValues": "1",
-            "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
-            "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
-            "showTooltip": "0",
-            "decimals": "0",
-            "useDataPlotColorForLabels": "1",
-            "theme": "fint"
-        },
-        "data": [{
-            "label": "Fail",
-            "value": <%= @todayFail %>
-        }, {
-            "label": "Success",
-            "value": <%= @todayTotal-@todayFail %>
-        }]
-    }
-}
-);
-    fusioncharts.render();
-});
-///////
-FusionCharts.ready(function(){
-    var fusioncharts = new FusionCharts({
-    type: 'doughnut2d',
-    renderAt: 'chart-container13',
-    width: '300',
-    height: '300',
-    textSize: '50',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-            "caption": "DNS Availability",
-            "subCaption": "Yesterday",
-            "numberPrefix": " ",
-            "showBorder": "0",
-            "use3DLighting": "0",
-            "enableSmartLabels": "10",
-            "startingAngle": "310",
-            "showLabels": "0",
-            "showPercentValues": "1",
-            "showLegend": "1",
-            "defaultCenterLabel": <%= @availability%>,
-            "centerLabel": "Total $label: $value",
-            "centerLabelBold": "6",
-            "showTooltip": "0",
-            "decimals": "0",
-            "useDataPlotColorForLabels": "1",
-            "theme": "fint"
-        },
-        "data": [{
-            "label": "Fail",
-            "value": <%= @yesterdayFail %>
-        }, {
-            "label": "Success",
-            "value": <%= @yesterdayTotal-@yesterdayFail %>
-        }]
-    }
-}
-);
-    fusioncharts.render();
-});
+/////week3////
+
+/////week2/////
+
+/////week1//////
+
 </script>
-<style>
-
-</style>

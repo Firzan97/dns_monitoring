@@ -1,4 +1,3 @@
-
 <div class="main">
 
 <h1>DNS Details </h1>
@@ -68,6 +67,34 @@
          
  </table>
 </div>
+
+
+<table align="center" style="text-align: center;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Query&nbsp;</th>
+      <th style="text-align: center">Answer&nbsp;</th>
+      <th style="text-align: center">Authority&nbsp;</th>
+      <th style="text-align: center">Additional&nbsp;</th>
+      <th style="text-align: center">udp&nbsp;</th>
+      <th style="text-align: center">version&nbsp;</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td >&nbsp;<%= @questions.query %></td>
+        <td >&nbsp;<%= @questions.answer %></td>
+        <td >&nbsp;<%= @questions.authority %></td>
+        <td >&nbsp;<%= @questions.additional %></td>
+        <td >&nbsp;<%= @questions.udp %></td>
+        <td >&nbsp;<%= @questions.version %></td>
+   
+        </tr>
+  </tbody>
+</table>
+
 
 
 <h3 style="text-align: center; margin-top: 50px;">DNS Answer </h3>

@@ -42,7 +42,7 @@ class PerformancesController < ApplicationController
         @fail7=@question.performances.where(responsetime: -1 ).where('created_at >=?',7.day.ago).where('created_at <=?',6.day.ago).count
 
        # @status1=((@success1-@fail1)/@success1)*100
-        #@status2=((@success2-@fail2)/@success2)*100
+       # @status2=((@success2-@fail2)/@success2)*100
        # @status3=((@success3-@fail3)/@success3)*100
        # @status4=((@success4-@fail4)/@success4)*100
        # @status5=((@success5-@fail5)/@success5)*100
@@ -74,11 +74,13 @@ class PerformancesController < ApplicationController
         @pastLow=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',6.day.ago).minimum(:responsetime)
   
         ###today### 
+
        @todayTotal=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).count
        @todayAV=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).average(:responsetime)
        @todayHigh=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).maximum(:responsetime)
        @todayLow=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).minimum(:responsetime)
        @todayFail=@question.performances.where(responsetime: -1 ).where('created_at >=?',DateTime.now.beginning_of_day).count
+       @todayAvai=((@todayTotal-@todayFail)/@todayTotal)*100
 
        ###pastmonth##
        @pastmonthTotal=@question.performances.group_by_week(:created_at, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count

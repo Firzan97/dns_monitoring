@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
- 
+    @questions = Question.find(params[:id])
     @answers = @question.answers.all
   end
 
@@ -42,21 +42,21 @@ class QuestionsController < ApplicationController
     value2 = %x[ dig #{namedns} #{type} | grep "SERVER:" ]
     c,d=value2.split(": ")
     e,f=d.split("#")
-    query1=%x[dig#{namedns} #{type} | grep "QUERY:"]
+    query1=%x[dig #{namedns} #{type} | grep "QUERY:"]
     q1,q2,q3,q4=query1.split(",")
-    ###query q5,q6=q1.split(": ")
-    ###answer q7,q8=q2.split(": ")
-    ###authority q9,q10=q3.split(": ")
-    ###additional q11,q12=q4.split(": ")
-    query2=query1=%x[dig#{namedns} #{type} | grep "version:"]
+    q5,q6,q66=q1.split(": ")
+    q7,q8=q2.split(": ")
+    q9,q10=q3.split(": ")
+    q11,q12=q4.split(": ")
+    query2=query1=%x[dig #{namedns} #{type} | grep "version:"]
     q21,q22=query2.split(",")
-    ###version q23,q24,q25=q21.split(": ")
-    ###udp q26,q27,q28=q22.split(": ")
+    q23,q24,q25=q21.split(": ")
+    q26,q27,q28=q22.split(": ")
     
     if server.blank?
-    @question=current_user.questions.create(dnsname:  namedns, recordtype:  type, server: e, timeperiod: time, query: query1)
+    @question=current_user.questions.create(dnsname:  namedns, recordtype:  type, server: server, timeperiod: time, query: q66, answer: q8, authority: q10, additional: q12, version: q25, udp: q27)
     else
-    @question=current_user.questions.create(dnsname:  namedns, recordtype:  type, server: server, timeperiod: time, query: q6)
+    @question=current_user.questions.create(dnsname:  namedns, recordtype:  type, server: server, timeperiod: time,query: q66, answer: q8, authority: q10, additional: q12, version: q25, udp: q27)
     end
     
         
