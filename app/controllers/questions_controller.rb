@@ -56,7 +56,7 @@ class QuestionsController < ApplicationController
     if server.blank?
     @question=current_user.questions.create(dnsname:  namedns, recordtype:  type, server: server, timeperiod: time, query: q66, answer: q8, authority: q10, additional: q12, version: q25, udp: q27)
     else
-    @question=current_user.questions.create(dnsname:  namedns, recordtype:  type, server: server, timeperiod: time,query: q66, answer: q8, authority: q10, additional: q12, version: q25, udp: q27)
+    @question=current_user.questions.create(dnsname:  namedns, recordtype:  type, server: server, timeperiod: time, query: q66, answer: q8, authority: q10, additional: q12, version: q25, udp: q27)
     end
     
         
