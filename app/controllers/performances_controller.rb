@@ -160,30 +160,67 @@ class PerformancesController < ApplicationController
           @yesterdayLow=0
         end
         ####pastweek####
-        @pastweekAV=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',6.day.ago).average(:responsetime)
-        if @pastweekAV==nil
-          @pastweekAV=0
-        end
-
-        @pastTotal=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',6.day.ago).count
-
-        @pastFail=@question.performances.where(responsetime: -1 ).where('created_at >=?',14.day.ago).where('created_at <=?',6.day.ago).count
         
-        if @pastTotal==0
-           @pastAvai=0
+        @pastTotal1=@question.performances.where('created_at >=?',13.day.ago).where('created_at <=?',12.day.ago).count
+        @pastTotal2=@question.performances.where('created_at >=?',12.day.ago).where('created_at <=?',11.day.ago).count
+        @pastTotal3=@question.performances.where('created_at >=?',11.day.ago).where('created_at <=?',10.day.ago).count
+        @pastTotal4=@question.performances.where('created_at >=?',10.day.ago).where('created_at <=?',9.day.ago).count
+        @pastTotal5=@question.performances.where('created_at >=?',9.day.ago).where('created_at <=?',8.day.ago).count
+        @pastTotal6=@question.performances.where('created_at >=?',8.day.ago).where('created_at <=?',7.day.ago).count
+        @pastTotal7=@question.performances.where('created_at >=?',7.day.ago).where('created_at <=?',6.day.ago).count
+
+        @pastFail1=@question.performances.where(responsetime: -1 ).where('created_at >=?',13.day.ago).where('created_at <=?',12.day.ago).count
+        @pastFail2=@question.performances.where(responsetime: -1 ).where('created_at >=?',12.day.ago).where('created_at <=?',11.day.ago).count
+        @pastFail3=@question.performances.where(responsetime: -1 ).where('created_at >=?',11.day.ago).where('created_at <=?',10.day.ago).count
+        @pastFail4=@question.performances.where(responsetime: -1 ).where('created_at >=?',10.day.ago).where('created_at <=?',9.day.ago).count
+        @pastFail5=@question.performances.where(responsetime: -1 ).where('created_at >=?',9.day.ago).where('created_at <=?',8.day.ago).count
+        @pastFail6=@question.performances.where(responsetime: -1 ).where('created_at >=?',8.day.ago).where('created_at <=?',7.day.ago).count
+        @pastFail7=@question.performances.where(responsetime: -1 ).where('created_at >=?',7.day.ago).where('created_at <=?',6.day.ago).count
+        
+
+        if @pastTotal1==0
+           @pastAvai1=0
          else
-          @pastAvai=((@pastTotal-@pastFail)/@pastTotal)*100
-        end
-        
-        @pastHigh=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',6.day.ago).maximum(:responsetime)
-        if @pastHigh==nil
-          @pastHigh=0
+          @pastAvai1=((@pastTotal1-@pastFail1)/@pastTotal1)*100
         end
 
-        @pastLow=@question.performances.where('created_at >=?',14.day.ago).where('created_at <=?',6.day.ago).minimum(:responsetime)
-        if @pastLow==nil
-          @pastLow=0
+        if @pastTotal2==0
+           @pastAvai2=0
+         else
+          @pastAvai2=((@pastTotal2-@pastFail2)/@pastTotal2)*100
         end
+
+        if @pastTotal3==0
+           @pastAvai3=0
+         else
+          @pastAvai3=((@pastTotal3-@pastFail3)/@pastTotal3)*100
+        end
+
+        if @pastTotal4==0
+           @pastAvai4=0
+         else
+          @pastAvai4=((@pastTotal4-@pastFail4)/@pastTotal4)*100
+        end
+
+        if @pastTotal5==0
+           @pastAvai5=0
+         else
+          @pastAvai5=((@pastTotal5-@pastFail5)/@pastTotal5)*100
+        end
+
+        if @pastTotal6==0
+           @pastAvai6=0
+         else
+          @pastAvai6=((@pastTotal6-@pastFail6)/@pastTotal6)*100
+        end
+
+        if @pastTotal7==0
+           @pastAvai7=0
+         else
+          @pastAvai7=((@pastTotal7-@pastFail7)/@pastTotal7)*100
+        end
+        
+      
         ###today### 
 
        @todayTotal=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).count
@@ -199,7 +236,15 @@ class PerformancesController < ApplicationController
 
        ###pastmonth##
        @pastmonthTotal=@question.performances.where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count
+       @pastmonthTotal=@question.performances.where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count
+       @pastmonthTotal=@question.performances.where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count
+       @pastmonthTotal=@question.performances.where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count
        @pastmonthFail=@question.performances.where(responsetime: -1 ).where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count
+       @pastmonthFail=@question.performances.where(responsetime: -1 ).where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count
+       @pastmonthFail=@question.performances.where(responsetime: -1 ).where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count
+       @pastmonthFail=@question.performances.where(responsetime: -1 ).where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).count
+       
+
        
        if @pastmonthTotal==0
         @pastmonthAvai=0
@@ -207,20 +252,7 @@ class PerformancesController < ApplicationController
          @pastmonthAvai=((@pastmonthTotal-@pastmonthFail)/@pastmonthTotal)*100
        end
        
-       @pastmonthHigh=@question.performances.where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).maximum(:responsetime)
-       if @pastmonthHigh==nil
-          @pastmonthHigh=0
-        end
-
-       @pastmonthLow=@question.performances.where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).minimum(:responsetime)
-       if @pastmonthLow==nil
-          @pastmonthLow=0
-        end
-
-       @pastmonthAV=@question.performances.where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).average(:responsetime)
-        if @pastmonthAV==nil
-          @pastmonthAV=0
-        end
+     
 
   end
 
