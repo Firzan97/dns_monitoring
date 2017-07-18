@@ -131,7 +131,7 @@
 <p><strong><span>Total Fail :</span></strong><%= @todayTotal%></p>
 <p><strong><span>Availability Status :</span></strong><%= @todayTotal %>%</p>
 <div class="donutchart">
-<div id="chart-container1"></div>
+<div id="chart-container0"></div>
 </div>
 <%else%>
  <p><strong><span>Average : </span></strong><%= @todayAV.round(2) %>&nbsp;msec</p> 
@@ -142,7 +142,7 @@
 <p><strong><span>Total Fail :</span></strong><%= @todayFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
 <div class="donutchart">
-<div id="chart-container1"></div>
+<div id="chart-container0"></div>
 </div>
 <%end%>
 <%end%>
@@ -635,6 +635,46 @@ Highcharts.chart('container0', {
 </script>
 
 <script type="text/javascript">
+
+ FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+    type: 'doughnut2d',
+    renderAt: 'chart-container0',
+    width: '450',
+    height: '450',
+    dataFormat: 'json',
+    dataSource: {
+        "chart": {
+            "caption": "Availability Status",
+            "subCaption": "Today",
+            "numberPrefix": " ",
+            "showBorder": "0",
+            "use3DLighting": "0",
+           
+            "startingAngle": "310",
+            "showLabels": "0",
+          
+            "showLegend": "1",
+            "defaultCenterLabel": "Availability\n"+<%= @todayAvai.round(2) %>+"%",
+            "centerLabel": "$label:\n $value",
+            "centerLabelBold": "1",
+            "showTooltip": "0",
+            "decimals": "0",
+           
+            "theme": "fint"
+        },
+        "data": [{
+            "label": "Success",
+            "value": <%= @todayTotal-@todayFail %>
+        }, {
+            "label": "Fail",
+            "value": <%= @todayFail %>
+        }]
+    }
+}
+);
+    fusioncharts.render();
+});
 
 /////////TODAY////////////////
    FusionCharts.ready(function(){
