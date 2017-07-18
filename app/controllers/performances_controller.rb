@@ -160,7 +160,7 @@ class PerformancesController < ApplicationController
           @yesterdayHigh=0
         end
 
-        @yesterdayLow=@question.performances.where('created_at >=?',DateTime.yesterday.beginning_of_day).where('created_at <=?',DateTime.now.beginning_of_day).minimum(:responsetime)
+        @yesterdayLow=@question.performances.where('created_at >=?',DateTime.yesterday.beginning_of_day).where('created_at <=?',DateTime.now.beginning_of_day).where.not(responsetime: -1 ).minimum(:responsetime)
          if @yesterdayLow==nil
           @yesterdayLow=0
         end
@@ -231,7 +231,7 @@ class PerformancesController < ApplicationController
        @todayTotal=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).count
        @todayAV=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).average(:responsetime)
        @todayHigh=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).maximum(:responsetime)
-       @todayLow=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).minimum(:responsetime)
+       @todayLow=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).where.not(responsetime: -1 ).minimum(:responsetime)
        @todayFail=@question.performances.where(responsetime: -1 ).where('created_at >=?',DateTime.now.beginning_of_day).count
        if @todayTotal==0
         @todayAvai=0
