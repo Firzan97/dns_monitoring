@@ -34,7 +34,7 @@ class PerformancesController < ApplicationController
         if @weeksuccess==0
            @weekAvailability=0
         else
-           @weekAvailability=((@weeksuccess-@weekfail)/@weeksuccess)*100
+           @weekAvailability=((@weeksuccess.round(2)-@weekfail.round(2))/@weeksuccess.round(2))*100
         end
         
         @success8=@question.performances.where('created_at >=?',1.week.ago).count
@@ -62,67 +62,67 @@ class PerformancesController < ApplicationController
          
         else
           
-          @status1=((@success1-@fail1)/@success1)*100
+          @status1=((@success1.round(2)-@fail1.round(2))/@success1.round(2))*100
         end
 
         if @success2==0
          @status2=0
         else
-          @status2=((@success2-@fail2)/@success2)*100
+          @status2=((@success2.round(2)-@fail2.round(2))/@success2.round(2))*100
         end
 
         if @success3==0
          @status3=0
         else
-          @status3=((@success3-@fail3)/@success3)*100
+          @status3=((@success3.round(2)-@fail3.round(2))/@success3.round(2))*100
         end
 
         if @success4==0
          @status4=0
         else
-          @status4=((@success4-@fail4)/@success4)*100
+          @status4=((@success4.round(2)-@fail4.round(2))/@success4.round(2))*100
         end
 
         if @success5==0
          @status5=0
         else
-          @status5=((@success5-@fail5)/@success5)*100
+          @status5=((@success5.round(2)-@fail5.round(2))/@success5.round(2))*100
         end
 
         if @success6==0
          @status6=0
         else
-          @status6=((@success6-@fail6)/@success6)*100
+          @status6=((@success6.round(2)-@fail6.round(2))/@success6.round(2))*100
         end
 
         if @success7==0
          @status7=0
         else
-          @status7=((@success7-@fail7)/@success7)*100
+          @status7=((@success7.round(2)-@fail7.round(2))/@success7.round(2))*100
         end
 
         if @success8==0
          @status8=0
         else
-          @status8=((@success8-@fail8)/@success8)*100
+          @status8=((@success8.round(2)-@fail8.round(2))/@success8.round(2))*100
         end
 
         if @success9==0
          @status9=0
         else
-          @status9=((@success9-@fail9)/@success9)*100
+          @status9=((@success9.round(2)-@fail9.round(2))/@success9.round(2))*100
         end
 
         if @success10==0
          @status10=0
         else
-          @status10=((@success10-@fail10)/@success10)*100
+          @status10=((@success10.round(2)-@fail10.round(2))/@success10.round(2))*100
         end
 
         if @success11==0
          @status11=0
         else
-          @status11=((@success11-@fail11)/@success11)*100
+          @status11=((@success11.round(2)-@fail11.round(2))/@success11.round(2))*100
         end
 
         #####################
@@ -186,43 +186,43 @@ class PerformancesController < ApplicationController
         if @pastTotal1==0
            @pastAvai1=0
          else
-          @pastAvai1=((@pastTotal1-@pastFail1)/@pastTotal1)*100
+          @pastAvai1=((@pastTotal1.round(2)-@pastFail1.round(2))/@pastTotal1.round(2))*100
         end
 
         if @pastTotal2==0
            @pastAvai2=0
          else
-          @pastAvai2=((@pastTotal2-@pastFail2)/@pastTotal2)*100
+          @pastAvai2=((@pastTotal2.round(2)-@pastFail2.round(2))/@pastTotal2.round(2))*100
         end
 
         if @pastTotal3==0
            @pastAvai3=0
          else
-          @pastAvai3=((@pastTotal3-@pastFail3)/@pastTotal3)*100
+          @pastAvai3=((@pastTotal3.round(2)-@pastFail3.round(2))/@pastTotal3.round(2))*100
         end
 
         if @pastTotal4==0
            @pastAvai4=0
          else
-          @pastAvai4=((@pastTotal4-@pastFail4)/@pastTotal4)*100
+          @pastAvai4=((@pastTotal4.round(2)-@pastFail4.round(2))/@pastTotal4.round(2))*100
         end
 
         if @pastTotal5==0
            @pastAvai5=0
          else
-          @pastAvai5=((@pastTotal5-@pastFail5)/@pastTotal5)*100
+          @pastAvai5=((@pastTotal5.round(2)-@pastFail5.round(2))/@pastTotal5.round(2))*100
         end
 
         if @pastTotal6==0
            @pastAvai6=0
          else
-          @pastAvai6=((@pastTotal6-@pastFail6)/@pastTotal6)*100
+          @pastAvai6=((@pastTotal6.round(2)-@pastFail6.round(2))/@pastTotal6.round(2))*100
         end
 
         if @pastTotal7==0
            @pastAvai7=0
          else
-          @pastAvai7=((@pastTotal7-@pastFail7)/@pastTotal7)*100
+          @pastAvai7=((@pastTotal7.round(2)-@pastFail7.round(2))/@pastTotal7.round(2))*100
         end
         
       
@@ -236,7 +236,7 @@ class PerformancesController < ApplicationController
        if @todayTotal==0
         @todayAvai=0
        else
-       @todayAvai=((@todayTotal-@todayFail)/@todayTotal)*100
+       @todayAvai=((@todayTotal.round(2)-@todayFail.round(2))/@todayTotal.round(2))*100
        end
 
        ###pastmonth##
@@ -254,7 +254,7 @@ class PerformancesController < ApplicationController
        if @pastmonthTotal==0
         @pastmonthAvai=0
       else
-         @pastmonthAvai=((@pastmonthTotal-@pastmonthFail)/@pastmonthTotal)*100
+         @pastmonthAvai=((@pastmonthTotal.round(2)-@pastmonthFail.round(2))/@pastmonthTotal.round(2))*100
        end
        
      
