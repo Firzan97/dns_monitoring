@@ -1,5 +1,6 @@
 
 <!-- Include Required Prerequisites -->
+
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
@@ -28,6 +29,15 @@
 <hr>
 
 <% if params[:start]!=nil  && params[:end]!=nil%>
+<% if params[:start]==params[:end] %>
+<div class="title">
+<h1 style="margin-left: 440px; font-family: Media Gothic; "><b><%= params[:start] %> Performances</b></h1>
+</div>
+<%else%>
+<div class="title">
+<h1 style="margin-left: 350px; font-family: Media Gothic;"><b><%= params[:start] %> to <%= params[:end] %> Performances</b></h1>
+</div>
+<%end%>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime+1.day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
     colors: ['#9CCB19'], library: {chart: {zoomType: 'x'}}%> 
 <%end%>
@@ -35,39 +45,60 @@
 
 
 <%if params[:typ]!="week" && params[:typ]!="today" && params[:typ]!="month" && params[:typ]!="stop" && params[:typ1]!="yesterday" && params[:typ1]!="pastweek" && params[:typ1]!="pastmonth" && params[:start]==nil && params[:end]==nil%>
-
+<div class="title">
+ <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Today Performances</b></h1>
+ </div>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',colors: ['#8E2323'], library: {chart: {zoomType: 'x'} }%> 
 <%end%>
 
 <% if params[:typ]=="week" %>
+<div class="title">
+<h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Week Performances</b></h1>
+</div>
  <%= area_chart @performance.group_by_day(:created_at,last: 7).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Weekly Performances',
     colors: ['#CCCC99'], library: {chart: {zoomType: 'x'}}%>
 <%end%>
 
 <% if params[:typ]=="month" %>
+<div class="title">
+<h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Month Performances</b></h1>
+</div>
  <%= area_chart @performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Monthly Performances',
     colors: ['#FFCC99'], library: {chart: {zoomType: 'x'} } %>
 <%end%>
 
 <% if params[:typ]=="today" %>
+<div class="title">
+ <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Today Performances</b></h1>
+ </div>
  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances', 
-    colors: ['#8E2323'], library: {chart: {zoomType: 'x'}}%> 
+    colors: ['#8E2323'], library: {chart: {zoomType: 'x'}}%>
+
 <%end%>
 
 <% if params[:typ1]=="yesterday" %>
+<div class="title">
+<h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Yesterday Performances</b></h1>
+</div>
  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.yesterday.beginning_of_day).where('created_at <=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
     colors: ['#FF7755'], library: {chart: {zoomType: 'x'}}%> 
  <%end%>
 
 <% if params[:typ1]=="pastweek" %>
+<div class="title">
+<h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Last Week Performances</b></h1>
+</div>
 <%= area_chart @performance.group_by_day(:created_at).where('created_at <=?',6.day.ago).where('created_at >=?',14.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Weekly Performances',
     colors: ['#97694F'], library: {chart: {zoomType: 'x'} }%>
 <%end%>
 
 <% if params[:typ1]=="pastmonth" %>
+<div class="title">
+<h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Last Month Performances</b></h1>
+</div>
 <%= area_chart @performance.group_by_week(:created_at, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Monthly Performances',
     colors: ['#8B8682'], library: {chart: {zoomType: 'x'} } %>
@@ -247,6 +278,15 @@
 
 <%end%>
 <% if params[:typ]=="today" %>
+<% if @todayTotal==0 %>
+<p><strong><span>Average : </span></strong><%= @todayTotal %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @todayTotal %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @todayTotal %>&nbsp;msec</p>
+<hr class="line">
+<p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
+<p><strong><span>Total Fail :</span></strong><%= @todayTotal %></p>
+<p><strong><span>Availability Status :</span></strong><%= @todayTotal %>%</p>
+<%else%>
 <p><strong><span>Average : </span></strong><%= @todayAV.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= @todayHigh.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= @todayLow.round(2) %>&nbsp;msec</p>
@@ -254,6 +294,8 @@
 <p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @todayFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
+<%end%>
+
 
 
 <%end%>
@@ -317,6 +359,7 @@
 <% if params[:typ]=="today" %>
 <div class="donutchart">
    <div id="chart-container1"></div>
+   
 </div>
 <%end%>
 <% if params[:typ]=="week" %>
@@ -370,6 +413,10 @@
 
 <head>
 <style>
+.title{
+
+  box-shadow: 0 15px 20px -15px #C0C0C0;
+}
 .line {
   border:none;
   
@@ -472,6 +519,8 @@ hr {
 <%= will_paginate @performances %>
 <%= link_to 'Back', questions_path %>
 <script>
+
+
 
 $('input[name="daterange"]').daterangepicker(
 {
