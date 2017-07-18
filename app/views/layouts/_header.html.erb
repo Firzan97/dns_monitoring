@@ -30,7 +30,29 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
 
 }
 
+#nav
+ {
 
+ background-color:#262626;
+ width:100%;
+ height:50px;
+ box-shadow: 0px 1px 50px #5E5E5E;
+ position:fixed;
+ bottom:0px;
+ overflow: hidden!important;
+ z-index: 9999!important;
+}
+
+.fa-twitter-square li:hover{
+  background-color:#1ac6ff!important;
+  color: white !important;
+   transition:0s!important;
+}
+.fa-twitter-square a:hover{
+  background-color:#1ac6ff!important;
+  color: white !important;
+   transition:0s!important;
+}
 
 </style>
   <title>DNS Monitoring</title>
@@ -39,8 +61,22 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+
+<div id="nav">
+<strong><ul class="nav navbar-nav navbar-left">
+
+     <li style="margin-top: 15px; margin-left: 10px;color:#FFFF81;"><span class="glyphicon glyphicon-phone"></span>&nbsp; 014-536 6430&nbsp;</li>
+     <li style="margin-top: 15px; margin-left: 50px;color:#FFFF81;"><span class="glyphicon glyphicon-envelope"></span>&nbsp; dnsmonitor@gmail.com</li>
+     <li style="margin-left: 100px;color:#FFFF81; margin-bottom: 50px;"><a href="#"><i class="fa fa-facebook-official" aria-hidden="true" style="font-size:30px;"></i></a></li>
+      <li style="margin-left: 20px;color:#FFFF81; margin-bottom: 50px;"><a href="#"><i class="fa fa-twitter-square" aria-hidden="true" style="font-size:30px;"></i></a></li>
+    </ul>
+    </strong> 
+
+</div>
+
 
 <% if !user_signed_in? %>
 <nav class="navbar navbar-default">
@@ -84,7 +120,7 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
     </strong>
     <strong><ul class="nav navbar-nav navbar-right">
 
-     <li style="margin-top: 15px; color:#FFFF81;">Welcome&nbsp;<%=  current_user.email%></li>
+     <li style="margin-top: 15px; color:#FFFF81;"><span class="glyphicon glyphicon-user"></span> Welcome&nbsp;<%=  current_user.email%></li>
      <li><%= link_to("Log Out",destroy_user_session_path, :method =>:delete)%></li>
     </ul>
     </strong> 
