@@ -31,7 +31,12 @@ class PerformancesController < ApplicationController
         @success7=@question.performances.where('created_at >=?',6.day.ago).where('created_at <=?',5.day.ago).count
         @weeksuccess=@question.performances.where('created_at >=?',7.day.ago).count
         @weekfail=@question.performances.where(responsetime: -1 ).where('created_at >=?',7.day.ago).count
-        @weekAvailability=((@weeksuccess-@weekfail)/@weeksuccess)*100
+        if @weeksuccess==0
+           @weekAvailability=0
+        else
+           @weekAvailability=((@weeksuccess-@weekfail)/@weeksuccess)*100
+        end
+        
         @success8=@question.performances.where('created_at >=?',1.week.ago).count
         @success9=@question.performances.where('created_at >=?',2.week.ago).where('created_at <=?',1.week.ago).count
         @success10=@question.performances.where('created_at >=?',3.week.ago).where('created_at <=?',2.week.ago).count

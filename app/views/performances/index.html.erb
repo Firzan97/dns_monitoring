@@ -91,7 +91,19 @@
 <p><strong><span>Availability Status :</span>-</strong></p>
 <%else%>
 <% if params[:typ]!="today" && params[:typ]!="week"  && params[:typ]!="month" && params[:typ1]!="yesterday" && params[:typ1]!="pastweek" && params[:typ1]!="pastmonth" && params[:start]==nil  && params[:end]==nil %>
-<p><strong><span>Average : </span></strong><%= @todayAV.round(2) %>&nbsp;msec</p> 
+<% if @todayTotal==0 %>
+ <p><strong><span>Average : </span></strong><%= @todayTotal.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Highest  :</span></strong><%= @todayTotal.round(2) %>&nbsp;msec</p> 
+<p><strong><span>Lowest :</span></strong><%= @todayTotal.round(2) %>&nbsp;msec</p>
+<hr class="line">
+<p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
+<p><strong><span>Total Fail :</span></strong><%= @todayTotal%></p>
+<p><strong><span>Availability Status :</span></strong><%= @todayTotal %>%</p>
+<div class="donutchart">
+<div id="chart-container1"></div>
+</div>
+<%else%>
+ <p><strong><span>Average : </span></strong><%= @todayAV.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= @todayHigh.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= @todayLow.round(2) %>&nbsp;msec</p>
 <hr class="line">
@@ -101,6 +113,7 @@
 <div class="donutchart">
 <div id="chart-container1"></div>
 </div>
+<%end%>
 <%end%>
 
 
@@ -308,81 +321,45 @@
 <%end%>
 <% if params[:typ]=="week" %>
 <div class="graph2">
-   <% if @success1!=0 %>
    <div id="chart-container2"></div>
-   <%end%>
-    <% if @success2!=0 %>
    <div id="chart-container3"></div>
-   <%end%>
-    <% if @success3!=0 %>
    <div id="chart-container4"></div>
-   <%end%>
-     <% if @success4!=0 %>
    <div id="chart-container5"></div>
-   <%end%>
-    <% if @success5!=0 %>
    <div id="chart-container6"></div>
-   <%end%>
-    <% if @success6!=0 %>
    <div id="chart-container7"></div>
-   <%end%>
-    <% if @success7!=0 %>
    <div id="chart-container8"></div>
-   <%end%>
 </div>
 <%end%>
 <% if params[:typ]=="month" %>
 <div class="graph3">
-<% if @success8!=0 %>
    <div id="chart-container9"></div>
-<%end%>
-<% if @success9!=0 %>
    <div id="chart-container10"></div>
-<%end%>
-<% if @success10!=0 %>
    <div id="chart-container11"></div>
-<%end%>
-<% if @success11!=0 %>
    <div id="chart-container12"></div>
-<%end%>
-
 </div>
 <%end%>
+
 <% if params[:typ1]=="yesterday" %>
 <div class="donutchart">
-<% if @yesterdayTotal!=0 %>
 <div id="chart-container13" ></div>
-<%end%>
 </div>
 <%end%>
+
 <% if params[:typ1]=="pastweek" %>
 <div class="graph2">
-<% if @pastTotal1!=0 %>
 <div id="chart-container14" ></div>
-<%end%>
-<% if @pastTotal2!=0 %>
 <div id="chart-container15" ></div>
-<%end%>
-<% if @pastTotal3!=0 %>
 <div id="chart-container16" ></div>
-<%end%>
-<% if @pastTotal4!=0 %>
 <div id="chart-container17" ></div>
-<%end%>
-<% if @pastTotal5!=0 %>
 <div id="chart-container18" ></div>
-<%end%>
-<% if @pastTotal6!=0 %>
 <div id="chart-container19" ></div>
-<%end%>
-<% if @pastTotal7!=0 %>
 <div id="chart-container20" ></div>
-<%end%>
 </div>
 
 
 </div>
 <%end%>
+
 <% if params[:typ1]=="pastmonth" %>
 <div class="graph6">
 
