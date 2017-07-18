@@ -22,8 +22,8 @@ class PerformancesController < ApplicationController
 
        
         #######For piechart ######
-        @success1=@question.performances.where('created_at >=?',DateTime.now.in_time_zone('Kuala Lumpur').beginning_of_day).count
-        @success2=@question.performances.where('created_at >=?',1.day.ago).where('created_at <=?',DateTime.now.in_time_zone('Kuala Lumpur').beginning_of_day).count
+        @success1=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).where('created_at <=?',DateTime.now.end_of_day).count
+        @success2=@question.performances.where('created_at >=?',1.day.ago).where('created_at <=?',DateTime.now.beginning_of_day).count
         @success3=@question.performances.where('created_at >=?',2.day.ago).where('created_at <=?',1.day.ago).count
         @success4=@question.performances.where('created_at >=?',3.day.ago).where('created_at <=?',2.day.ago).count
         @success5=@question.performances.where('created_at >=?',4.day.ago).where('created_at <=?',3.day.ago).count
