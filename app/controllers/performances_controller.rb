@@ -263,7 +263,7 @@ class PerformancesController < ApplicationController
         @total1=@performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").average(:responsetime)
        
         @total=[]
-        @performance.group_by_week(:created_at, last: 5).where('created_at >=?',DateTime.now.beginning_of_day.localtime).count(:responsetime).each do |a|
+        @performance.group_by_week(:created_at, last: 4).count(:responsetime).each do |a|
         @total.push a[1] 
         end
  
