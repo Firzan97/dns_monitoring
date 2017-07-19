@@ -109,7 +109,10 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <%= @performance.group_by_week(:created_at, last: 4).count(:responsetime) %>
-<%= @total %>
+<%= @month1 %>
+<%= @month2 %>
+<%= @month3 %>
+<%= @month4 %>
 <p id="notice"><%= notice %></p>
 <% if @average==" " %>
 
