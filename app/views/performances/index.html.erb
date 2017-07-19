@@ -185,7 +185,7 @@
 <p><strong><span>Total Fail :</span></strong><%= a %></p>
 <p><strong><span>Availability Status :</span></strong><%= @a %>%</p>
 <%else %>
-<p><strong><span>Average : </span></strong><%= (total/a).round(2) %>&nbsp;msec</p> 
+<p><strong><span>Average : </span></strong><%= (total.round(2)/a>round(2)).round(2) %>&nbsp;msec</p> 
 
 <p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
@@ -324,7 +324,7 @@
 <% minimum=a[1] %>
 <%end%>
 <%end%>
-<p><strong><span>Average : </span></strong><%= (total.round(2)/b.round(2)) %>&nbsp;msec</p> 
+<p><strong><span>Average : </span></strong><%= (total.round(2)/b.round(2)).round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
 <hr class="line">
