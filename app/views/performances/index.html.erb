@@ -64,7 +64,7 @@
 <div class="title">
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Month Performances</b></h1>
 </div>
- <%= area_chart @performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
+ <%= area_chart @performance.group_by_week(:created_at, last: 4).average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Monthly Performances',
     colors: ['#FFCC99'], library: {chart: {zoomType: 'x'} } %>
 <%end%>
@@ -1023,8 +1023,8 @@ FusionCharts.ready(function(){
     var fusioncharts = new FusionCharts({
     type: 'doughnut2d',
     renderAt: 'chart-container9',
-    width: '420',
-    height: '420',
+    width: '500',
+    height: '500',
     dataFormat: 'json',
     dataSource: {
         "chart": {
@@ -1063,8 +1063,8 @@ FusionCharts.ready(function(){
     var fusioncharts = new FusionCharts({
     type: 'doughnut2d',
     renderAt: 'chart-container10',
-    width: '420',
-    height: '420',
+    width: '500',
+    height: '500',
     dataFormat: 'json',
     dataSource: {
         "chart": {
@@ -1103,8 +1103,8 @@ FusionCharts.ready(function(){
     var fusioncharts = new FusionCharts({
     type: 'doughnut2d',
     renderAt: 'chart-container11',
-    width: '420',
-    height: '420',
+    width: '500',
+    height: '500',
     dataFormat: 'json',
     dataSource: {
         "chart": {
@@ -1143,8 +1143,8 @@ FusionCharts.ready(function(){
     var fusioncharts = new FusionCharts({
     type: 'doughnut2d',
     renderAt: 'chart-container12',
-    width: '420',
-    height: '420',
+    width: '500',
+    height: '500',
     dataFormat: 'json',
     dataSource: {
         "chart": {
