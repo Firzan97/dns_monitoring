@@ -48,7 +48,7 @@
 <div class="title">
  <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Today Performances</b></h1>
  </div>
-  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',colors: ['#8E2323'], library: {chart: {zoomType: 'x'} }%> 
+  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day.localtime).where('created_at <=?',DateTime.now.end_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time",title: 'Daily Performances',colors: ['#8E2323'], library: {chart: {zoomType: 'x'} }%> 
 <%end%>
 
 <% if params[:typ]=="week" %>
@@ -73,7 +73,7 @@
 <div class="title">
  <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Today Performances</b></h1>
  </div>
- <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances', 
+ <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day.localtime).where('created_at <=?',DateTime.now.end_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances', 
     colors: ['#8E2323'], library: {chart: {zoomType: 'x'}}%>
 
 <%end%>
@@ -82,7 +82,7 @@
 <div class="title">
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Yesterday Performances</b></h1>
 </div>
- <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.yesterday.beginning_of_day.localtime).where('created_at <=?',DateTime.now.beginning_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
+ <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.yesterday.beginning_of_day.localtime).where('created_at <?',DateTime.now.beginning_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",title: 'Daily Performances',
     colors: ['#FF7755'], library: {chart: {zoomType: 'x'}}%> 
  <%end%>
 
@@ -112,8 +112,10 @@
 <%= DateTime.now %><br>
 <%= @performance.last.created_at.localtime %><br>
 <%= DateTime.now.localtime %><br>
-<%= Time.zone.name %>
-<%= Time.zone.now %>
+<%= Time.zone.name %><br>
+<%= Time.zone.now %><br>
+<%= DateTime.now.beginning_of_day.localtime %>
+<%= DateTime.now.end_of_day.localtime %>
 
 <p id="notice"><%= notice %></p>
 <% if @average==" " %>

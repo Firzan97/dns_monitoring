@@ -47,9 +47,9 @@ belongs_to :user
     a,b=value1.split(":")
     num1,num2=b.split(" ")
     
+    
     @performance = Performance.create(responsetime: num1.to_i,question_id: id)
-    masa=@performance.created_at
-    @performance.update(created_at: masa)
+ 
     #question.update(created_at:)
     average=Performance.where(question_id: question.id).average(:responsetime)
     highest=Performance.where(question_id: question.id).maximum(:responsetime)
