@@ -109,7 +109,7 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <%= @performance.last.created_at %><br>
-<%= DateTime.now %>
+<%= DateTime.now.localtime %>
 <p id="notice"><%= notice %></p>
 <% if @average==" " %>
 
