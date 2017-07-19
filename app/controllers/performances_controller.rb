@@ -228,8 +228,8 @@ class PerformancesController < ApplicationController
       
         ###today### 
 
-       @todayTotal=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).count
-       @todayAV=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).average(:responsetime)
+       @todayTotal=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime).where('created_at <=?',DateTime.now.end_of_day.localtime).count
+       @todayAV=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime).average(:responsetime)
        @todayHigh=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).maximum(:responsetime)
        @todayLow=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).where.not(responsetime: -1 ).minimum(:responsetime)
        @todayFail=@question.performances.where(responsetime: -1 ).where('created_at >=?',DateTime.now.beginning_of_day).count

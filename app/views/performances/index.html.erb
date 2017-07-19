@@ -55,7 +55,7 @@
 <div class="title">
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Week Performances</b></h1>
 </div>
- <%= area_chart @performance.group_by_day(:created_at,last: 7).where('created_at <?',DateTime.now.beginning_of_day.localtime).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
+ <%= area_chart @performance.group_by_day(:created_at,last: 7).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Weekly Performances',
     colors: ['#CCCC99'], library: {chart: {zoomType: 'x'}}%>
 <%end%>
@@ -311,8 +311,12 @@
 <% total=0 %>
 <% maximum=1 %>
 <% minimum=100 %>
+<% b=0 %>
 <% @performance.group_by_day(:created_at,last: 7).average(:responsetime).each do |a| %>
 <% total=total+a[1] %>
+<%if a[1]>0 %>
+<%b=b+1 %>
+<%end%>
 <% if maximum<a[1] %>
 <% maximum=a[1] %>
 <%end%>
@@ -320,7 +324,7 @@
 <% minimum=a[1] %>
 <%end%>
 <%end%>
-<p><strong><span>Average : </span></strong><%= (total/7).round(2) %>&nbsp;msec</p> 
+<p><strong><span>Average : </span></strong><%= (total/b).round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
 <hr class="line">
