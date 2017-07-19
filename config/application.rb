@@ -10,7 +10,8 @@ module Dns5
   class Application < Rails::Application
     # Use the responders controller from the responders gem
     config.app_generators.scaffold_controller :responders_controller
-
+    config.time_zone = 'Kuala Lumpur'
+    config.active_record.default_timezone = :local
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
       
