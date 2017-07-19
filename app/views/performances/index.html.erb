@@ -108,15 +108,8 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-<%= @performance.last.created_at %><br>
-<%= DateTime.now %><br>
-<%= @performance.last.created_at.localtime %><br>
-<%= DateTime.now.localtime %><br>
-<%= Time.zone.name %><br>
-<%= Time.zone.now %><br>
-<%= DateTime.now.beginning_of_day.localtime %>
-<%= DateTime.now.end_of_day.localtime %>
-
+<%= @performance.group_by_week(:created_at, last: 4).count(:responsetime) %>
+<%= @total %>
 <p id="notice"><%= notice %></p>
 <% if @average==" " %>
 
@@ -1048,7 +1041,7 @@ FusionCharts.ready(function(){
         },
         "data": [{
             "label": "Success",
-            "value": <%= @success8-@fail8 %>
+            "value": <%= @month1 %>
         }, {
             "label": "Fail",
             "value": <%= @fail8 %>
@@ -1088,7 +1081,7 @@ FusionCharts.ready(function(){
         },
         "data": [{
             "label": "Success",
-            "value": <%= @success9-@fail9 %>
+            "value": <%= @month2 %>
         }, {
             "label": "Fail",
             "value": <%= @fail9 %>
@@ -1128,7 +1121,7 @@ FusionCharts.ready(function(){
         },
         "data": [{
             "label": "Success",
-            "value": <%= @success10-@fail10 %>
+            "value": <%= @month3 %>
         }, {
             "label": "Fail",
             "value": <%= @fail10 %>
@@ -1168,7 +1161,7 @@ FusionCharts.ready(function(){
         },
         "data": [{
             "label": "Success",
-            "value": <%= @success11-@fail11 %>
+            "value": <%= @month4 %>
         }, {
             "label": "Fail",
             "value": <%= @fail11 %>
