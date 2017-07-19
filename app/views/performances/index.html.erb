@@ -543,7 +543,7 @@ hr {
       <% if @question.id==performance.question_id %>
         <td><%= b=b+1 %>.</td>
         <td><%= performance.responsetime %>&nbsp;</td>
-        <td><%= performance.created_at.strftime("%d/%m/%y ""%I:%M %p" )%>&nbsp;</td>
+        <td><%= performance.created_at.localtime.strftime("%d/%m/%y ""%I:%M %p" )%>&nbsp;</td>
         <% a=performance.responsetime %>
 
         <script>
