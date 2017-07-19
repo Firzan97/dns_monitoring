@@ -64,7 +64,7 @@
 <div class="title">
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Month Performances</b></h1>
 </div>
- <%= area_chart @performance.group_by_week(:created_at, last: 4).count(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
+ <%= area_chart @performance.group_by_week(:created_at, last: 4).average(:responsetime), xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Monthly Performances',
     colors: ['#FFCC99'], library: {chart: {zoomType: 'x'} } %>
 <%end%>
