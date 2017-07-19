@@ -497,6 +497,11 @@ hr {
 #myBtn:hover {
   background-color: #2980b9;
 }
+
+.page {
+
+  margin-bottom: 150px;
+}
 </style>
 </head>
 
@@ -527,7 +532,7 @@ hr {
       <% if @question.id==performance.question_id %>
         <td><%= b=b+1 %>.</td>
         <td><%= performance.responsetime %>&nbsp;</td>
-        <td><%= performance.created_at.localtime.strftime("%d/%m/%y ""%I:%M %p" )%>&nbsp;</td>
+        <td><%= performance.created_at.strftime("%d/%m/%y ""%I:%M %p" )%>&nbsp;</td>
         <% a=performance.responsetime %>
 
         <script>
@@ -543,9 +548,10 @@ hr {
 </table>
 
 <br>
- 
+<div class="page"> 
 <%= will_paginate @performances %>
 <%= link_to 'Back', questions_path %>
+</div>
 <script>
 window.onscroll = function() {scrollFunction()};
 
