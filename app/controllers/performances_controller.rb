@@ -266,7 +266,10 @@ class PerformancesController < ApplicationController
         @performance.group_by_week(:created_at, last: 4).count(:responsetime).each do |a|
         @total.push a[1] 
         end
- 
+       @total2=[]
+        @performance.group_by_week(:created_at, last: 4).where(responsetime: -1 ).count(:responsetime).each do |a|
+        @total2.push a[1] 
+        end
 
       
   end
