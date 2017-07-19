@@ -130,11 +130,7 @@ class PerformancesController < ApplicationController
 
         #####month###
         @monthsuccess=@question.performances.where('created_at >=?',4.week.ago).count
-        @month1=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-6.day).count
-        @month2=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-13.day).where('created_at <=?',DateTime.now.end_of_day.localtime-6.day).count
-        @month3=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-20.day).where('created_at <=?',DateTime.now.end_of_day.localtime-13.day).count
-        @month4=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-27.day).where('created_at <=?',DateTime.now.end_of_day.localtime-20.day).count
-
+      
         @monthfail=@question.performances.where(responsetime: -1 ).where('created_at >=?',4.week.ago).count
         #@monthAvailability=((@monthsuccess-@monthfail)/@monthsuccess)*100
 
@@ -267,7 +263,7 @@ class PerformancesController < ApplicationController
         @total1=@performance.group_by_week(:created_at, last: 4, time_zone: "Kuala Lumpur").average(:responsetime)
        
         @total=[]
-        @performance.group_by_week(:created_at, last: 4).count(:responsetime).each do |a|
+        @performance.group_by_week(:created_at, last: 5).where('created_at >=?',DateTime.now.beginning_of_day.localtime).count(:responsetime).each do |a|
         @total.push a[1] 
         end
  
