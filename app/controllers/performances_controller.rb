@@ -22,13 +22,13 @@ class PerformancesController < ApplicationController
 
        
         #######For piechart ######
-        @success1=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day).where('created_at <=?',DateTime.now.end_of_day).count
-        @success2=@question.performances.where('created_at >=?',1.day.ago).where('created_at <=?',DateTime.now.beginning_of_day).count
-        @success3=@question.performances.where('created_at >=?',2.day.ago).where('created_at <=?',1.day.ago).count
-        @success4=@question.performances.where('created_at >=?',3.day.ago).where('created_at <=?',2.day.ago).count
-        @success5=@question.performances.where('created_at >=?',4.day.ago).where('created_at <=?',3.day.ago).count
-        @success6=@question.performances.where('created_at >=?',5.day.ago).where('created_at <=?',4.day.ago).count
-        @success7=@question.performances.where('created_at >=?',6.day.ago).where('created_at <=?',5.day.ago).count
+        @success1=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime).where('created_at <=?',DateTime.now.end_of_day.localtime).count
+        @success2=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-1.day).where('created_at <?',DateTime.now.beginning_of_day).count
+        @success3=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-2.day).where('created_at <?',DateTime.now.beginning_of_day.localtime-1.day).count
+        @success4=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-3.day).where('created_at <?',DateTime.now.beginning_of_day.localtime-2.day).count
+        @success5=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-4.day).where('created_at <?',DateTime.now.beginning_of_day.localtime-3.day).count
+        @success6=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-5.day).where('created_at <?',DateTime.now.beginning_of_day.localtime-4.day).count
+        @success7=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-6.day).where('created_at <?',DateTime.now.beginning_of_day.localtime-5.day).count
         @weeksuccess=@question.performances.where('created_at >=?',7.day.ago).count
         @weekfail=@question.performances.where(responsetime: -1 ).where('created_at >=?',7.day.ago).count
         if @weeksuccess==0
