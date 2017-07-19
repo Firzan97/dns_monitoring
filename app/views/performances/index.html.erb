@@ -55,7 +55,7 @@
 <div class="title">
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Week Performances</b></h1>
 </div>
- <%= area_chart @performance.group_by_day(:created_at,last: 7).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
+ <%= area_chart @performance.group_by_day(:created_at,last: 7).where('created_at <?',DateTime.now.beginning_of_day.localtime).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time(ms)",
  title: 'Weekly Performances',
     colors: ['#CCCC99'], library: {chart: {zoomType: 'x'}}%>
 <%end%>
