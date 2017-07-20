@@ -1,8 +1,9 @@
 <div class="main">
 
 <h1>DNS Details </h1>
+<hr>
 <p id="notice"><%= notice %></p>
-
+<button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-eject"></span></button>
 <p>
   <strong>Domain Name:</strong>
   <%= @question.dnsname %>
@@ -69,7 +70,7 @@
 </div>
 
 
-<table align="center" style="text-align: center;" class="table">
+<table align="center" style="text-align: center; margin-top: 20px;" class="table">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Query&nbsp;</th>
@@ -78,7 +79,7 @@
       <th style="text-align: center">Additional&nbsp;</th>
       <th style="text-align: center">udp&nbsp;</th>
       <th style="text-align: center">version&nbsp;</th>
-      <th colspan="3"></th>
+   
     </tr>
   </thead>
 
@@ -94,34 +95,101 @@
         </tr>
   </tbody>
 </table>
+<hr style="margin-top:-70px;">
 
+<div class="wrapper">
+<h3 style="text-align: center; margin-top: 10px;"><u><b>ANSWER</b> </u></h3>
 
-
-<h3 style="text-align: center; margin-top: 50px;">DNS Answer </h3>
-
-<table align="center" style="text-align: center;" class="table">
+<table align="center" style="text-align: center;" class="table1">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;DNS&nbsp;</th>
       <th style="text-align: center">Time To Live&nbsp;</th>
       <th style="text-align: center">Record Type&nbsp;</th>
       <th style="text-align: center">Ip Address&nbsp;</th>
-      <th colspan="3"></th>
+  
+  
     </tr>
   </thead>
 
   <tbody>
     <% @answers.each do |answer| %>
       <tr>
+        <% if answer.question_id==@questions.id && answer.typeAnswer=="answer"%>
         <td >&nbsp;<%= answer.dnsname %></td>
         <td style="text-align: center">&nbsp;<%= answer.ttl %></td>
         <td>&nbsp;<%= answer.recordtype %></td>
         <td>&nbsp;<%= answer.ipaddress %></td>
+ 
+        <%end%>
+        
         </tr>
     <% end %>
   </tbody>
 </table>
-<hr>
+</div>
+
+
+<h3 style="text-align: center; margin-top: 50px;"><u><b>AUTHORITY</b> </u></h3>
+<div class="wrapper">
+<table align="center" style="text-align: center; margin-top: -40px;" class="table2">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;DNS&nbsp;</th>
+      <th style="text-align: center">Time To Live&nbsp;</th>
+      <th style="text-align: center">Record Type&nbsp;</th>
+      <th style="text-align: center">Ip Address&nbsp;</th>
+    
+   
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @answers.each do |answer| %>
+    <% if answer.question_id==@questions.id && answer.typeAnswer=="authority"%>
+      <tr>
+        <td >&nbsp;<%= answer.dnsname %></td>
+        <td style="text-align: center">&nbsp;<%= answer.ttl %></td>
+        <td>&nbsp;<%= answer.recordtype %></td>
+        <td>&nbsp;<%= answer.ipaddress %></td>
+     
+        <%end%>
+        
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<h3 style="text-align: center; margin-top: 50px;"><u><b>ADDITIONAL</b></u> </h3>
+<div class="wrapper">
+<table align="center" style="text-align: center;margin-top: -40px; " class="table3">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;DNS&nbsp;</th>
+      <th style="text-align: center">Time To Live&nbsp;</th>
+      <th style="text-align: center">Record Type&nbsp;</th>
+      <th style="text-align: center">Ip Address&nbsp;</th>
+
+    
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @answers.each do |answer| %>
+      <% if answer.question_id==@questions.id && answer.typeAnswer=="additional"%>
+       <tr>
+        <td >&nbsp;<%= answer.dnsname %></td>
+        <td style="text-align: center">&nbsp;<%= answer.ttl %></td>
+        <td>&nbsp;<%= answer.recordtype %></td>
+        <td>&nbsp;<%= answer.ipaddress %></td>
+
+     </tr>
+      <%end%>
+    <% end %>
+  </tbody>
+</table>
+</div>
 &nbsp;
 <%= link_to questions_path ,class: "btn btn-default" do%>
  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back
@@ -130,10 +198,95 @@
 </div>
 
 <style>
+body{
+  background-color: #F5F5F5;
+}
  .main{
   margin-top: 70px;
  }
-.table {
+.table3 {
   margin-top: 10px;
+  margin-bottom: 40px;
 }
+hr {
+  border:none;
+  
+  height: 50px;
+  margin-top: 20px;
+  border-bottom: 1px solid #C0C0C0;
+  box-shadow: 0 15px 15px -15px #C0C0C0;
+  margin: -50px auto 10px; 
+}
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: lightblue;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  border-radius: 0px;
+}
+
+#myBtn:hover {
+  background-color: #2980b9;
+}
+
+h3 {
+    font-style: bold!important;
+}
+
+.table1,.table2,.table3 {
+    overflow:hidden;
+    border-radius: 5px;
+    
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+th, td {
+    
+    padding: 8px;
+}
+.table1 th,.table2 th,.table3 th {
+  background-color: #ea6153;
+}
+.table th{
+   background-color: #2980b9
+}
+tr:nth-child(even){background-color: #E1E1E1}
+tr:nth-child(odd){background-color: #ffffff}
+
+.wrapper{
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 800px;
+}
+
 </style>
+<script>
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        document.getElementById("myBtn").style.display = "block";
+    } else {
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+</script>

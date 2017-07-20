@@ -39,16 +39,16 @@ class QuestionsController < ApplicationController
     type=@question.recordtype
     server=@question.server
     time=@question.timeperiod
-    value2 = %x[ dig #{namedns} #{type} | grep "SERVER:" ]
+    value2 = %x[ dig @#{server} #{namedns} #{type} | grep "SERVER:" ]
     c,d=value2.split(": ")
     e,f=d.split("#")
-    query1=%x[dig #{namedns} #{type} | grep "QUERY:"]
+    query1=%x[dig @#{server} #{namedns} #{type} | grep "QUERY:"]
     q1,q2,q3,q4=query1.split(",")
     q5,q6,q66=q1.split(": ")
     q7,q8=q2.split(": ")
     q9,q10=q3.split(": ")
     q11,q12=q4.split(": ")
-    query2=query1=%x[dig #{namedns} #{type} | grep "version:"]
+    query2=query1=%x[dig @#{server} #{namedns} #{type} | grep "version:"]
     q21,q22=query2.split(",")
     q23,q24,q25=q21.split(": ")
     q26,q27,q28=q22.split(": ")
@@ -69,47 +69,137 @@ class QuestionsController < ApplicationController
         @availability=0
      
         Search.create(server: @question.dnsname)
-
-        a=15
-        value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
-                 b,c,d,e,f=value2.split(" ")
-                 dnsanswer=b
-            if namedns=="utp.edu.my" || namedns=="ums.edu.my" || namedns=="um.edu.my"
-                a=16
-                value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
-                 b,c,d,e,f=value2.split(" ")
-                 dnsanswer=b
-            end
-        while dnsanswer==namedns+"."
+        
+     
+     total=%x[ dig @#{server} #{namedns} #{type} | wc -l ]
+     total1,total2=total.split("\n") 
     
-            value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
-            b,c,d,e,f,g=value2.split(" ")
-            if type=="A" || type=="AAAA" || type=="NS"
-              
-            dnsanswer=b
-            ttl=c
-            type=e
-            o=e
-            ip=f
-            Answer.create(dnsname: dnsanswer,ttl: ttl,recordtype: type,ipaddress: ip,question_id: @question.id)
-              
-            end
-            if type=="MX"
-            dnsanswer=b
-            ttl=c
-            type=e
-            o=e
-            ip=g
-            Answer.create(dnsname: dnsanswer,ttl: ttl,recordtype: type,ipaddress: ip,question_id: @question.id)
+     a = 1
+     while a != total1.to_i
+      
+      value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+
+
+         if value2==";; ANSWER SECTION:\n"
+           a=a+1
+           value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+           while value2 !="\n"
+#
+             
+             b,c,d,e,f,g=value2.split(" ")
+             dnsanswer=b
+             ttl=c
+             typeAnswer=e
+             o=e
+             if g != nil
+             ip=f+" "+g
+             else
+             ip=f 
+             end
+             answerType="answer"
+             Answer.create(dnsname: dnsanswer,ttl: c,recordtype: e,ipaddress: ip,question_id: @question.id, typeAnswer: answerType)
+             a=a+1      
+             value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
            end
+      end
+
+        if value2==";; AUTHORITY SECTION:\n"
+          
+           a = a+1
+           value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+           while value2 != "\n"
+
+           
+            b,c,d,e,f,g=value2.split(" ")
+            dnsanswer=b
+            ttl=c
+            typeAnswer=e
+            o=e
+            if g != nil
+             ip=f+" "+g
+             else
+             ip=f
+           end
+            answerType="authority"
+            Answer.create(dnsname: dnsanswer,ttl: c,recordtype: e,ipaddress: ip,question_id: @question.id, typeAnswer: answerType)
+            a = a+1      
+            value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
+           end
+       end
+       
+       if value2==";; ADDITIONAL SECTION:\n"
+            a=a+1
+            value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+            while value2 !="\n"
+
+            
+             b,c,d,e,f,g=value2.split(" ")
+             dnsanswer=b
+             ttl=c
+             typeAnswer=e
+             o=e
+             if g != nil
+             ip=f+" "+g
+             else
+             ip=f
+             end
+             answerType="additional"
+             Answer.create(dnsname: dnsanswer,ttl: c,recordtype: e,ipaddress: ip,question_id: @question.id, typeAnswer: answerType)
+             a=a+1      
+             value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
+           end
+         end
+
+     
+     
+     
+     a =a+1
+   end
+
+
+
+
+
+     #   a=15
+     #  value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+     #            b,c,d,e,f=value2.split(" ")
+     #            dnsanswer=b
+     #       if namedns=="utp.edu.my" || namedns=="ums.edu.my" || namedns=="um.edu.my"
+     #           a=16
+     #           value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+     #            b,c,d,e,f=value2.split(" ")
+     #           dnsanswer=b
+     #       end
+     #   while dnsanswer==namedns+"."
+    
+     #       value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+     #       b,c,d,e,f,g=value2.split(" ")
+     #       if type=="A" || type=="AAAA" || type=="NS"
+     #         
+     #       dnsanswer=b
+     #        ttl=c
+     #        type=e
+     #        o=e
+     #        ip=f+g
+     #        Answer.create(dnsname: dnsanswer,ttl: ttl,recordtype: type,ipaddress: ip,question_id: @question.id,typeAnswer: "nOT MX")
+     #         
+     #     end
+     #       if type=="MX"
+     #       dnsanswer=b
+     #       ttl=c
+     #       type=e
+     #       o=e
+     #       ip=f+g
+     #       Answer.create(dnsname: dnsanswer,ttl: ttl,recordtype: type,ipaddress: ip,question_id: @question.id ,typeAnswer: "MX")
+     #     end
            
             
-            a=a+1
-            value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
-            b,c,d,e,f=value2.split(" ")
-            dnsanswer=b
-        end
-       
+     #       a=a+1
+     #       value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+     #       b,c,d,e,f=value2.split(" ")
+     #       dnsanswer=b
+     #   end
+        
 
       #a=12
       #dnsanswers="a"
@@ -134,7 +224,10 @@ class QuestionsController < ApplicationController
        
       #end
         
-    
+     
+  
+
+
 
 
   
