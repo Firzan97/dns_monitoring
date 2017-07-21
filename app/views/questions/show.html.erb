@@ -1,3 +1,8 @@
+
+<header>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
+</header>
 <div class="main">
 
 <h1>DNS Details </h1>
@@ -44,13 +49,17 @@
 </p>
 <%end%>
 <hr>
-<div class="information">
+
+<button style="margin-top: 20px; margin-left: 10px;" class="button search"  onclick="myFunction()">Type Of Record</button><br/><br/>
+<div class="information" id="recordtype">
  <table >
          <tr>
            <td>-A</td>
-           <td>(the IP address)</td>
+           <td>(IPv4 address)</td>
          </tr>
-
+         <tr>
+           <td>-AAAA</td>
+           <td>(IPv6 address)</td>
          <tr>
            <td>-TXT</td>
            <td>(text annotations)</td>
@@ -65,12 +74,29 @@
            <td>-NS</td>
            <td>nameservers</td>
          </tr>
+         <tr>
+          <td>-CNAME</td>
+          <td>Canonical Name</td>
+         </tr>
+         <tr>
+          <td>-SOA</td>
+          <td>Service-oriented architecture</td>
+         </tr>
+         <tr>
+          <td>-PTR</td>
+          <td>Public Test Realm</td>
+         </tr>
+         <tr>
+          <td>-SRV</td>
+          <td>Service record</td>
+         </tr>
          
  </table>
 </div>
 
-
-<table align="center" style="text-align: center; margin-top: 20px;" class="table">
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: 20px; overflow: hidden;
+  border-radius: 5px;" class="table">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Query&nbsp;</th>
@@ -95,7 +121,8 @@
         </tr>
   </tbody>
 </table>
-<hr style="margin-top:-70px;">
+</div>
+<hr style="margin-top:-40px;">
 
 <div class="wrapper">
 <h3 style="text-align: center; margin-top: 10px;"><u><b>ANSWER</b> </u></h3>
@@ -196,8 +223,11 @@
  <%end%>
  &nbsp;
 </div>
-
+<hr>
 <style>
+.information{
+  display:none;
+}
 body{
   background-color: #F5F5F5;
 }
@@ -259,6 +289,9 @@ th, td {
 .table1 th,.table2 th,.table3 th {
   background-color: #ea6153;
 }
+.table{
+  box-shadow: 3px 3px 3px #888888;
+}
 .table th{
    background-color: #2980b9
 }
@@ -270,10 +303,26 @@ tr:nth-child(odd){background-color: #ffffff}
   padding: 40px;
   max-width: 800px;
 }
+.wrapper2{
+  margin: 0 auto;
+  padding: 10px;
+  max-width: 1400px;
+
+  
+}
 
 </style>
 <script>
 
+function myFunction() {
+    var x = document.getElementById('recordtype');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+////////////////////
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
