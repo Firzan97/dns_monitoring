@@ -121,7 +121,7 @@ class QuestionsController < ApplicationController
              ip=f
            end
             answerType="authority"
-            Answer.create(dnsname: dnsanswer,ttl: c,recordtype: e,ipaddress: ip,question_id: @question.id, typeAnswer: answerType)
+            Answer.create(dnsname: dnsanswer,ttl: c,recordtype:  typeAnswer,ipaddress: ip,question_id: @question.id, typeAnswer: answerType)
             a = a+1      
             value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
            end
@@ -144,7 +144,7 @@ class QuestionsController < ApplicationController
              ip=f
              end
              answerType="additional"
-             Answer.create(dnsname: dnsanswer,ttl: c,recordtype: e,ipaddress: ip,question_id: @question.id, typeAnswer: answerType)
+             Answer.create(dnsname: dnsanswer,ttl: c,recordtype:  typeAnswer,ipaddress: ip,question_id: @question.id, typeAnswer: answerType)
              a=a+1      
              value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
            end

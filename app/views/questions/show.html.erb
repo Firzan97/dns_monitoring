@@ -1,12 +1,15 @@
 
-<header>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700' rel='stylesheet' type='text/css'>
-</header>
-<div class="main">
+<link rel="stylesheet" type="text/css" media="print" href="print.css">
 
+<div id="divToPrint">
+<div class="main">
 <h1>DNS Details </h1>
+</div>
+<input name="b_print" type="button" class="ipt"   onClick="PrintDiv();" value=" Print ">
 <hr>
+
 <p id="notice"><%= notice %></p>
 <button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-eject"></span></button>
 <p>
@@ -48,16 +51,16 @@
   1 Day
 </p>
 <%end%>
+
 <hr>
 
 <button style=" margin-left: 10px;" class="button search"  onclick="myFunction()">Type Of Record</button><br/><br/>
-<div class="information" id="recordtype">
+<div class="information" id="recordtype" style="margin-left: 10px; margin-top: -20px;">
  <table >
          <tr>
            <td>-A</td>
            <td>(IPv4 address)</td>
          </tr>
-         <tr>
            <td>-AAAA</td>
            <td>(IPv6 address)</td>
          <tr>
@@ -122,11 +125,11 @@
   </tbody>
 </table>
 </div>
+
 <hr style="margin-top:-40px;">
 
 <div class="wrapper">
 <h3 style="text-align: center; margin-top: 10px;"><u><b>ANSWER</b> </u></h3>
-
 <table align="center" style="text-align: center;" class="table1">
   <thead>
     <tr>
@@ -217,19 +220,21 @@
   </tbody>
 </table>
 </div>
+</div>
 &nbsp;
 <%= link_to questions_path ,class: "btn btn-default" do%>
  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back
  <%end%>
  &nbsp;
-</div>
+<br>
 <hr>
-<style>
+<style >
+
 .information{
   display:none;
 }
 body{
-  background-color: #F5F5F5;
+  background-color: #FFFFFF;
 }
  .main{
   margin-top: 70px;
@@ -276,7 +281,7 @@ h3 {
 .table1,.table2,.table3 {
     overflow:hidden;
     border-radius: 5px;
-    
+    box-shadow: 3px 3px 3px #888888;
     width: 100%;
     border-collapse: collapse;
 
@@ -312,7 +317,18 @@ tr:nth-child(odd){background-color: #ffffff}
 }
 
 </style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    function PrintDiv() {    
+           var divToPrint = document.getElementById('divToPrint');
+           var popupWin = window.open('', '_blank', 'width=300,height=300');
+           popupWin.document.open();
+           popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
+            popupWin.document.close();
+                }
+</script>
 <script>
+
 
 function myFunction() {
     var x = document.getElementById('recordtype');
@@ -338,4 +354,5 @@ function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 }
+
 </script>

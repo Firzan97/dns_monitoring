@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <style>
-.navbar-default {
+.navbar-inverse {
 position: fixed!important;
 top: 0!important;
 overflow: hidden!important;
@@ -11,14 +11,14 @@ border-color: #2088B2 !important;
 color:white!important;
 width: 100%!important;
 z-index: 9999!important;
-border-radius: 2% !important;
+
 box-shadow: 5px 25px 25px -15px #C0C0C0;
 }
-.navbar-default li a {
+.navbar-inverse li a {
    color: black !important;
  }
 
-.navbar-default a {
+.navbar-inverse a {
  color: white !important;
 }
 
@@ -32,7 +32,8 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
 
 #nav
  {
- margin-bottom: 0px;
+
+ margin-bottom: -1px;
  background-color:#262626;
  width:100%;
  height:50px;
@@ -78,42 +79,55 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
 </div>
 
 
-<% if !user_signed_in? %>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <strong><div class="navbar-header">
-      <a style="font-size: 30px; font-color:#00008B;" class="navbar-brand" >DNS Monitoring</a>
-    </div></strong>
-    <strong><ul class="nav navbar-nav">
 
-      <li onclick="myFunction()"><%= link_to "Home", "" %></li>
-      <li onclick="myFunction()"><%= link_to "DNS List", "" %></li>
+
+<% if !user_signed_in? %>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <strong>
+     <div class="navbar-header">
+     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+       <a style="font-size: 30px; font-color:#00008B;" class="navbar-brand" >DNS Monitoring</a>
+     </div></strong>
+     <div class="collapse navbar-collapse" id="myNavbar">
+    
+    <strong>
+     <ul class="nav navbar-nav">
+       <li onclick="myFunction()"><%= link_to "Home", "" %></li>
+       <li onclick="myFunction()"><%= link_to "DNS List", "" %></li>
       
      
-    </ul>
+     </ul>
     </strong>
     <strong><ul class="nav navbar-nav navbar-right">
     <li><%= link_to "Sign Up",new_user_registration_path %></li>
     <li><%= link_to "Log in", new_user_session_path %></li>
     </ul>
     </strong>
+    </div>
   </div>
 </nav>
 
 <%else%>
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <strong><div class="navbar-header">
-
-    
- <a style="font-size: 30px; color:#F5FAFA!important;" class="navbar-brand" >DNS Monitoring</a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+     <a style="font-size: 30px; color:#F5FAFA!important;" class="navbar-brand" >DNS Monitoring</a>
     </div></strong>
+    <div class="collapse navbar-collapse" id="myNavbar">
 
-      
-  
-
-    <strong><ul class="nav navbar-nav">
+    <strong>
+    <ul class="nav navbar-nav">
       <li><%= link_to "Home", root_path %></li>
       <li><%= link_to "DNS List", questions_path %></li>
     </ul>
@@ -124,6 +138,7 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
      <li><%= link_to("Log Out",destroy_user_session_path, :method =>:delete)%></li>
     </ul>
     </strong> 
+    </div>
   </div>
 </nav>
 
