@@ -5,13 +5,15 @@
 
 <div id="divToPrint">
 <div class="main">
-<h1>DNS Details </h1>
+<h1> </h1>
+<h1> DNS Details </h1>
 </div>
-<input name="b_print" type="button" class="ipt"   onClick="PrintDiv();" value=" Print ">
+
 <hr>
 
 <p id="notice"><%= notice %></p>
-<button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-eject"></span></button>
+<button onclick="topFunction()" id="myBtn" title="Go to top"><span class="fa fa-angle-double-up"></span></button>
+
 <p>
   <strong>Domain Name:</strong>
   <%= @question.dnsname %>
@@ -53,8 +55,10 @@
 <%end%>
 
 <hr>
-
-<button style=" margin-left: 10px;" class="button search"  onclick="myFunction()">Type Of Record</button><br/><br/>
+<button class= "btn btn-secondary">
+<span class="fa fa-info-circle"  onclick="myFunction()"> Type Of Record</span>
+</button></br>
+<br/>
 <div class="information" id="recordtype" style="margin-left: 10px; margin-top: -20px;">
  <table >
          <tr>
@@ -129,6 +133,7 @@
 <hr style="margin-top:-40px;">
 
 <div class="wrapper">
+<h3 style="text-align: center; margin-top: 10px;"><u><b></b> </u></h3>
 <h3 style="text-align: center; margin-top: 10px;"><u><b>ANSWER</b> </u></h3>
 <table align="center" style="text-align: center;" class="table1">
   <thead>
@@ -298,7 +303,7 @@ th, td {
   box-shadow: 3px 3px 3px #888888;
 }
 .table th{
-   background-color: #2980b9
+   background-color: #2980b9!important;
 }
 tr:nth-child(even){background-color: #E1E1E1}
 tr:nth-child(odd){background-color: #ffffff}

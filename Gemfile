@@ -14,6 +14,10 @@ group :development, :test do
   gem 'sqlite3'
 end
 
+
+gem 'minitest', '~> 5.8', '>= 5.8.4'
+gem 'sprockets-rails'
+gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'responders'
 gem 'easy_as_pie'
 gem 'by_star', git: "git://github.com/radar/by_star"
@@ -26,7 +30,7 @@ gem 'bootstrap_form'
 gem 'devise', '~> 4.2'
 gem 'groupdate', '~> 2.5', '>= 2.5.2'
 gem 'jquery-rails' 
-gem 'bootstrap-sass', '~> 3.2.0'
+
 gem 'autoprefixer-rails'
 gem 'will_paginate', '~> 3.1', '>= 3.1.5'
 gem 'chartkick', '~> 1.4', '>= 1.4.1'
