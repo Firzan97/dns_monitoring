@@ -25,11 +25,10 @@
 &nbsp;
 
 </div>
-<div class="image1">
-<img src="/assets/Screenshot from 2017-06-20 11-51-12.png" alt="Lets Try The System" style="width:50%;float: right;
- margin-right: 40px; margin-top:70px; border-radius:50px;box-shadow: 25px 25px 25px -5px #C0C0C0;border-style: solid black;">
+<div class="col-xs-5 col-sm-6 col-lg-8">
+<img src="/assets/Screenshot from 2017-06-20 11-51-12.png" alt="Lets Try The System" style="width:70%;float: right; margin-right: -400px;margin-top:70px; border-radius:50px;box-shadow: 25px 25px 25px -5px #C0C0C0;border-style: solid black;">
 </div>
-<div class="search" >
+<div class="col-lg-10" >
 <h1>Latest searched</h1>
 
 <% @question.first(5).each do |q| %>
@@ -46,16 +45,19 @@
 
 </div>
 <div class="description1">
-<h1><u>Monitor the availability of the DNS </u></h1>
+
 </div>
-<div class="image1">
-<img src="/assets/Screenshot from 2017-06-20 15-24-47.png" alt="Lets Try The System" style="width:50%;float: center;
- margin-left: 40px; margin-bottom:100px; border-radius:90px;box-shadow: -25px 25px 25px -5px #C0C0C0;">
+
 
 <hr>
 <div class="vr">&nbsp;</div>
+<div class="col-lg-8">
+<h1 style="margin-left: 30px; margin-top: 30px;"><u></u></h1>
+<h1 style="margin-left: 30px; margin-top: 30px;"><u>Monitor the availability of the DNS </u></h1>
+    <img  src="/assets/Screenshot from 2017-06-20 15-24-47.png" alt="Generic placeholder image" width="700" height="400" style="border-radius: 90px; box-shadow: 25px 25px 25px -5px #C0C0C0">     
+</div>
 </body>
-
+<hr>
 </html>
 
 <style>
@@ -94,11 +96,11 @@ body {
 {
     position: static!important;
     float: right !important;
-    margin-top: 250px;
+    margin-top: 50px;
     margin-right:-20px;
     text-shadow: 10px 10px 10px #C0C0C0;
 }
-.search{
+.col-lg-10{
 	color:black;
 	margin-top:70px;
     margin-left: 30px;
