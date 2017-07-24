@@ -14,8 +14,7 @@ has_many :answers , dependent: :destroy
     ["5 Minutes", 5],
     ["10 Minutes",10],
     ["30 Minutes",30],
-    ["1 Hour",60],
-    ["1 day",1440]
+    ["1 Hour",60]
   ]
   
     #value2 = %x[ dig @#{server} #{namedns} #{type} ]

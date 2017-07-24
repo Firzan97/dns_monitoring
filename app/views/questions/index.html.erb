@@ -5,11 +5,58 @@
 }
 
 
-
+.information{
+  display:none;
+}
 
 </style>
 <p id="notice"><%= notice %></p>
 <h1 style="margin-top: 70px;"><b>DNS List</b></h1>
+<button class= "btn btn-secondary">
+<span class="fa fa-info-circle"  onclick="myFunction()"> Type Of Record</span>
+</button></br>
+<br/>
+<div class="information" id="recordtype" style="margin-left: 10px; margin-top: -20px;">
+ <table >
+         <tr>
+           <td>-A</td>
+           <td>(IPv4 address)</td>
+         </tr>
+           <td>-AAAA</td>
+           <td>(IPv6 address)</td>
+         <tr>
+           <td>-TXT</td>
+           <td>(text annotations)</td>
+         </tr>
+
+         <tr>
+           <td>-MX</td>
+           <td>(mail exchanges)</td>
+         </tr>
+
+          <tr>
+           <td>-NS</td>
+           <td>(nameservers)</td>
+         </tr>
+         <tr>
+          <td>-CNAME</td>
+          <td>(Canonical Name)</td>
+         </tr>
+         <tr>
+          <td>-SOA</td>
+          <td>(Service-oriented architecture)</td>
+         </tr>
+         <tr>
+          <td>-PTR</td>
+          <td>(Public Test Realm)</td>
+         </tr>
+         <tr>
+          <td>-SRV</td>
+          <td>(Service record)</td>
+         </tr>
+         
+ </table><br>
+</div>
 <div class="table">
 <table>
   <thead>
@@ -94,7 +141,14 @@
  &nbsp;
 
 <script>
-
+   function myFunction() {
+    var x = document.getElementById('recordtype');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
 </script>
 <style>
 .table{
