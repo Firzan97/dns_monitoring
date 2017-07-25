@@ -2,7 +2,7 @@ class Question < ApplicationRecord
 
 has_one :detail , dependent: :destroy
 has_many :choices , dependent: :destroy
-has_many :performances , dependent: :destroy
+has_many :performances , :dependent => :delete_all
 belongs_to :user  
 has_many :answers , dependent: :destroy
 after_create :update_whenever
@@ -50,7 +50,7 @@ after_create :update_whenever
     
     
     @performance = Performance.create(responsetime: num1.to_i,question_id: id)
- 
+    @performance.update(responsetime: num1.to_i,question_id: id,date_malay: created_at.in_time_zone('Kuala Lumpur'))
     #question.update(created_at:)
     average=Performance.where(question_id: question.id).average(:responsetime)
     highest=Performance.where(question_id: question.id).maximum(:responsetime)
