@@ -14,6 +14,8 @@ group :development, :test do
   gem 'sqlite3'
 end
 
+
+gem 'geokit-rails'
 gem 'will_paginate-bootstrap'
 gem 'minitest', '~> 5.8', '>= 5.8.4'
 gem 'sprockets-rails'

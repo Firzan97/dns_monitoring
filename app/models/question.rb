@@ -5,7 +5,7 @@ has_many :choices , dependent: :destroy
 
 belongs_to :user  
 has_many :answers , dependent: :destroy
-
+after_create :update_whenever
 
 
  TIMEPERIOD = 
@@ -30,10 +30,13 @@ has_many :answers , dependent: :destroy
     #    s=f
     #    a++
     #} 
+    def update_whenever
+      %x[whenever --update-crontab]
+    end
 
   def self.query(id)
-    %x[cd dns6]
-    %x[whenever --update-crontab]
+
+    
     question=Question.find(id)
     namedns=question.dnsname
     type=question.recordtype

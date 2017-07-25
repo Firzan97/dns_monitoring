@@ -91,6 +91,10 @@ GEM
       tzinfo
     execjs (2.7.0)
     ffi (1.9.18)
+    geokit (1.11.0)
+    geokit-rails (2.2.0)
+      geokit (~> 1.5)
+      rails (>= 3.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     groupdate (2.5.3)
@@ -255,6 +259,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise (~> 4.2)
   easy_as_pie
+  geokit-rails
   groupdate (~> 2.5, >= 2.5.2)
   highstocks-rails
   jbuilder (~> 2.5)

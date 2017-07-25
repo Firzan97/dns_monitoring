@@ -5,7 +5,7 @@
 .navbar-inverse {
 background-color:#2088B2 !important;
 color:white!important;
-
+font-family: "Oswald";
 box-shadow: 5px 25px 25px -15px #C0C0C0;
 }
 .navbar-inverse li a {
@@ -40,6 +40,7 @@ box-shadow: 5px 25px 25px -15px #C0C0C0;
   background-color:#1ac6ff!important;
   color: white !important;
    transition:0s!important;
+   font-family: 'Oswald' !important;
 }
 .fa-twitter-square a:hover{
   background-color:#1ac6ff!important;
@@ -71,12 +72,12 @@ a:focus, a:hover {
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a style="font-size: 25px; font-color:#00008B;" class="navbar-brand" >DNS Monitoring</a>
+      <b><a style="font-size: 25px; font-color:#00008B;" class="navbar-brand" >DNS Monitoring</a></b>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item" onclick="myFunction()"><%= link_to "Home", "" %>&nbsp;</li>
-          <li class="nav-item" onclick="myFunction()" style="margin-left:10px;"><%= link_to "DNS List", "" %></li>
+          <li class="nav-item" onclick="myFunction()"><b><%= link_to "Home", "" %></b>&nbsp;</li>
+          <li class="nav-item" onclick="myFunction()" style="margin-left:10px;"><%= link_to "Domain List", "" %></li>
           </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li style="margin-right: 10px;"><%= link_to "Sign Up",new_user_registration_path %>&nbsp;</li>
@@ -129,12 +130,12 @@ a:focus, a:hover {
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-           <li class="nav-item" style="margin-left:10px;"><%= link_to "Home", root_path  %></li>
-           <li class="nav-item" style="margin-left:10px;"><%= link_to "DNS List", questions_path %>&nbsp;</li>
+           <li class="nav-item" style="margin-left:10px;"><strong><%= link_to "Home", root_path  %></strong></li>
+           <li class="nav-item" style="margin-left:10px;"><strong><%= link_to "Domain List", questions_path %></strong>&nbsp;</li>
         </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li style="color:#FFFF81; margin-right: 10px; margin-left:10px;"><span class="fa fa-user-circle"><b> Welcome&nbsp;<%=  current_user.email%>&nbsp;</a></b></li>
-                <li style="margin-left:10px;"><%= link_to("Log Out",destroy_user_session_path, :method =>:delete ) %></li>
+                <li style="margin-left:10px;"><strong><%= link_to("Log Out",destroy_user_session_path, :method =>:delete ) %></strong></li>
               </ul>
         
     

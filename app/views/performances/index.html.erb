@@ -111,38 +111,104 @@
 
 <p id="notice"><%= notice %></p>
 <% if @average==" " %>
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
 
-<p><strong><span>Average : </span></strong>-</p> 
-<p><strong><span>Highest  :</span></strong>-</p> 
-<p><strong><span>Lowest :</span></strong>-</p>
+  <tbody>
+      <tr>
+        <td >-</td>
+        <td >-</td>
+        <td >-</td>
+        <td >-</td>
+        <td >-</td>
+        <td >-</td>
+   
+        </tr>
+  </tbody>
+</table>
+</div>
 <hr class="line">
-<p><strong><span>Total Query :</span></strong>-</p>
-<p><strong><span>Total Fail :</span></strong>-</p>
-<p><strong><span>Availability Status :</span>-</strong></p>
 <%else%>
 <% if params[:typ]!="today" && params[:typ]!="week"  && params[:typ]!="month" && params[:typ]!="yesterday" && params[:typ]!="pastweek" && params[:typ]!="pastmonth" && params[:start]==nil  && params[:end]==nil %>
 <% if @todayTotal==0 %>
- <p><strong><span>Average : </span></strong><%= @todayTotal.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @todayTotal.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @todayTotal.round(2) %>&nbsp;msec</p>
+
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td >&nbsp;<%= @todayTotal.round(2) %></td>
+        <td >&nbsp;<%= @todayTotal.round(2) %></td>
+        <td >&nbsp;<%= @todayTotal.round(2) %></td>
+        <td >&nbsp;<%= @todayTotal %></td>
+        <td >&nbsp;<%= @todayTotal %></td>
+        <td >&nbsp;<%= @todayTotal %></td>
+   
+        </tr>
+  </tbody>
+</table>
+</div>
 <hr class="line">
-<p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
-<p><strong><span>Total Fail :</span></strong><%= @todayTotal%></p>
-<p><strong><span>Availability Status :</span></strong><%= @todayTotal %>%</p>
 <div class="donutchart">
 <div id="chart-container0"></div>
 </div>
 <%else%>
- <p><strong><span>Average : </span></strong><%= @todayAV.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @todayHigh.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @todayLow.round(2) %>&nbsp;msec</p>
-<hr class="line">
-<p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
-<p><strong><span>Total Fail :</span></strong><%= @todayFail %></p>
-<p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
-<div class="donutchart">
-<div id="chart-container0"></div>
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td >&nbsp;<%= @todayAV.round(2) %></td>
+        <td >&nbsp;<%= @todayHigh.round(2) %></td>
+        <td >&nbsp;<%= @todayLow.round(2) %></td>
+        <td >&nbsp;<%= @todayTotal %></td>
+        <td >&nbsp;<%= @todayFail %></td>
+        <td >&nbsp;<%= @availability %></td>
+   
+        </tr>
+  </tbody>
+</table>
 </div>
+
+<hr class="line">
+
+
 <%end%>
 <%end%>
 
@@ -169,22 +235,81 @@
 <%end%>
 
 <% if a==0 %>
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td ><%= a.round(2) %>&nbsp;msec</td>
+        <td ><%= a.round(2) %>&nbsp;msec</td>
+        <td ><%= a.round(2) %>&nbsp;msec</td>
+        <td ><%= a %></td>
+        <td >-</td>
+        <td >-</td>
+   
+        </tr>
+  </tbody>
+</table>
+</div>
+<div class="info">
 <p><strong><span>Average : </span></strong><%= a.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= a.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= a.round(2) %>&nbsp;msec</p>
-<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= a %></p>
 <p><strong><span>Total Fail :</span></strong><%= a %></p>
 <p><strong><span>Availability Status :</span></strong><%= @a %>%</p>
+</div>
+<hr class="line">
 <%else %>
-<p><strong><span>Average : </span></strong><%= (total.round(2)/a.round(2)).round(2) %>&nbsp;msec</p> 
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
 
+  <tbody>
+      <tr>
+        <td >-</td>
+        <td >-</td>
+        <td >-</td>
+        <td >-</td>
+        <td >-</td>
+        <td >-</td>
+   
+        </tr>
+  </tbody>
+</table>
+</div>
+<div class="info">
+<p><strong><span>Average : </span></strong><%= (total.round(2)/a.round(2)).round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= a %></p>
 <p><strong><span>Total Fail :</span></strong><%= b %></p>
 <p><strong><span>Availability Status :</span></strong><%= ((a-b)/a)*100 %>%</p>
+</div>
+<hr class="line">
 <%end%>
 <%end%>
 
@@ -192,15 +317,15 @@
 
 <% if params[:typ]=="yesterday" %>
 
-
+<div class="info">
 <p><strong><span>Average : </span></strong><%= @yesterdayAV.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= @yesterdayHigh.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= @yesterdayLow.round(2) %>&nbsp;msec</p>
-<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @yesterdayTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @yesterdayFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @yesterdayAvai %>%</p>
-
+</div>
+<hr class="line">
 
 <%end%>
 <% if params[:typ]=="pastweek" %>
@@ -220,22 +345,25 @@
 <%end%>
 
 <% if a==0 %>
-
+<div class="info">
 <p><strong><span>Average : </span></strong><%= a.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= a.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= a.round(2) %>&nbsp;msec</p>
-<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= a %></p>
 <p><strong><span>Total Fail :</span></strong><%= a %></p>
 <p><strong><span>Availability Status :</span></strong><%= a %>%</p>
+</div>
+<hr class="line">
 <%else%>
+<div class="info">
 <p><strong><span>Average : </span></strong><%= (total/4).round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @pastTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @pastFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @pastAvai %>%</p>
+</div>
+<hr class="line">
 
 <%end%>
 
@@ -257,42 +385,50 @@
 <%end%>
 
 <% if a!=0 %>
+<div class="info">
 <p><strong><span>Average : </span></strong><%= (total/a).round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @pastmonthTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @pastmonthFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @pastmonthAV  %>%</p>
+</div>
+<hr class="line">
 <%else%>
+<div class="info">
 <p><strong><span>Average : </span></strong><%= a.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= a.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= a.round(2) %>&nbsp;msec</p>
-<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= a %></p>
 <p><strong><span>Total Fail :</span></strong><%= a %></p>
 <p><strong><span>Availability Status :</span></strong><%= a  %>%</p>
+</div>
+<hr class="line">
 <%end%>
 
 
 <%end%>
 <% if params[:typ]=="today" %>
 <% if @todayTotal==0 %>
+<div class="info">
 <p><strong><span>Average : </span></strong><%= @todayTotal %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= @todayTotal %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= @todayTotal %>&nbsp;msec</p>
-<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @todayTotal %></p>
 <p><strong><span>Availability Status :</span></strong><%= @todayTotal %>%</p>
+</div>
+<hr class="line">
 <%else%>
+<div class="info">
 <p><strong><span>Average : </span></strong><%= @todayAV.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= @todayHigh.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= @todayLow.round(2) %>&nbsp;msec</p>
-<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
 <p><strong><span>Total Fail :</span></strong><%= @todayFail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
+</div>
+<hr class="line">
 <%end%>
 
 
@@ -316,13 +452,16 @@
 <% minimum=a[1] %>
 <%end%>
 <%end%>
+
+<div class="info">
 <p><strong><span>Average : </span></strong><%= (total.round(2)/b.round(2)).round(2) %>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @weeksuccess %></p>
 <p><strong><span>Total Fail :</span></strong><%= @weekfail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
+</div>
+<hr>
 <%end%>
 <% if params[:typ]=="month" %>
 
@@ -339,13 +478,15 @@
 <%end%>
 <%end%>
 
+<div class="info">
 <p><strong><span>Average : </span></strong><%= (total/4).round(2)%>&nbsp;msec</p> 
 <p><strong><span>Highest  :</span></strong><%= maximum.round(2)  %>&nbsp;msec</p> 
 <p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<hr class="line">
 <p><strong><span>Total Query :</span></strong><%= @monthsuccess %></p>
 <p><strong><span>Total Fail :</span></strong><%= @monthfail %></p>
 <p><strong><span>Availability Status :</span></strong><%= @monthAvailability %>%</p>
+</div>
+<hr class="line">
 <%end%>
 <%end%>
 
@@ -416,7 +557,23 @@
 
 <head>
 <style>
+.table th{
+   background-color: #F2F1EF!important;
+ }
+.wrapper2{
+  margin: 0 auto;
+  padding: 10px;
+  max-width: 1400px;
 
+  
+}
+.info{
+  text-align: center;
+}
+   p{
+    display: inline-block;
+ 
+}
 .performance{
   box-shadow: 0 15px 20px -15px #C0C0C0;
 }
