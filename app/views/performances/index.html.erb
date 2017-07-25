@@ -33,7 +33,7 @@ Highcharts.setOptions({
 
 </div>
 <hr>
-<% @performance.group("date(convert_tz(created_at,'UTC','[Kuala Lumpur]'))")%>
+>
 
 
 <% if params[:start]!=nil  && params[:end]!=nil%>
@@ -133,12 +133,11 @@ Highcharts.setOptions({
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-<%= @performances.last.created_at %>
 <p id="notice"><%= notice %></p>
 <% if @average==" " %>
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table1">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -173,7 +172,7 @@ Highcharts.setOptions({
 
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table2">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -208,7 +207,7 @@ Highcharts.setOptions({
 <%else%>
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table2">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -268,7 +267,7 @@ Highcharts.setOptions({
 <% if a==0 %>
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table3">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -300,7 +299,7 @@ Highcharts.setOptions({
 <%else %>
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table3">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -338,7 +337,7 @@ Highcharts.setOptions({
 
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table4">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -388,7 +387,7 @@ Highcharts.setOptions({
 <% if a==0 %>
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table5">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -420,7 +419,7 @@ Highcharts.setOptions({
 <%else%>
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table5">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -472,7 +471,7 @@ Highcharts.setOptions({
 <% if a!=0 %>
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table6">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -505,7 +504,7 @@ Highcharts.setOptions({
 
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table6">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -543,7 +542,7 @@ Highcharts.setOptions({
 
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="tab2">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -576,7 +575,7 @@ Highcharts.setOptions({
 
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table2">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -631,7 +630,7 @@ Highcharts.setOptions({
 <%end%>
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table8">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -678,7 +677,7 @@ Highcharts.setOptions({
 <%end%>
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="table">
+  border-radius: 5px;" class="table9">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -781,8 +780,32 @@ Highcharts.setOptions({
 h6{
   font-style: 'Helvetica' !important;
 }
-.table th{
-   background-color: #F2F1EF!important;
+.table1 th{
+   background-color: #bdc3c7!important;
+ }
+ .table2 th{
+   background-color: #8E2323!important;
+ }
+ .table3 th{
+   background-color: #9CCB19!important;
+ }
+ .table4 th{
+   background-color: #FF7755!important;
+ }
+ .table5 th{
+   background-color: #97694F!important;
+ }
+ .table6 th{
+   background-color: #8B8682!important;
+ }
+ .table7 th{
+   background-color: #2980b9!important;
+ }
+ .table8 th{
+   background-color: #CCCC99!important;
+ }
+ .table9 th{
+   background-color: #FFCC99!important;
  }
 .wrapper2{
   margin: 0 auto;
