@@ -40,6 +40,8 @@
 <%end%>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime+1.day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances', label: "Response Time(msec)",
     colors: ['#9CCB19'], library: {chart: {zoomType: 'x'}}%> 
+      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+
 <%end%>
 
 
@@ -49,6 +51,8 @@
  <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Today Performances</b></h1>
  </div>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day.localtime).where('created_at <=?',DateTime.now.end_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",colors: ['#8E2323'], library: {chart: {zoomType: 'x'} }%> 
+    <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+
 <%end%>
 
 <% if params[:typ]=="week" %>
@@ -58,6 +62,8 @@
  <%= area_chart @performance.group_by_day(:created_at,last: 7).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",
  title: 'Weekly Performances',label: "Response Time(msec)",
     colors: ['#CCCC99'], library: {chart: {zoomType: 'x'}}%>
+      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+
 <%end%>
 
 <% if params[:typ]=="month" %>
@@ -67,6 +73,8 @@
  <%= area_chart @performance.group_by_week(:created_at, last: 4).average(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",
  title: 'Monthly Performances',label: "Response Time(msec)",
     colors: ['#FFCC99'], library: {chart: {zoomType: 'x'} } %>
+      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+
 <%end%>
 
 <% if params[:typ]=="today" %>
@@ -75,6 +83,7 @@
  </div>
  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day.localtime).where('created_at <=?',DateTime.now.end_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",
     colors: ['#8E2323'], library: {chart: {zoomType: 'x'}}%>
+    <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
 
 <%end%>
 
@@ -84,6 +93,8 @@
 </div>
  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.yesterday.beginning_of_day.localtime).where('created_at <?',DateTime.now.beginning_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",
     colors: ['#FF7755'], library: {chart: {zoomType: 'x'}}%> 
+      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+
  <%end%>
 
 <% if params[:typ]=="pastweek" %>
@@ -93,6 +104,8 @@
 <%= area_chart @performance.group_by_day(:created_at).where('created_at <=?',6.day.ago).where('created_at >=?',14.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",label: "Response Time(msec)",
  title: 'Weekly Performances',
     colors: ['#97694F'], library: {chart: {zoomType: 'x'} }%>
+      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+
 <%end%>
 
 <% if params[:typ]=="pastmonth" %>
@@ -102,6 +115,8 @@
 <%= area_chart @performance.group_by_week(:created_at, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).average(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",
  title: 'Monthly Performances',label: "Response Time(msec)",
     colors: ['#8B8682'], library: {chart: {zoomType: 'x'} } %>
+      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+
 <%end%>
 </div>     
 
@@ -256,20 +271,12 @@
         <td ><%= a.round(2) %>&nbsp;msec</td>
         <td ><%= a.round(2) %>&nbsp;msec</td>
         <td ><%= a %></td>
-        <td >-</td>
-        <td >-</td>
+        <td ><%= a %></td>
+        <td ><%= @a %>%</td>
    
         </tr>
   </tbody>
 </table>
-</div>
-<div class="info">
-<p><strong><span>Average : </span></strong><%= a.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= a.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= a.round(2) %>&nbsp;msec</p>
-<p><strong><span>Total Query :</span></strong><%= a %></p>
-<p><strong><span>Total Fail :</span></strong><%= a %></p>
-<p><strong><span>Availability Status :</span></strong><%= @a %>%</p>
 </div>
 <hr class="line">
 <%else %>
@@ -290,24 +297,16 @@
 
   <tbody>
       <tr>
-        <td >-</td>
-        <td >-</td>
-        <td >-</td>
-        <td >-</td>
-        <td >-</td>
-        <td >-</td>
+        <td ><%= (total.round(2)/a.round(2)).round(2) %></td>
+        <td ><%= maximum.round(2) %></td>
+        <td ><%= minimum.round(2) %></td>
+        <td ><%= a %></td>
+        <td ><%= b %></td>
+        <td ><%= ((a-b)/a)*100 %>%</td>
    
         </tr>
   </tbody>
 </table>
-</div>
-<div class="info">
-<p><strong><span>Average : </span></strong><%= (total.round(2)/a.round(2)).round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<p><strong><span>Total Query :</span></strong><%= a %></p>
-<p><strong><span>Total Fail :</span></strong><%= b %></p>
-<p><strong><span>Availability Status :</span></strong><%= ((a-b)/a)*100 %>%</p>
 </div>
 <hr class="line">
 <%end%>
@@ -317,13 +316,33 @@
 
 <% if params[:typ]=="yesterday" %>
 
-<div class="info">
-<p><strong><span>Average : </span></strong><%= @yesterdayAV.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @yesterdayHigh.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @yesterdayLow.round(2) %>&nbsp;msec</p>
-<p><strong><span>Total Query :</span></strong><%= @yesterdayTotal %></p>
-<p><strong><span>Total Fail :</span></strong><%= @yesterdayFail %></p>
-<p><strong><span>Availability Status :</span></strong><%= @yesterdayAvai %>%</p>
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td ><%= @yesterdayAV.round(2) %></td>
+        <td ><%= @yesterdayHigh.round(2) %></td>
+        <td ><%= @yesterdayLow.round(2) %></td>
+        <td ><%= @yesterdayTotal %></td>
+        <td ><%= @yesterdayFail %></td>
+        <td ><%= @yesterdayAvai %>%</td>
+   
+        </tr>
+  </tbody>
+</table>
 </div>
 <hr class="line">
 
@@ -345,23 +364,63 @@
 <%end%>
 
 <% if a==0 %>
-<div class="info">
-<p><strong><span>Average : </span></strong><%= a.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= a.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= a.round(2) %>&nbsp;msec</p>
-<p><strong><span>Total Query :</span></strong><%= a %></p>
-<p><strong><span>Total Fail :</span></strong><%= a %></p>
-<p><strong><span>Availability Status :</span></strong><%= a %>%</p>
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td ><%= a.round(2) %>&nbsp;msec</td>
+        <td ><%= a.round(2) %>&nbsp;msec</td>
+        <td ><%= a.round(2) %>&nbsp;msec</td>
+        <td ><%= a %></td>
+        <td ><%= a %></td>
+        <td ><%= a %>%</td>
+   
+        </tr>
+  </tbody>
+</table>
 </div>
 <hr class="line">
 <%else%>
-<div class="info">
-<p><strong><span>Average : </span></strong><%= (total/4).round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<p><strong><span>Total Query :</span></strong><%= @pastTotal %></p>
-<p><strong><span>Total Fail :</span></strong><%= @pastFail %></p>
-<p><strong><span>Availability Status :</span></strong><%= @pastAvai %>%</p>
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td ><%= (total/4).round(2) %>&nbsp;msec</td>
+        <td ><%= maximum.round(2) %>&nbsp;msec</td>
+        <td ><%= minimum.round(2) %>&nbsp;msec</td>
+        <td ><%= @pastTotal %></td>
+        <td ><%= @pastFail %></td>
+        <td ><%= @pastAvai %>%</td>
+   
+        </tr>
+  </tbody>
+</table>
 </div>
 <hr class="line">
 
@@ -385,23 +444,64 @@
 <%end%>
 
 <% if a!=0 %>
-<div class="info">
-<p><strong><span>Average : </span></strong><%= (total/a).round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<p><strong><span>Total Query :</span></strong><%= @pastmonthTotal %></p>
-<p><strong><span>Total Fail :</span></strong><%= @pastmonthFail %></p>
-<p><strong><span>Availability Status :</span></strong><%= @pastmonthAV  %>%</p>
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td ><%= (total/a).round(2) %>&nbsp;msec</td>
+        <td ><%= maximum.round(2) %>&nbsp;msec</td>
+        <td ><%= minimum.round(2) %>&nbsp;msec</td>
+        <td ><%= @pastmonthTotal %></td>
+        <td ><%= @pastmonthFail %></td>
+        <td ><%= @pastmonthAV  %>%</td>
+   
+        </tr>
+  </tbody>
+</table>
 </div>
 <hr class="line">
 <%else%>
-<div class="info">
-<p><strong><span>Average : </span></strong><%= a.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= a.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= a.round(2) %>&nbsp;msec</p>
-<p><strong><span>Total Query :</span></strong><%= a %></p>
-<p><strong><span>Total Fail :</span></strong><%= a %></p>
-<p><strong><span>Availability Status :</span></strong><%= a  %>%</p>
+
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td ><%= a.round(2) %>&nbsp;msec</td>
+        <td ><%= a.round(2) %>&nbsp;msec</td>
+        <td ><%= a.round(2) %>&nbsp;msec</td>
+        <td ><%= a %></td>
+        <td ><%= a %></td>
+        <td ><%= a  %>%</td>
+   
+        </tr>
+  </tbody>
+</table>
 </div>
 <hr class="line">
 <%end%>
@@ -410,23 +510,65 @@
 <%end%>
 <% if params[:typ]=="today" %>
 <% if @todayTotal==0 %>
-<div class="info">
-<p><strong><span>Average : </span></strong><%= @todayTotal %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @todayTotal %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @todayTotal %>&nbsp;msec</p>
-<p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
-<p><strong><span>Total Fail :</span></strong><%= @todayTotal %></p>
-<p><strong><span>Availability Status :</span></strong><%= @todayTotal %>%</p>
+
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td ><%= @todayTotal %>&nbsp;msec</td>
+        <td ><%= @todayTotal %>&nbsp;msec</td>
+        <td ><%= @todayTotal %>&nbsp;msec</td>
+        <td ><%= @todayTotal %></td>
+        <td ><%= @todayTotal %></td>
+        <td ><%= @todayTotal %>%</td>
+   
+        </tr>
+  </tbody>
+</table>
 </div>
 <hr class="line">
 <%else%>
-<div class="info">
-<p><strong><span>Average : </span></strong><%= @todayAV.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= @todayHigh.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= @todayLow.round(2) %>&nbsp;msec</p>
-<p><strong><span>Total Query :</span></strong><%= @todayTotal %></p>
-<p><strong><span>Total Fail :</span></strong><%= @todayFail %></p>
-<p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
+
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td ><%= @todayAV.round(2) %>&nbsp;msec</td>
+        <td ><%= @todayHigh.round(2) %>&nbsp;msec</td>
+        <td ><%= @todayLow.round(2) %>&nbsp;msec</td>
+        <td ><%= @todayTotal %></td>
+        <td ><%= @todayFail %></td>
+        <td ><%= @availability %>%</td>
+   
+        </tr>
+  </tbody>
+</table>
 </div>
 <hr class="line">
 <%end%>
@@ -452,15 +594,35 @@
 <% minimum=a[1] %>
 <%end%>
 <%end%>
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
 
-<div class="info">
-<p><strong><span>Average : </span></strong><%= (total.round(2)/b.round(2)).round(2) %>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= maximum.round(2) %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<p><strong><span>Total Query :</span></strong><%= @weeksuccess %></p>
-<p><strong><span>Total Fail :</span></strong><%= @weekfail %></p>
-<p><strong><span>Availability Status :</span></strong><%= @availability %>%</p>
+  <tbody>
+      <tr>
+        <td ><%= (total.round(2)/b.round(2)).round(2) %>&nbsp;msec</td>
+        <td ><%= maximum.round(2) %>&nbsp;msec</td>
+        <td ><%= minimum.round(2) %>&nbsp;msec</td>
+        <td ><%= @weeksuccess %></td>
+        <td ><%= @weekfail %></td>
+        <td ><%= @availability %>%</td>
+   
+        </tr>
+  </tbody>
+</table>
 </div>
+
 <hr>
 <%end%>
 <% if params[:typ]=="month" %>
@@ -477,15 +639,35 @@
 <% minimum=a[1] %>
 <%end%>
 <%end%>
+<div class="wrapper2">
+<table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
+  border-radius: 5px;" class="table">
+  <thead>
+    <tr>
+      <th style="text-align: center">&nbsp;Average&nbsp;</th>
+      <th style="text-align: center">Highest&nbsp;</th>
+      <th style="text-align: center">Lowest&nbsp;</th>
+      <th style="text-align: center">Total Query&nbsp;</th>
+      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Availability&nbsp;</th>
+   
+    </tr>
+  </thead>
 
-<div class="info">
-<p><strong><span>Average : </span></strong><%= (total/4).round(2)%>&nbsp;msec</p> 
-<p><strong><span>Highest  :</span></strong><%= maximum.round(2)  %>&nbsp;msec</p> 
-<p><strong><span>Lowest :</span></strong><%= minimum.round(2) %>&nbsp;msec</p>
-<p><strong><span>Total Query :</span></strong><%= @monthsuccess %></p>
-<p><strong><span>Total Fail :</span></strong><%= @monthfail %></p>
-<p><strong><span>Availability Status :</span></strong><%= @monthAvailability %>%</p>
+  <tbody>
+      <tr>
+        <td ><%= (total/4).round(2)%>&nbsp;msec</td>
+        <td ><%= maximum.round(2)  %>&nbsp;msec</td>
+        <td ><%= minimum.round(2) %>&nbsp;msec</td>
+        <td ><%= @monthsuccess %></td>
+        <td ><%= @monthfail %></td>
+        <td ><%= @monthAvailability %>%</td>
+   
+        </tr>
+  </tbody>
+</table>
 </div>
+
 <hr class="line">
 <%end%>
 <%end%>
