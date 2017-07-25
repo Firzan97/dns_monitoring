@@ -50,7 +50,8 @@ after_create :update_whenever
     
     
     @performance = Performance.create(responsetime: num1.to_i,question_id: id)
-    @performance.update(responsetime: num1.to_i,question_id: id,date_malay: created_at.in_time_zone('Kuala Lumpur'))
+    a=@performance.created_at.in_time_zone('Kuala Lumpur')
+    @performance.update(responsetime: num1.to_i,question_id: id,date_malay: a)
     #question.update(created_at:)
     average=Performance.where(question_id: question.id).average(:responsetime)
     highest=Performance.where(question_id: question.id).maximum(:responsetime)
