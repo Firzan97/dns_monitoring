@@ -1,8 +1,8 @@
 class Question < ApplicationRecord
-has_many :performances , dependent: :destroy
+
 has_one :detail , dependent: :destroy
 has_many :choices , dependent: :destroy
-
+has_many :performances , dependent: :destroy
 belongs_to :user  
 has_many :answers , dependent: :destroy
 after_create :update_whenever

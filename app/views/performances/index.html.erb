@@ -27,6 +27,8 @@
 
 </div>
 <hr>
+<% @performance.group("date(convert_tz(created_at,'UTC','[Kuala Lumpur]'))")%>
+
 
 <% if params[:start]!=nil  && params[:end]!=nil%>
 <% if params[:start]==params[:end] %>
@@ -39,8 +41,8 @@
 </div>
 <%end%>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime+1.day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances', label: "Response Time(msec)",
-    colors: ['#9CCB19'], library: {chart: {zoomType: 'x'}}%> 
-      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+    colors: ['#9CCB19'], library: {chart: {zoomType: 'x'}} %> 
+      <strong><h6 style="text-align: center; ">DNS Query Response Time For <%= @question.dnsname %> </h6></strong>
 
 <%end%>
 
@@ -51,7 +53,7 @@
  <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Today Performances</b></h1>
  </div>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day.localtime).where('created_at <=?',DateTime.now.end_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",colors: ['#8E2323'], library: {chart: {zoomType: 'x'} }%> 
-    <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+    <h6 style="text-align: center; font-family: Helvetica !important;"><b>DNS Query Response Time For <%= @question.dnsname %> </b></h6>
 
 <%end%>
 
@@ -59,10 +61,10 @@
 <div class="title">
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Week Performances</b></h1>
 </div>
- <%= area_chart @performance.group_by_day(:created_at,last: 7).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",
+ <%= area_chart @performance.group_by_day(:created_at,last: 7,time_zone: "UTC").average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",
  title: 'Weekly Performances',label: "Response Time(msec)",
     colors: ['#CCCC99'], library: {chart: {zoomType: 'x'}}%>
-      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+      <h6 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h6>
 
 <%end%>
 
@@ -70,10 +72,10 @@
 <div class="title">
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Month Performances</b></h1>
 </div>
- <%= area_chart @performance.group_by_week(:created_at, last: 4).average(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",
+ <%= area_chart @performance.group_by_week(:created_at, last: 4,time_zone: "UTC").average(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",
  title: 'Monthly Performances',label: "Response Time(msec)",
     colors: ['#FFCC99'], library: {chart: {zoomType: 'x'} } %>
-      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+      <h6 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h6>
 
 <%end%>
 
@@ -83,7 +85,7 @@
  </div>
  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day.localtime).where('created_at <=?',DateTime.now.end_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",
     colors: ['#8E2323'], library: {chart: {zoomType: 'x'}}%>
-    <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+    <h6 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h6>
 
 <%end%>
 
@@ -93,7 +95,7 @@
 </div>
  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.yesterday.beginning_of_day.localtime).where('created_at <?',DateTime.now.beginning_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",
     colors: ['#FF7755'], library: {chart: {zoomType: 'x'}}%> 
-      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+      <h6 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h6>
 
  <%end%>
 
@@ -101,10 +103,10 @@
 <div class="title">
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Last Week Performances</b></h1>
 </div>
-<%= area_chart @performance.group_by_day(:created_at).where('created_at <=?',6.day.ago).where('created_at >=?',14.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",label: "Response Time(msec)",
+<%= area_chart @performance.group_by_day(:created_at,time_zone: "UTC").where('created_at <=?',6.day.ago).where('created_at >=?',14.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",label: "Response Time(msec)",
  title: 'Weekly Performances',
     colors: ['#97694F'], library: {chart: {zoomType: 'x'} }%>
-      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+      <h6 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h6>
 
 <%end%>
 
@@ -115,7 +117,7 @@
 <%= area_chart @performance.group_by_week(:created_at, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).average(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",
  title: 'Monthly Performances',label: "Response Time(msec)",
     colors: ['#8B8682'], library: {chart: {zoomType: 'x'} } %>
-      <h4 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h4>
+      <h6 style="text-align: center;">DNS Query Response Time For <%= @question.dnsname %> </h6>
 
 <%end%>
 </div>     
@@ -135,7 +137,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -168,7 +170,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -201,7 +203,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -259,7 +261,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -289,7 +291,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -325,7 +327,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -373,7 +375,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -403,7 +405,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -453,7 +455,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -484,7 +486,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -520,7 +522,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -551,7 +553,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -603,7 +605,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -648,7 +650,7 @@
       <th style="text-align: center">Highest&nbsp;</th>
       <th style="text-align: center">Lowest&nbsp;</th>
       <th style="text-align: center">Total Query&nbsp;</th>
-      <th style="text-align: center">uTotal Fail&nbsp;</th>
+      <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
    
     </tr>
@@ -739,6 +741,9 @@
 
 <head>
 <style>
+h6{
+  font-style: 'Helvetica' !important;
+}
 .table th{
    background-color: #F2F1EF!important;
  }
