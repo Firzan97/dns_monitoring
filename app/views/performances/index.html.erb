@@ -34,7 +34,7 @@ Highcharts.setOptions({
 </div>
 <hr>
 
-
+<%= Date.today.in_time_zone('Kuala Lumpur')-7.day %>
 <% if params[:start]!=nil  && params[:end]!=nil%>
 <% if params[:start]==params[:end] %>
 <div class="title">

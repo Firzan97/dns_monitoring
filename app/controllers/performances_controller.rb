@@ -29,8 +29,8 @@ class PerformancesController < ApplicationController
         @success5=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-4.day).where('created_at <?',DateTime.now.beginning_of_day.localtime-3.day).count
         @success6=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-5.day).where('created_at <?',DateTime.now.beginning_of_day.localtime-4.day).count
         @success7=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-6.day).where('created_at <?',DateTime.now.beginning_of_day.localtime-5.day).count
-        @weeksuccess=@question.performances.where('created_at >=?',7.day.ago.in_time_zone('Kuala Lumpur')).count
-        @weekfail=@question.performances.where(responsetime: -1 ).where('created_at >=?',7.day.ago.in_time_zone('Kuala Lumpur')).count
+        @weeksuccess=@question.performances.where('created_at >=?',Date.today.in_time_zone('Kuala Lumpur')-7.day).count
+        @weekfail=@question.performances.where(responsetime: -1 ).where('created_at >=?',Date.today.in_time_zone('Kuala Lumpur')-7.day).count
         if @weeksuccess==0
            @weekAvailability=0
         else
