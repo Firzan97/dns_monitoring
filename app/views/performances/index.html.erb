@@ -647,7 +647,7 @@ Highcharts.setOptions({
   </thead>
 
   <tbody>
-
+ 
       <tr>
         <td ><%= @question.recordtype %></td>
         <td ><%= (total.round(2)/b.round(2)).round(2) %>&nbsp;msec</td>
@@ -662,7 +662,7 @@ Highcharts.setOptions({
 </table>
 </div>
 
-<hr>
+<hr class="line">
 <%end%>
 <% if params[:typ]=="month" %>
 
