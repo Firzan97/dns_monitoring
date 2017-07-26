@@ -6,7 +6,7 @@
 <script>    
 Highcharts.setOptions({
         global: {
-            timezoneOffset: 16 * 60
+            timezoneOffset: -16 * 60
         }
     });
 </script>
@@ -58,7 +58,7 @@ Highcharts.setOptions({
 <div class="title">
  <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Today Performances</b></h1>
  </div>
-  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day).where('created_at <=?',DateTime.now.end_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",colors: ['#8E2323'], library: {chart: {zoomType: 'x'} }%> 
+  <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.now.beginning_of_day.localtime).where('created_at <=?',DateTime.now.end_of_day.localtime).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",colors: ['#8E2323'], library: {chart: {zoomType: 'x'} }%> 
      <h6 style="text-align: center; font-family: Helvetica !important;">DNS Query Response Time for <span><b><%= @question.dnsname %></b> </span></h6>
 
 <%end%>
@@ -541,7 +541,7 @@ Highcharts.setOptions({
 
 <div class="wrapper2">
 <table align="center" style="text-align: center; margin-top: -10px; overflow: hidden;
-  border-radius: 5px;" class="tab2">
+  border-radius: 5px;" class="table2">
   <thead>
     <tr>
       <th style="text-align: center">&nbsp;Record Type&nbsp;</th>
@@ -806,20 +806,16 @@ h6{
  .table9 th{
    background-color: #FFCC99!important;
  }
-.wrapper2{
-  margin: 90 auto;
-  padding: 10px;
-  max-width: 1800px;
 
-  
+.table1,.table2,.table3,.table4,.table5,.table6,.table7,.table8,.table9
+{
+  overflow:hidden;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #888888;
+    width: 80%;
+    border-collapse: collapse;
 }
-.wrapper3{
-  margin: 90 auto;
-  padding: 10px;
-  max-width: 2600px!important;
 
-  
-}
 .info{
   text-align: center;
 }
@@ -948,7 +944,7 @@ body
       <% if @question.id==performance.question_id %>
         <td><%= b=b+1 %>.</td>
         <td><%= performance.responsetime %>&nbsp;</td>
-        <td><%= performance.created_at%>&nbsp;sasa</td>
+        <td><%= performance.created_at.in_time_zone('Kuala Lumpur').strftime("%d/%m/%y ""%I:%M %p" )%>&nbsp;sasa</td>
         <% a=performance.responsetime %>
 
         <script>
