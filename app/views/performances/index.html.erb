@@ -55,7 +55,7 @@ Highcharts.setOptions({
 
 <%if params[:typ]!="week" && params[:typ]!="today" && params[:typ]!="month" && params[:typ]!="stop" && params[:typ]!="yesterday" && params[:typ]!="pastweek" && params[:typ]!="pastmonth" && params[:start]==nil && params[:end]==nil%>
 <div class="title">
- <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Today Performances</b></h1>
+ <h1 style="text-align: center; font-family: Media Gothic;"><b>Today Performances</b></h1>
  </div>
   <%= area_chart @performance.group(:created_at).where('created_at >=?',Date.today.in_time_zone('Kuala Lumpur')).where('created_at <=?',(Date.today+1.day).in_time_zone('Kuala Lumpur')).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",
     colors: ['#8E2323'], library: {chart: {zoomType: 'x'}}%> 
@@ -65,7 +65,7 @@ Highcharts.setOptions({
 
 <% if params[:typ]=="week" %>
 <div class="title">
-<h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Week Performances</b></h1>
+<h1 style="text-align: center; font-family: Media Gothic;"><b>This Week Performances</b></h1>
 </div>
  <%= area_chart @performance.group_by_day(:created_at,last: 7,time_zone: "Kuala Lumpur").average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",
  title: 'Weekly Performances',label: "Response Time(msec)",
@@ -76,7 +76,7 @@ Highcharts.setOptions({
 
 <% if params[:typ]=="month" %>
 <div class="title">
-<h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Month Performances</b></h1>
+<h1 style="text-align: center; font-family: Media Gothic;"><b>This Month Performances</b></h1>
 </div>
  <%= area_chart @performance.group_by_week(:created_at, last: 4,time_zone: "Kuala Lumpur").average(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",
  title: 'Monthly Performances',label: "Response Time(msec)",
@@ -87,7 +87,7 @@ Highcharts.setOptions({
 
 <% if params[:typ]=="today" %>
 <div class="title">
- <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Today Performances</b></h1>
+ <h1 style="text-align: center; font-family: Media Gothic;"><b>Today Performances</b></h1>
  </div>
 
 
@@ -100,7 +100,7 @@ Highcharts.setOptions({
 
 <% if params[:typ]=="yesterday" %>
 <div class="title">
-<h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Yesterday Performances</b></h1>
+<h1 style="text-align: center; font-family: Media Gothic;"><b>Yesterday Performances</b></h1>
 </div>
 
  <%= area_chart @performance.group(:created_at).where('created_at >=?',Date.yesterday.in_time_zone('Kuala Lumpur')).where('created_at <?',Date.today.in_time_zone('Kuala Lumpur')).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",
@@ -111,7 +111,7 @@ Highcharts.setOptions({
 
 <% if params[:typ]=="pastweek" %>
 <div class="title">
-<h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Last Week Performances</b></h1>
+<h1 style="text-align: center; font-family: Media Gothic;"><b>Last Week Performances</b></h1>
 </div>
 <%= area_chart @performance.group_by_day(:created_at,time_zone: "Kuala Lumpur").where('created_at <=?',6.day.ago).where('created_at >=?',14.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",label: "Response Time(msec)",
  title: 'Weekly Performances',
@@ -122,7 +122,7 @@ Highcharts.setOptions({
 
 <% if params[:typ]=="pastmonth" %>
 <div class="title">
-<h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Last Month Performances</b></h1>
+<h1 style="text-align: center; font-family: Media Gothic;"><b>Last Month Performances</b></h1>
 </div>
 <%= area_chart @performance.group_by_week(:created_at, time_zone: "Kuala Lumpur").where('created_at <=?',30.day.ago).where('created_at >=?',60.day.ago).average(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",
  title: 'Monthly Performances',label: "Response Time(msec)",
