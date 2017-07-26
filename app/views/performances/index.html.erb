@@ -188,12 +188,12 @@ Highcharts.setOptions({
   <tbody>
       <tr>
          <td ><%= @question.recordtype %></td>
-        <td >&nbsp;<%= @todayTotal.round(2) %></td>
-        <td >&nbsp;<%= @todayTotal.round(2) %></td>
-        <td >&nbsp;<%= @todayTotal.round(2) %></td>
+        <td >&nbsp;<%= @todayTotal.round(2) %>&nbsp;msec</td>
+        <td >&nbsp;<%= @todayTotal.round(2) %>&nbsp;msec</td>
+        <td >&nbsp;<%= @todayTotal.round(2) %>&nbsp;msec</td>
         <td >&nbsp;<%= @todayTotal %></td>
         <td >&nbsp;<%= @todayTotal %></td>
-        <td >&nbsp;<%= @todayTotal %></td>
+        <td >&nbsp;<%= @todayTotal %>%</td>
    
         </tr>
   </tbody>
@@ -223,13 +223,13 @@ Highcharts.setOptions({
   <tbody>
       <tr>
         <td ><%= @question.recordtype %></td>
-        <td >&nbsp;<%= @todayAV.round(2) %></td>
-        <td >&nbsp;<%= @todayHigh.round(2) %></td>
-        <td >&nbsp;<%= @todayLow.round(2) %></td>
+        <td >&nbsp;<%= @todayAV.round(2) %>&nbsp;msec</td>
+        <td >&nbsp;<%= @todayHigh.round(2) %>&nbsp;msec</td>
+        <td >&nbsp;<%= @todayLow.round(2) %>&nbsp;msec</td>
         <td >&nbsp;<%= @todayTotal %></td>
         <td >&nbsp;<%= @todayFail %></td>
-        <td >&nbsp;<%= @availability %></td>
-   
+        <td >&nbsp;<%= @availability %>%</td>
+       
         </tr>
   </tbody>
 </table>
@@ -315,9 +315,9 @@ Highcharts.setOptions({
   <tbody>
       <tr>
         <td ><%= @question.recordtype %></td>
-        <td ><%= (total.round(2)/a.round(2)).round(2) %></td>
-        <td ><%= maximum.round(2) %></td>
-        <td ><%= minimum.round(2) %></td>
+        <td ><%= (total.round(2)/a.round(2)).round(2) %>&nbsp;msec</td>
+        <td ><%= maximum.round(2) %>&nbsp;msec</td>
+        <td ><%= minimum.round(2) %>&nbsp;msec</td>
         <td ><%= a %></td>
         <td ><%= b %></td>
         <td ><%= ((a-b)/a)*100 %>%</td>
@@ -353,9 +353,9 @@ Highcharts.setOptions({
   <tbody>
       <tr>
         <td ><%= @question.recordtype %></td>
-        <td ><%= @yesterdayAV.round(2) %></td>
-        <td ><%= @yesterdayHigh.round(2) %></td>
-        <td ><%= @yesterdayLow.round(2) %></td>
+        <td ><%= @yesterdayAV.round(2) %>&nbsp;msec</td>
+        <td ><%= @yesterdayHigh.round(2) %>&nbsp;msec</td>
+        <td ><%= @yesterdayLow.round(2) %>&nbsp;msec</td>
         <td ><%= @yesterdayTotal %></td>
         <td ><%= @yesterdayFail %></td>
         <td ><%= @yesterdayAvai %>%</td>
