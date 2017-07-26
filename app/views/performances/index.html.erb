@@ -251,7 +251,7 @@ Highcharts.setOptions({
 <% maximum=0%>
 <% minimum=100 %>
 <% a=0 %>
-<% @performance.group(:created_at).where('created_at >=?',params[:start].in_time_zone('Kuala Lumpur')).where('created_at <=?',(params[:start]+1.day).in_time_zone('Kuala Lumpur')).sum(:responsetime).each do |f| %>
+<% @performance.group(:created_at).where('created_at >=?',params[:start].in_time_zone('Kuala Lumpur')).where('created_at <=?',params[:end].in_time_zone('Kuala Lumpur')+1.day).sum(:responsetime).each do |f| %>
 <% a=a+1%>
 <% total=total+f[1] %>
 <%if maximum<f[1] %>
@@ -262,7 +262,7 @@ Highcharts.setOptions({
 <%end%>
 <%end%>
 <% b=0 %>
-<% @performance.group(:created_at).where(responsetime: -1 ).where('created_at >=?',params[:start].in_time_zone('Kuala Lumpur')).where('created_at <=?',(params[:start]+1.day).in_time_zone('Kuala Lumpur')).sum(:responsetime).each do |f| %> 
+<% @performance.group(:created_at).where(responsetime: -1 ).where('created_at >=?',params[:start].in_time_zone('Kuala Lumpur')).where('created_at <=?',(Date.today+1.day).in_time_zone('Kuala Lumpur')).sum(:responsetime).each do |f| %> 
 <% b=b+1%>
 <%end%>
 
