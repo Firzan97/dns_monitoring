@@ -618,7 +618,7 @@ Highcharts.setOptions({
 <% maximum=1 %>
 <% minimum=100 %>
 <% b=0 %>
-<% @performance.group_by_day(:created_at,last: 7,time_zone: "Kuala Lumpur").average(:responsetime).each do |a| %>
+<%= @performance.group_by_day(:created_at,last: 7,time_zone: "Kuala Lumpur").average(:responsetime).each do |a| %>
 <% total=total+a[1] %>
 <%if a[1]>0 %>
 <%b=b+1 %>
