@@ -88,9 +88,11 @@ Highcharts.setOptions({
 <div class="title">
  <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Today Performances</b></h1>
  </div>
- <%= Date.today %>
- <%= Date.today+1.day %>
- <%= area_chart @performance.group(:created_at).where('created_at >=?',Date.today).where('created_at <=?',Date.today+1.day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",
+
+ <%=  %>
+ <%= (Date.today+1.day).in_time_zone('Kuala Lumpur') %>
+
+ <%= area_chart @performance.group(:created_at).where('created_at >=?',Date.today.in_time_zone('Kuala Lumpur')).where('created_at <=?',(Date.today+1.day).in_time_zone('Kuala Lumpur')).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",
     colors: ['#8E2323'], library: {chart: {zoomType: 'x'}}%>
     <h6 style="text-align: center; font-family: Helvetica !important;">DNS Query Response Time for <span><b><%= @question.dnsname %></b> </span></h6>
 
