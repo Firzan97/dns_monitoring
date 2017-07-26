@@ -135,17 +135,17 @@ class PerformancesController < ApplicationController
         #@monthAvailability=((@monthsuccess-@monthfail)/@monthsuccess)*100
 
         ####yesterday####
-        @yesterdayAV=@question.performances.where('created_at >=?',DateTime.yesterday.beginning_of_day).where('created_at <=?',DateTime.now.beginning_of_day).average(:responsetime)
+        @yesterdayAV=@question.performances.where('created_at >=?',Date.yesterday.in_time_zone('Kuala Lumpur')).where('created_at <=?',Date.today.in_time_zone('Kuala Lumpur')).average(:responsetime)
         if @yesterdayAV==nil
           @yesterdayAV=0
         end
 
-        @yesterdayTotal=@question.performances.where('created_at >=?',DateTime.yesterday.beginning_of_day).where('created_at <=?',DateTime.now.beginning_of_day).count(:responsetime)
+        @yesterdayTotal=@question.performances.where('created_at >=?',Date.yesterday.in_time_zone('Kuala Lumpur')).where('created_at <=?',Date.today.in_time_zone('Kuala Lumpur')).count(:responsetime)
          if @yesterdayTotal==nil
           @yesterdayTotal=0
         end
 
-        @yesterdayFail=@question.performances.where(responsetime: -1 ).where('created_at >=?',DateTime.yesterday.beginning_of_day).where('created_at <=?',DateTime.now.beginning_of_day).count
+        @yesterdayFail=@question.performances.where(responsetime: -1 ).where('created_at >=?',Date.yesterday.in_time_zone('Kuala Lumpur')).where('created_at <=?',Date.today.in_time_zone('Kuala Lumpur')).count
          if @yesterdayAV==nil
           @yesterdayAV=0
         end
@@ -156,12 +156,12 @@ class PerformancesController < ApplicationController
            @yesterdayAvai=((@yesterdayTotal-@yesterdayFail)/@yesterdayTotal)*100
          end
 
-        @yesterdayHigh=@question.performances.where('created_at >=?',DateTime.yesterday.beginning_of_day).where('created_at <=?',DateTime.now.beginning_of_day).maximum(:responsetime)
+        @yesterdayHigh=@question.performances.where('created_at >=?',Date.yesterday.in_time_zone('Kuala Lumpur')).where('created_at <=?',Date.today.in_time_zone('Kuala Lumpur')).maximum(:responsetime)
          if @yesterdayHigh==nil
           @yesterdayHigh=0
         end
 
-        @yesterdayLow=@question.performances.where('created_at >=?',DateTime.yesterday.beginning_of_day).where('created_at <=?',DateTime.now.beginning_of_day).where.not(responsetime: -1 ).minimum(:responsetime)
+        @yesterdayLow=@question.performances.where('created_at >=?',Date.yesterday.in_time_zone('Kuala Lumpur')).where('created_at <=?',Date.today.in_time_zone('Kuala Lumpur')).where.not(responsetime: -1 ).minimum(:responsetime)
          if @yesterdayLow==nil
           @yesterdayLow=0
         end
