@@ -100,7 +100,7 @@ Highcharts.setOptions({
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Yesterday Performances</b></h1>
 </div>
 <%= DateTime.yesterday %>
- <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.yesterday).where('created_at <?',DateTime.now.beginning_of_day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",
+ <%= area_chart @performance.group(:created_at).where('created_at >=?',DateTime.yesterday).where('created_at <?',DateTime.now).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances',label: "Response Time(msec)",
     colors: ['#FF7755'], library: {chart: {zoomType: 'x'}}%> 
        <h6 style="text-align: center; font-family: Helvetica !important;">DNS Query Response Time for <span><b><%= @question.dnsname %></b> </span></h6>
 
