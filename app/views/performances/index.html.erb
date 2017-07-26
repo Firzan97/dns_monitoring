@@ -647,7 +647,8 @@ Highcharts.setOptions({
   </thead>
 
   <tbody>
-  <%=b %>
+  <%=b %><br>
+  <%= total %>
       <tr>
         <td ><%= @question.recordtype %></td>
         <td ><%= (total.round(2)/b.round(2)).round(2) %>&nbsp;msec</td>
