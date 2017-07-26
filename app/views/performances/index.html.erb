@@ -923,7 +923,7 @@ hr {
 }
 
 .page {
-
+   margin-left: 10px;
   margin-bottom: 400px;
 }
 body
@@ -979,7 +979,11 @@ body
 <br>
 <div class="page"> 
 <%= will_paginate @performances , class:"Page navigation example" %>
-<%= link_to 'Back', questions_path %>
+
+<%= link_to questions_path ,class: "btn btn-primary" do %>
+<span class="fa fa-backward"></span> back
+<%end%>
+
 </div>
 <script>
 window.onscroll = function() {scrollFunction()};

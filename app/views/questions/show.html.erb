@@ -182,15 +182,23 @@
 </table>
 </div>
 </div>
-&nbsp;
-<%= link_to questions_path ,class: "btn btn-default" do%>
- <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back
- <%end%>
- &nbsp;
-<br>
-<hr>
-<style >
 
+ <hr style="margin-top: -100px!important;">
+<div class="back">
+<%= link_to questions_path ,class: "btn btn-primary" do%>
+ <span class="fa fa-backward" aria-hidden="true"></span> Back
+ <%end%>
+</div>
+ 
+
+
+
+<style >
+.back
+{
+  margin-left: 10px;
+  margin-top: -5px;
+}
 
 body{
   background-color: #FFFFFF;
