@@ -88,6 +88,14 @@
 
 <hr style="margin-top:-40px;">
 
+<%total=0%>
+<% @answers.each do |answer| %>
+<% if answer.question_id==@questions.id && answer.typeAnswer=="answer"%>
+<% total=total+1 %>
+<%end%>
+<%end%>
+
+<% if total!=0 %>
 <div class="wrapper">
 <h3 style="text-align: center; margin-top: 10px;"><u><b></b> </u></h3>
 <h3 style="text-align: center; margin-top: 10px;"><u><b>ANSWER</b> </u></h3>
@@ -119,8 +127,16 @@
   </tbody>
 </table>
 </div>
+<%end%>
 
+<%total1=0%>
+<% @answers.each do |answer| %>
+<% if answer.question_id==@questions.id && answer.typeAnswer=="authority"%>
+<% total1=total1+1 %>
+<%end%>
+<%end%>
 
+<% if total1!=0 %>
 <h3 style="text-align: center; margin-top: 50px;"><u><b>AUTHORITY</b> </u></h3>
 <div class="wrapper">
 <table align="center" style="text-align: center; margin-top: -40px;" class="table2">
@@ -151,7 +167,16 @@
   </tbody>
 </table>
 </div>
+<%end%>
 
+<%total2=0%>
+<% @answers.each do |answer| %>
+<% if answer.question_id==@questions.id && answer.typeAnswer=="additional"%>
+<% total2=total2+1 %>
+<%end%>
+<%end%>
+
+<% if total2!=0 %>
 <h3 style="text-align: center; margin-top: 50px;"><u><b>ADDITIONAL</b></u> </h3>
 <div class="wrapper">
 <table align="center" style="text-align: center;margin-top: -40px; " class="table3">
@@ -182,8 +207,9 @@
 </table>
 </div>
 </div>
+<%end%>
 
- <hr style="margin-top: -100px!important;">
+ <hr style="margin-top: -60px!important;">
 <div class="back">
 <%= link_to questions_path ,class: "btn btn-primary" do%>
  <span class="fa fa-backward" aria-hidden="true"></span> Back
