@@ -30,7 +30,7 @@ class PerformancesController < ApplicationController
         @success6=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-5.day).where('created_at <?',DateTime.now.beginning_of_day.localtime-4.day).count
         @success7=@question.performances.where('created_at >=?',DateTime.now.beginning_of_day.localtime-6.day).where('created_at <?',DateTime.now.beginning_of_day.localtime-5.day).count
         @weeksuccess=@question.performances.where('created_at >=?',7.day.ago).count
-        @weekfail=@question.performances.where(responsetime: -1 ).where('created_at >=?',7.day.ago).count
+        @weekfail=@question.performances.where(responsetime: -1 ).where('created_at >=?',7.day.ago.in_time_zone('Kuala Lumpur')).count
         if @weeksuccess==0
            @weekAvailability=0
         else
