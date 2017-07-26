@@ -46,7 +46,7 @@ Highcharts.setOptions({
 </div>
 <%end%>
 
-  <%= area_chart @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime).where('created_at <=?',params[:end].to_datetime+1.day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances', label: "Response Time(msec)", 
+  <%= area_chart @performance.group(:created_at).where('created_at >=?',params[:start].to_datetime.in_time_zone('Kuala Lumpur')).where('created_at <=?',params[:end].to_datetime.in_time_zone('Kuala Lumpur')+1.day).sum(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",title: 'Daily Performances', label: "Response Time(msec)", 
     colors: ['#9CCB19'], library: {chart: {zoomType: 'x'}}%> 
        <h6 style="text-align: center; font-family: Helvetica !important;">DNS Query Response Time for <span><b><%= @question.dnsname %></b> </span></h6>
 <%end%>
