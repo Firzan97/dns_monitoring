@@ -113,7 +113,7 @@ Highcharts.setOptions({
 <div class="title">
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>Last Week Performances</b></h1>
 </div>
-<%= area_chart @performance.group_by_day(:created_at,time_zone: "UTC").where('created_at <=?',6.day.ago).where('created_at >=?',14.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",label: "Response Time(msec)",
+<%= area_chart @performance.group_by_day(:created_at,time_zone: "Kuala Lumpur").where('created_at <=?',6.day.ago).where('created_at >=?',14.day.ago).average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",label: "Response Time(msec)",
  title: 'Weekly Performances',
     colors: ['#97694F'], library: {chart: {zoomType: 'x'} }%>
       <h6 style="text-align: center; font-family: Helvetica !important;">DNS Query Response Time for <span><b><%= @question.dnsname %></b> </span></h6>
