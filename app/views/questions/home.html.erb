@@ -37,7 +37,7 @@
 <table class="table table-striped" style="width: 50%!important;">
 <tr>
 <td>-<%= q.dnsname %></td>
-<td style="color:grey ;"><i><%= q.created_at.localtime.strftime("%d/%m/%y ""%I:%M %p" ) %></i>&nbsp;</td>
+<td style="color:grey ;"><i><%= q.created_at.in_time_zone('Kuala Lumpur').strftime("%d/%m/%y ""%I:%M %p" ) %></i>&nbsp;</td>
 </tr>
 </table>
 <%end%>
