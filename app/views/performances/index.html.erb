@@ -67,7 +67,7 @@ Highcharts.setOptions({
 <div class="title">
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Week Performances</b></h1>
 </div>
- <%= area_chart @performance.group_by_day(:created_at,last: 7,time_zone: "UTC").average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",
+ <%= area_chart @performance.group_by_day(:created_at,last: 7,time_zone: "Kuala Lumpur").average(:responsetime) , xtitle: "Created at", ytitle: "Response Time (milisecond)",
  title: 'Weekly Performances',label: "Response Time(msec)",
     colors: ['#CCCC99'], library: {chart: {zoomType: 'x'}}%>
        <h6 style="text-align: center; font-family: Helvetica !important;">DNS Query Response Time for <span><b><%= @question.dnsname %></b> </span></h6>
@@ -78,7 +78,7 @@ Highcharts.setOptions({
 <div class="title">
 <h1 style="margin-left: 420px; font-family: Media Gothic;"><b>This Month Performances</b></h1>
 </div>
- <%= area_chart @performance.group_by_week(:created_at, last: 4,time_zone: "UTC").average(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",
+ <%= area_chart @performance.group_by_week(:created_at, last: 4,time_zone: "Kuala Lumpur").average(:responsetime), xtitle: "Created at", ytitle: "Response Time (milisecond)",
  title: 'Monthly Performances',label: "Response Time(msec)",
     colors: ['#FFCC99'], library: {chart: {zoomType: 'x'} } %>
       <h6 style="text-align: center; font-family: Helvetica !important;">DNS Query Response Time for <span><b><%= @question.dnsname %></b> </span></h6>
