@@ -6,8 +6,10 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = current_user.questions.all
+    @questions = current_user.questions.search(params[:search]) 
     @performance=Performance.all
+  
+
   end
    def home
     @question = Question.all

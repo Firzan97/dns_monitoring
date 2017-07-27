@@ -30,6 +30,16 @@ after_create :update_whenever
     #    s=f
     #    a++
     #} 
+
+def self.search(search)
+  if search
+    self.where("dnsname like ?", "%#{search}%")
+  else
+    self.all
+  end
+end
+
+
     def update_whenever
       %x[whenever --update-crontab]
     end

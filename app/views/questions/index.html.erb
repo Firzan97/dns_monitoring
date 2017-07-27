@@ -8,12 +8,25 @@
 .information{
   display:none;
 }
-
+.form-control{
+  width: 10%;
+}
+.search{
+  text-align: right;
+  margin-right: 10px;
+  margin-top: -50px;
+}
 </style>
 <p id="notice"><%= notice %></p>
+
+
 <h1 style="margin-top: 50px;"><b>Domain List</b></h1>
-
-
+<div class="search">
+<%= form_tag questions_path, :method => 'get' do %>
+    <%= text_field_tag :search, params[:search]  %>
+    <%= submit_tag "Search" , class:"btn btn-primary"%>
+<% end %><br>
+</div>
 <div class="information" id="recordtype" style="margin-left: 10px; margin-top: -20px;">
  <table >s
          <tr>
@@ -55,6 +68,7 @@
          
  </table><br>
 </div>
+
 <div class="table">
 <table>
   <thead>
@@ -127,6 +141,7 @@
 
   </tbody>
 </table>
+
 </div>
 
 <br>
