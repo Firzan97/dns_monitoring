@@ -31,9 +31,9 @@ after_create :update_whenever
     #    a++
     #} 
 
-def self.search(search)
-  if search
-    self.where("dnsname like ?", "%#{search}%")
+def self.search(search1,search2,search3)
+  if search1 && search2 && search3
+    self.where("dnsname like ?", "%#{search1}%").where("recordtype like ?", "%#{search2}%").where("server like ?", "%#{search3}%")
   else
     self.all
   end

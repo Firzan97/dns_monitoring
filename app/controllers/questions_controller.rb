@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = current_user.questions.search(params[:search]) 
+    @questions = current_user.questions.search(params[:search1],params[:search2],params[:search3]) 
     @performance=Performance.all
   
 

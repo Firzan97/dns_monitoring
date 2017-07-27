@@ -23,7 +23,9 @@
 <h1 style="margin-top: 50px;"><b>Domain List</b></h1>
 <div class="search">
 <%= form_tag questions_path, :method => 'get' do %>
-    <%= text_field_tag :search, params[:search]  %>
+    <%= text_field_tag :search1, params[:search1]  ,:placeholder => "search domain.."%>
+     <%= text_field_tag :search2, params[:search2]  ,:placeholder => "search record type.."%>
+      <%= text_field_tag :search3, params[:search3] ,:placeholder => "search server..." %>
     <%= submit_tag "Search" , class:"btn btn-primary"%>
 <% end %><br>
 </div>
