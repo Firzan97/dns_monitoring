@@ -28,7 +28,7 @@ gem "highstocks-rails"
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
 gem 'jquery-rails'
 gem 'activesupport', '~> 5.0'
- gem 'pg'
+
 gem 'bootstrap_form'
 gem 'devise', '~> 4.2'
 gem 'groupdate', '~> 2.5', '>= 2.5.2'
