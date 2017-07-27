@@ -17,6 +17,7 @@ end
 
 gem 'geokit-rails'
 gem 'will_paginate-bootstrap'
+gem 'will_paginate-bootstrap4'
 gem 'minitest', '~> 5.8', '>= 5.8.4'
 gem 'sprockets-rails'
 gem 'bootstrap', '~> 4.0.0.alpha6'
