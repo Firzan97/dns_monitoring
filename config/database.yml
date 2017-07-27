@@ -5,7 +5,7 @@ development:
   database: my_database_development
   pool: 5
   username: firzan
-  password: system
+  password: 
 
 production:
   adapter: postgresql
