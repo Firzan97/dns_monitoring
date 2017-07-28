@@ -41,6 +41,7 @@ end
 
 
     def update_whenever
+      Rails.logger.debug"Whenever Started"
       %x[whenever --update-crontab]
     end
 
