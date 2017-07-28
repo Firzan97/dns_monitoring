@@ -41,9 +41,29 @@ class QuestionsController < ApplicationController
     type=@question.recordtype
     server=@question.server
     time=@question.timeperiod
-    value2 = %x[ dig @#{server} #{namedns} #{type} | grep "SERVER:" ]
-    c,d=value2.split(": ")
+    testing = %x[ dig #{namedns} #{type} | grep "SERVER:" ]
+    c,d=testing.split(": ")
     e,f=d.split("#")
+    if e != "127.0.0.1"
+    
+    if server==""
+      value2 = %x[ dig #{namedns} #{type} | grep "SERVER:" ]
+      c,d=value2.split(": ")  
+      e,f=d.split("#")
+    query1=%x[dig #{namedns} #{type} | grep "QUERY:"]
+    q1,q2,q3,q4=query1.split(",")
+    q5,q6,q66=q1.split(": ")
+    q7,q8=q2.split(": ")
+    q9,q10=q3.split(": ")
+    q11,q12=q4.split(": ")
+    query2=query1=%x[dig #{namedns} #{type} | grep "version:"]
+    q21,q22=query2.split(",")
+    q23,q24,q25=q21.split(": ")
+    q26,q27,q28=q22.split(": ")
+    else
+    value2 = %x[ dig @#{server} #{namedns} #{type} | grep "SERVER:" ]
+      c,d=value2.split(": ")
+      e,f=d.split("#")
     query1=%x[dig @#{server} #{namedns} #{type} | grep "QUERY:"]
     q1,q2,q3,q4=query1.split(",")
     q5,q6,q66=q1.split(": ")
@@ -54,6 +74,9 @@ class QuestionsController < ApplicationController
     q21,q22=query2.split(",")
     q23,q24,q25=q21.split(": ")
     q26,q27,q28=q22.split(": ")
+    end
+    end
+    server=e
     
     if server.blank?
     @question=current_user.questions.create(dnsname:  namedns, recordtype:  type, server: server, timeperiod: time, query: q66, answer: q8, authority: q10, additional: q12, version: q25, udp: q27)
@@ -72,7 +95,7 @@ class QuestionsController < ApplicationController
      
         Search.create(server: @question.dnsname)
         
-     
+    
      total=%x[ dig @#{server} #{namedns} #{type} | wc -l ]
      total1,total2=total.split("\n") 
     
