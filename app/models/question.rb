@@ -5,8 +5,8 @@ has_many :choices , dependent: :destroy
 has_many :performances , :dependent => :delete_all
 belongs_to :user  
 has_many :answers , dependent: :destroy
-after_create :update_whenever
-before_create :update_whenever2
+after_save :update_whenever
+
 
 
  TIMEPERIOD = 
@@ -40,10 +40,7 @@ def self.search(search1,search2,search3)
   end
 end
 
- def update_whenever2
-      Rails.logger.debug"Whenever Started"
-      %x[whenever --update-crontab]
-    end
+
     def update_whenever
       Rails.logger.debug"Whenever Started"
       %x[whenever --update-crontab]
