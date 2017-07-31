@@ -130,12 +130,12 @@ a:focus, a:hover {
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-           <li class="nav-item" style="margin-left:10px;"><strong><%= link_to "Home", root_path  %></strong></li>
-           <li class="nav-item" style="margin-left:10px;"><strong><%= link_to "Domain List", questions_path %></strong>&nbsp;</li>
+           <li class="nav-item" style="margin-left:10px;font-style: arial;"><%= link_to "Home", root_path  %></li>
+           <li class="nav-item" style="margin-left:10px;"><%= link_to "Domain List", questions_path %>&nbsp;</li>
         </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li style="color:#FFFF81; margin-right: 10px; margin-left:10px;"><span class="fa fa-user-circle"><b> Welcome&nbsp;<%=  current_user.email%>&nbsp;</a></b></li>
-                <li style="margin-left:10px;"><strong><%= link_to("Log Out",destroy_user_session_path, :method =>:delete ) %></strong></li>
+                <li style="margin-left:10px;"><%= link_to("Log Out",destroy_user_session_path, :method =>:delete ) %></li>
               </ul>
         
     
