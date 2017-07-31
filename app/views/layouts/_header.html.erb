@@ -76,12 +76,12 @@ a:focus, a:hover {
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item" onclick="myFunction()"><b><%= link_to "Home", "" %></b>&nbsp;</li>
-          <li class="nav-item" onclick="myFunction()" style="margin-left:10px;"><%= link_to "Domain List", "" %></li>
+           <li class="nav-item" style="margin-left:10px;"><strong><%= link_to "Home", root_path  %></strong></li>
+           <li class="nav-item" style="margin-left:10px;"><strong><%= link_to "Domain List", questions_path %></strong>&nbsp;</li>
           </ul>
               <ul class="nav navbar-nav navbar-right">
-                <li style="margin-right: 10px;"><%= link_to "Sign Up",new_user_registration_path %>&nbsp;</li>
-                <li><%= link_to "Log in", new_user_session_path %></li>
+                <li style="margin-right: 10px;"><b><%= link_to "Sign Up",new_user_registration_path %></b>&nbsp;</li>
+                <li><b><%= link_to "Log in", new_user_session_path %></b></li>
               </ul>
         
     
