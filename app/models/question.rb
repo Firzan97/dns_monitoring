@@ -110,7 +110,7 @@ end
              end 
              answerType="answer" 
              
-             
+             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: @question.id,typeAnswer: answerType)
             if answerList[a1].ipaddress == ip
              Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: @question.id,typeAnswer: answerType)
              Answer.update(ipaddress: ip)
