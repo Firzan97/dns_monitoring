@@ -140,7 +140,7 @@ end
              ip=f
            end
             answerType="authority"
-            if answerList[a1].ipaddress == ip
+            if answerList[a1].ipaddress != ip
              Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeanswer: answerType)
              Answer.update(ipaddress: ip)
             end
