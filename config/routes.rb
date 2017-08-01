@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   
-  resources :logs
+  resources :changelogs
   resources :searches
   devise_for :users
   resources :choices

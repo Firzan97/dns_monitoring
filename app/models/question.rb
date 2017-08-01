@@ -4,7 +4,7 @@ has_one :detail , dependent: :destroy
 has_many :choices , dependent: :destroy
 has_many :performances , :dependent => :delete_all
 belongs_to :user  
-has_many :logs , :dependent => :delete_all
+has_many :changelogs , :dependent => :delete_all
 has_many :answers , dependent: :destroy
 after_save :update_whenever
 
@@ -77,23 +77,22 @@ end
     
     detail=Detail.where(question_id:id)
     detail.update(average: average.round(2),maximum: highest,minimum: lowest,total_query: count,total_fail: a ,status: availability.round(2) )
-    Log.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: id,typeAnswer: "answerType")
+    Changelog.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: id,typeAnswer: "answerType")
     
     %x[cd]
 
      total=%x[ dig @#{server} #{namedns} #{type} | wc -l ]
      total1,total2=total.split("\n") 
-     Log.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: id,typeAnswer: "answerType")
-     a = 1
+     
      while a != total1.to_i
-      Log.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: @id,typeAnswer: "answerType")
+      
       value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
          
          if value2==";; ANSWER SECTION:\n"
                    
            a=a+1
            value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
-           answerList=Question.answers.where(typeAnswer: "answer")
+           answerList=Changelog.answers.where(typeAnswer: "answer")
            a1=0
            while value2 !="\n"
           
@@ -110,9 +109,9 @@ end
              end 
              answerType="answer" 
              
-             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
+             Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
             if answerList[a1].ipaddress == ip
-             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
+             Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
              Answer.update(ipaddress: ip)
             end
             
@@ -142,7 +141,7 @@ end
            end
             answerType="authority"
             if answerList[a1].ipaddress == ip
-             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
+             Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
              Answer.update(ipaddress: ip)
             end
             a = a+1      
@@ -166,7 +165,7 @@ end
              end
              answerType="additional"
              if answerList[a1].ipaddress != ip
-              Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
+              Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
               Answer.update(ipaddress: ip)
              end
              a=a+1      

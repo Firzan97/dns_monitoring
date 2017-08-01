@@ -1,6 +1,6 @@
-class CreateLogs < ActiveRecord::Migration[5.1]
+class CreateChangelogs < ActiveRecord::Migration[5.1]
   def change
-    create_table :logs do |t|
+    create_table :changelogs do |t|
       t.string :dnsname
       t.string :ipaddress
       t.string :typeanswer

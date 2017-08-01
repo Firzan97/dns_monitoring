@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dnsname:</strong>
+  <%= @changelog.dnsname %>
+</p>
+
+<p>
+  <strong>Ipaddress:</strong>
+  <%= @changelog.ipaddress %>
+</p>
+
+<p>
+  <strong>Typeanswer:</strong>
+  <%= @changelog.typeanswer %>
+</p>
+
+<%= link_to 'Edit', edit_changelog_path(@changelog) %> |
+<%= link_to 'Back', changelogs_path %>

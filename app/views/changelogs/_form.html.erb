@@ -1,0 +1,32 @@
+<%= form_with(model: changelog, local: true) do |form| %>
+  <% if changelog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(changelog.errors.count, "error") %> prohibited this changelog from being saved:</h2>
+
+      <ul>
+      <% changelog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :dnsname %>
+    <%= form.text_field :dnsname, id: :changelog_dnsname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ipaddress %>
+    <%= form.text_field :ipaddress, id: :changelog_ipaddress %>
+  </div>
+
+  <div class="field">
+    <%= form.label :typeanswer %>
+    <%= form.text_field :typeanswer, id: :changelog_typeanswer %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
