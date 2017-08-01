@@ -111,7 +111,7 @@ end
              answerType="answer" 
              
              
-            if answerList[a1].ipaddress != ip
+            if answerList[a1].ipaddress == ip
              Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: @question.id,typeAnswer: answerType)
              Answer.update(ipaddress: ip)
             end
