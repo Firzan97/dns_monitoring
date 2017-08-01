@@ -77,7 +77,7 @@ end
     
     detail=Detail.where(question_id:id)
     detail.update(average: average.round(2),maximum: highest,minimum: lowest,total_query: count,total_fail: a ,status: availability.round(2) )
-    Changelog.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: id,typeAnswer: "answerType")
+    Changelog.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: id,typeanswer: "answerType")
     
     %x[cd]
 
@@ -92,7 +92,7 @@ end
                    
            a=a+1
            value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
-           answerList=Changelog.answers.where(typeAnswer: "answer")
+           answerList=question.answers.where(typeAnswer: "answer")
            a1=0
            while value2 !="\n"
           
@@ -109,9 +109,9 @@ end
              end 
              answerType="answer" 
              
-             Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
+             Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeanswer: answerType)
             if answerList[a1].ipaddress == ip
-             Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
+             Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeanswer: answerType)
              Answer.update(ipaddress: ip)
             end
             
@@ -141,7 +141,7 @@ end
            end
             answerType="authority"
             if answerList[a1].ipaddress == ip
-             Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
+             Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeanswer: answerType)
              Answer.update(ipaddress: ip)
             end
             a = a+1      
@@ -165,7 +165,7 @@ end
              end
              answerType="additional"
              if answerList[a1].ipaddress != ip
-              Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
+              Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeanswer: answerType)
               Answer.update(ipaddress: ip)
              end
              a=a+1      
