@@ -118,7 +118,7 @@ end
              a=a+1      
              value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
              a1=a1+1;
-           end1
+           
       end
   end
         
