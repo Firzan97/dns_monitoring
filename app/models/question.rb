@@ -77,16 +77,16 @@ end
     
     detail=Detail.where(question_id:id)
     detail.update(average: average.round(2),maximum: highest,minimum: lowest,total_query: count,total_fail: a ,status: availability.round(2) )
-  
+    Log.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: id,typeAnswer: "answerType")
     
     %x[cd]
 
      total=%x[ dig @#{server} #{namedns} #{type} | wc -l ]
      total1,total2=total.split("\n") 
-     Log.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: @question.id,typeAnswer: "answerType")
+     Log.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: id,typeAnswer: "answerType")
      a = 1
      while a != total1.to_i
-      Log.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: @question.id,typeAnswer: "answerType")
+      Log.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: @id,typeAnswer: "answerType")
       value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
          
          if value2==";; ANSWER SECTION:\n"
@@ -110,9 +110,9 @@ end
              end 
              answerType="answer" 
              
-             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: @question.id,typeAnswer: answerType)
+             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
             if answerList[a1].ipaddress == ip
-             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: @question.id,typeAnswer: answerType)
+             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
              Answer.update(ipaddress: ip)
             end
             
@@ -142,7 +142,7 @@ end
            end
             answerType="authority"
             if answerList[a1].ipaddress == ip
-             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: @question.id,typeAnswer: answerType)
+             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
              Answer.update(ipaddress: ip)
             end
             a = a+1      
@@ -166,7 +166,7 @@ end
              end
              answerType="additional"
              if answerList[a1].ipaddress != ip
-              Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: @question.id,typeAnswer: answerType)
+              Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeAnswer: answerType)
               Answer.update(ipaddress: ip)
              end
              a=a+1      
