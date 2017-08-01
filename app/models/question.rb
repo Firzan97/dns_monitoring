@@ -93,7 +93,8 @@ end
            a=a+1
            value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
            answerList=question.answers.where(typeAnswer: "answer")
-           a1=0
+           size=answerList.size
+           
            while value2 !="\n"
           
              
@@ -110,13 +111,13 @@ end
              answerType="answer" 
              
             
-            if answerList[a1].ipaddress != ip
-             Changelog.create(dnsname: answerList[a1].ipaddress,ipaddress: ip,question_id: id,typeanswer: a1)
+            if answerList[size-1].ipaddress != ip
+             Changelog.create(dnsname: answerList[a1].ipaddress,ipaddress: ip,question_id: id,typeanswer: answerType)
              #Answer.update(ipaddress: ip)
             end
             
              a=a+1    
-             a1=a1+1  
+             size=size-1 
              value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
              
            
