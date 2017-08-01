@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dnsname:</strong>
+  <%= @log.dnsname %>
+</p>
+
+<p>
+  <strong>Ipaddress:</strong>
+  <%= @log.ipaddress %>
+</p>
+
+<p>
+  <strong>Typeanswer:</strong>
+  <%= @log.typeanswer %>
+</p>
+
+<%= link_to 'Edit', edit_log_path(@log) %> |
+<%= link_to 'Back', logs_path %>

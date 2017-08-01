@@ -16,7 +16,7 @@ after_save :update_whenever
     ["10 Minutes",10],
     ["30 Minutes",30],
     ["1 Hour",60]
-  ]
+ ]
   
     #value2 = %x[ dig @#{server} #{namedns} #{type} ]
     #a=15
@@ -77,24 +77,116 @@ end
     detail=Detail.where(question_id:id)
     detail.update(average: average.round(2),maximum: highest,minimum: lowest,total_query: count,total_fail: a ,status: availability.round(2) )
   
-    #a=12
-    
-    #value2 = %x[ dig @#{server} #{namedns} #{type} | sed -n #{a}'p' ]
-     #   b,c,d,e,f=value2.split("")
-     #   dnsanswer=b
-     # while dnsanswer== namedns 
-     #   value2 = %x[ dig @#{server} #{namedns} #{type} ]
-     #   b,c,d,e,f=value2.split(" ")
-     #   dnsanswer=b
-     #   ttl=c
-     #   t=d
-     #   recordtype=e
-     #   ip=f
-     #   @a=Answer.create(dnsname: dnsanswer,ttl: ttl,recordtype: recordtype,ipaddress: ip)
-     #   a=a+1
-     # end
     
     %x[cd]
+
+     total=%x[ dig @#{server} #{namedns} #{type} | wc -l ]
+     total1,total2=total.split("\n") 
+    
+     a = 1
+     while a != total1.to_i
+     
+      value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+         
+         if value2==";; ANSWER SECTION:\n"
+                   
+           a=a+1
+           value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+           answerList=Question.answers.where(typeAnswer: "answer")
+           a1=0
+           while value2 !="\n"
+          
+             
+             b,c,d,e,f,g=value2.split(" ")
+             dnsanswer=b 
+             ttl=c 
+             typeAnswer=e 
+             o=e 
+             if g != nil 
+             ip=f+" "+g
+             else 
+             ip=f 
+             end 
+             answerType="answer" 
+             
+             
+            if answerList[a1].ipaddress != ip
+             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: @question.id,typeAnswer: answerType)
+             Answer.update(ipaddress: ip)
+            end
+            
+             a=a+1      
+             value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
+             a1=a1+1;
+           end1
+      end
+  end
+        
+        if value2==";; AUTHORITY SECTION:\n"
+          
+           a = a+1
+           value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+           while value2 != "\n"
+
+           
+            b,c,d,e,f,g=value2.split(" ")
+            dnsanswer=b
+            ttl=c
+            typeAnswer=e
+            o=e
+            if g != nil
+             ip=f+" "+g
+             else
+             ip=f
+           end
+            answerType="authority"
+            if answerList[a1].ipaddress == ip
+             Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: @question.id,typeAnswer: answerType)
+             Answer.update(ipaddress: ip)
+            end
+            a = a+1      
+            value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
+           end
+       end
+       
+       if value2==";; ADDITIONAL SECTION:\n"
+            a=a+1
+            value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
+            while value2 !="\n"          
+             b,c,d,e,f,g=value2.split(" ")
+             dnsanswer=b
+             ttl=c
+             typeAnswer=e
+             o=e
+             if g != nil
+             ip=f+" "+g
+             else
+             ip=f
+             end
+             answerType="additional"
+             if answerList[a1].ipaddress != ip
+              Log.create(dnsname: dnsanswer,ipaddress: ip,question_id: @question.id,typeAnswer: answerType)
+              Answer.update(ipaddress: ip)
+             end
+             a=a+1      
+             value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
+           end
+         end
+
+     
+     
+     a =a+1
+   end
+
+
+
+
+
+
+
+
+
+
    end
 
 
