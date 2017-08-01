@@ -112,7 +112,7 @@ end
             
             if answerList[a1].ipaddress != ip
              Changelog.create(dnsname: answerList[a1].ipaddress,ipaddress: ip,question_id: id,typeanswer: answerType)
-             Answer.update(ipaddress: ip)
+             #Answer.update(ipaddress: ip)
             end
             
              a=a+1      
@@ -142,7 +142,7 @@ end
             answerType="authority"
             if answerList[a1].ipaddress != ip
              Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeanswer: answerType)
-             Answer.update(ipaddress: ip)
+             #Answer.update(ipaddress: ip)
             end
             a = a+1      
             value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
@@ -166,7 +166,7 @@ end
              answerType="additional"
              if answerList[a1].ipaddress != ip
               Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeanswer: answerType)
-              Answer.update(ipaddress: ip)
+              #Answer.update(ipaddress: ip)
              end
              a=a+1      
              value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
