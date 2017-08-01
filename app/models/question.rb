@@ -83,10 +83,10 @@ end
 
      total=%x[ dig @#{server} #{namedns} #{type} | wc -l ]
      total1,total2=total.split("\n") 
-    
+     
      a = 1
      while a != total1.to_i
-     
+      Log.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: @question.id,typeAnswer: "answerType")
       value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
          
          if value2==";; ANSWER SECTION:\n"
