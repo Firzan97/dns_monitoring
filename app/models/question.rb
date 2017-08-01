@@ -4,7 +4,7 @@ has_one :detail , dependent: :destroy
 has_many :choices , dependent: :destroy
 has_many :performances , :dependent => :delete_all
 belongs_to :user  
-has_many :changelogs , :dependent => :delete_all
+has_many :changelogs , dependent: :destroy
 has_many :answers , dependent: :destroy
 after_save :update_whenever
 
