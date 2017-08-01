@@ -1,3 +1,3 @@
 class Log < ApplicationRecord
-	has_one :Question
+	belongs_to :Question
 end
