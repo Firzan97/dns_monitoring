@@ -111,7 +111,7 @@ end
              
             
             if answerList[a1].ipaddress != ip
-             Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeanswer: answerType)
+             Changelog.create(dnsname: answerList[a1].ipaddress,ipaddress: ip,question_id: id,typeanswer: answerType)
              Answer.update(ipaddress: ip)
             end
             
