@@ -77,7 +77,7 @@ end
     
     detail=Detail.where(question_id:id)
     detail.update(average: average.round(2),maximum: highest,minimum: lowest,total_query: count,total_fail: a ,status: availability.round(2) )
-    Changelog.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: id,typeanswer: "answerType")
+    
     
     %x[cd]
 
@@ -109,8 +109,8 @@ end
              end 
              answerType="answer" 
              
-             Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeanswer: answerType)
-            if answerList[a1].ipaddress == ip
+            
+            if answerList[a1].ipaddress != ip
              Changelog.create(dnsname: dnsanswer,ipaddress: ip,question_id: id,typeanswer: answerType)
              Answer.update(ipaddress: ip)
             end
