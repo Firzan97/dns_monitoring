@@ -83,7 +83,7 @@ end
 
      total=%x[ dig @#{server} #{namedns} #{type} | wc -l ]
      total1,total2=total.split("\n") 
-     
+     Log.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: @question.id,typeAnswer: "answerType")
      a = 1
      while a != total1.to_i
       Log.create(dnsname: "dnsanswer",ipaddress: "ip",question_id: @question.id,typeAnswer: "answerType")
