@@ -94,7 +94,7 @@ end
            value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ]
            answerList=question.answers.where(typeAnswer: "answer")
            size=answerList.size
-           
+           checkchange=0
            while value2 !="\n"
           
              
@@ -110,12 +110,13 @@ end
              end 
              answerType="answer" 
              
-            
-            if answerList[size-1].ipaddress != ip
-             Changelog.create(dnsname: answerList[a1].ipaddress,ipaddress: ip,question_id: id,typeanswer: answerType)
-             #Answer.update(ipaddress: ip)
+            answerList.each do |answer| 
+            if answer.ipaddress == ip
+              checkchange=checkchange+1
+              #Changelog.create(dnsname: answerList[a1].ipaddress,ipaddress: ip,question_id: id,typeanswer: answerType)
+              #Answer.update(ipaddress: ip)
             end
-            
+            end
              a=a+1    
              size=size-1 
              value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
