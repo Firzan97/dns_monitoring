@@ -36,7 +36,9 @@ Highcharts.setOptions({
 </div>
 <hr>
 
-
+<%= times=Time.now %>
+<%= times.hour %>
+<%= times.min %>
 <% if params[:start]!=nil  && params[:end]!=nil%>
 <% if params[:start]==params[:end] %>
 <div class="title">
@@ -233,7 +235,7 @@ Highcharts.setOptions({
         <td >&nbsp;<%= @todayLow.round(2) %>&nbsp;msec</td>
         <td >&nbsp;<%= @todayTotal %></td>
         <td >&nbsp;<%= @todayFail %></td>
-        <td >&nbsp;<%= @availability %>%</td>
+        <td >&nbsp;<%= @todayTotal %>%</td>
        
         </tr>
   </tbody>

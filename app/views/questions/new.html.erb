@@ -1,4 +1,5 @@
-<h1>Fill in the form</h1>
+<div class="new">
+<h1>Add Domain</h1>
 
 <%= bootstrap_form_for @question do |form| %>
   <% if @question.errors.any? %>
@@ -42,9 +43,13 @@
  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back
  <%end%>
  &nbsp;
+ </div>
 <style>
 .field
 {
   width:30%!important;
+}
+.new{
+  margin-top: 70px;
 }
 </style>
