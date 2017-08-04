@@ -1,9 +1,9 @@
 class NotifyMailer < ApplicationMailer
 	default from: 'notifications@example.com'
  
-  def send_notification(user)
-    @user = user
+  def send_notification(ip)
+    @user = ip
     @url  = 'http://example.com/login'
-    mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+    mail(to: "FirzanAzrai97@gmail.com", subject: 'Welcome to My Awesome Site')
   end
 end
