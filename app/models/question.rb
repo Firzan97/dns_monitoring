@@ -123,7 +123,7 @@ end
              
            
       end
-      if checkchange ==size
+      if checkchange !=size
         NotifyMailer.welcome_email(namedns).deliver_now
       end
 
