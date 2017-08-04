@@ -113,16 +113,20 @@ end
             answerList.each do |answer| 
             if answer.ipaddress == ip
               checkchange=checkchange+1
-              #Changelog.create(dnsname: answerList[a1].ipaddress,ipaddress: ip,question_id: id,typeanswer: answerType)
+              Changelog.create(dnsname: answerList[a1].ipaddress,ipaddress: ip,question_id: id,typeanswer: answerType)
               #Answer.update(ipaddress: ip)
             end
             end
              a=a+1    
-             size=size-1 
+             
              value2 =%x[ dig @#{server} #{namedns} #{type} | sed -n '#{a}p' ] 
              
            
       end
+      if checkchange ==size
+        NotifyMailer.welcome_email(namedns).deliver_now
+      end
+
   end
         
         if value2==";; AUTHORITY SECTION:\n"
