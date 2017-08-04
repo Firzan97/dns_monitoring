@@ -233,7 +233,7 @@ Highcharts.setOptions({
         <td >&nbsp;<%= @todayLow.round(2) %>&nbsp;msec</td>
         <td >&nbsp;<%= @todayTotal %></td>
         <td >&nbsp;<%= @todayFail %></td>
-        <td >&nbsp;<%= @availability %>%</td>
+        <td >&nbsp;<%= @todayAvai.round(4) %>%</td>
        
         </tr>
   </tbody>
@@ -589,7 +589,6 @@ Highcharts.setOptions({
       <th style="text-align: center">Total Query&nbsp;</th>
       <th style="text-align: center">Total Fail&nbsp;</th>
       <th style="text-align: center">Availability&nbsp;</th>
-   
     </tr>
   </thead>
 
