@@ -70,13 +70,13 @@ end
     highest=Performance.where(question_id: question.id).maximum(:responsetime)
     lowest=Performance.where(question_id: question.id).minimum(:responsetime)
     count=Performance.where(question_id: question.id).count(:responsetime)
-    unavailable=Performance.where(responsetime: -1 )
-    a=unavailable.where(question_id: question.id).count(:responsetime)
+    unavailable=Performance.where(question_id: question.id).where(responsetime: -1 ).count
+    #a=unavailable.where(question_id: question.id).count(:responsetime)
     availability=((count.to_f-a.to_f)/count.to_f)*100
  
     
     detail=Detail.where(question_id:id)
-    detail.update(average: average.round(2),maximum: highest,minimum: lowest,total_query: count,total_fail: a ,status: availability.round(2) )
+    detail.update(average: average.round(2),maximum: highest,minimum: lowest,total_query: count,total_fail: unavailable ,status: availability.round(2) )
     
     
     %x[cd]
