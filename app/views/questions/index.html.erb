@@ -23,7 +23,7 @@
 <p id="notice"><%= notice %></p>
 
 
-<h1 style="margin-top: 50px;"><b>Domain List</b></h1>
+<h1 style="margin-top: 90px;"><b>Domain List</b></h1>
 <div class="search">
 <%= form_tag questions_path, :method => 'get' do %>
     <%= text_field_tag :search1, params[:search1]  ,:placeholder => "search domain.."%>
@@ -151,23 +151,12 @@
 
 <br>
 <hr class="line">
-
-&nbsp;
+<br>
 <%= link_to new_question_path ,class: "btn btn-secondary" do%>
  <span class="fa fa-plus" aria-hidden="true"></span>Add Domain
- <%end%>
- &nbsp;
+ <%end%><br>
+<br>
 
-<script>
-   function myFunction() {
-    var x = document.getElementById('recordtype');
-    if (x.style.display === 'none') {
-        x.style.display = 'block';
-    } else {
-        x.style.display = 'none';
-    }
-}
-</script>
 <style>
 .line{
   margin-top: -80px!important;
@@ -202,3 +191,13 @@ body
   background-color: #FFFFFF;
 }
 </style>
+<script>
+   function myFunction() {
+    var x = document.getElementById('recordtype');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+</script>

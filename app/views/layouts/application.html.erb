@@ -24,18 +24,19 @@
   <body>
  <%= render 'layouts/header' %>
      
-<div class="footer">
-  <%= render 'layouts/footer' %>
-</div>
-
 
 
  
     <%= yield %>
+  
+    <div class="footer">
+    <%= render 'layouts/footer' %>
+    </div>
   </body>
 </html>
 <style>
  body {
   font-family: 'Oswald', sans-serif;
 }
+
 </style>
