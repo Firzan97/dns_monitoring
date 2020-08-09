@@ -36,7 +36,7 @@ gem 'jquery-rails'
 
 gem 'autoprefixer-rails'
 gem 'will_paginate', '~> 3.1', '>= 3.1.5'
-gem 'chartkick', '~> 1.4', '>= 1.4.1'
+gem 'chartkick', '~> 3.4'
 gem 'whenever', '~> 0.9.4'
 gem 'sidekiq-cron', '~> 0.4.2'
 gem 'sidekiq', '~> 5.0'
