@@ -91,7 +91,7 @@ GEM
     et-orbi (1.0.5)
       tzinfo
     execjs (2.7.0)
-    ffi (1.9.18)
+    ffi (1.13.1)
     geokit (1.11.0)
     geokit-rails (2.2.0)
       geokit (~> 1.5)
