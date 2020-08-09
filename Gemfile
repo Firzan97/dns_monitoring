@@ -30,7 +30,7 @@ gem 'jquery-rails'
 gem 'activesupport', '~> 5.0'
 
 gem 'bootstrap_form'
-gem 'devise', '~> 4.2'
+gem 'devise', '~> 4.7'
 gem 'groupdate', '~> 2.5', '>= 2.5.2'
 gem 'jquery-rails' 
 
