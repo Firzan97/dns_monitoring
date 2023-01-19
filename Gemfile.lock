@@ -76,7 +76,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.7)
+    concurrent-ruby (1.1.10)
     connection_pool (2.2.1)
     crass (1.0.6)
     devise (4.7.2)
@@ -96,8 +96,8 @@ GEM
     geokit-rails (2.2.0)
       geokit (~> 1.5)
       rails (>= 3.0)
-    globalid (0.4.0)
-      activesupport (>= 4.2.0)
+    globalid (1.0.1)
+      activesupport (>= 5.0)
     groupdate (2.5.3)
       activesupport (>= 3)
     highstocks-rails (2.1.5)
@@ -226,7 +226,7 @@ GEM
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.3)
-    tzinfo (1.2.7)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
